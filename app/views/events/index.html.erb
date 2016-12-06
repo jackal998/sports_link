@@ -8,8 +8,8 @@
     </div>
     <div id="map"></div>
     <div id="directions-panel"></div>
+    
     <script>
-
       var stepDisplay;
       var markerArray = [];
 
@@ -57,7 +57,7 @@
 
         directionsService.route({
           origin: currentPos,
-          destination: new google.maps.LatLng(<%= '25.045061' %>,<%= '121.518295' %>),
+          destination: new google.maps.LatLng(<%= '25.025061' %>,<%= '121.518295' %>),
           // document.getElementById('end').value,
           travelMode: google.maps.TravelMode.DRIVING
         }, function(response, status) {
@@ -114,5 +114,6 @@
                               'Error: Your browser doesn\'t support geolocation.');
       }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDBaIcql3Bpjk-5yyhjM2rQLBR5xxAvYI&callback=initMap"
+    <% google_config = Rails.application.config_for(:google) %>
+    <script src="https://maps.googleapis.com/maps/api/js?key=<%=google_config["app_id"]%>&callback=initMap"
         async defer></script>
