@@ -18,7 +18,7 @@
     var directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 16,
-      // center: {lat: 25.0495923, lng: 121.5401205}
+      center: {lat: 25.0521298, lng: 121.5325289}
     });
     var infoWindow = new google.maps.InfoWindow({map: map});
 
@@ -39,8 +39,6 @@
     } else {
       // Browser doesn't support Geolocation, ALPHA Camp
       currentPos = new google.maps.LatLng(<%= '25.0521298' %>,<%= '121.5325289' %>)
-      infoWindow.setPosition(currentPos);
-      infoWindow.setContent('Location found.');
       map.setCenter(currentPos);
       handleLocationError(false, infoWindow, map.getCenter());
     }
