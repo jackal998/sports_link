@@ -36,17 +36,21 @@
       }, function() {
         handleLocationError(true, infoWindow, map.getCenter());
       });
-      directionsDisplay.setMap(map);
-      var onChangeHandler = function() {
-        calculateAndDisplayRoute(directionsService, directionsDisplay);
-      };
-      document.getElementById('end').addEventListener('change', onChangeHandler);
     } else {
-      // Browser doesn't support Geolocation
+      // Browser doesn't support Geolocation, ALPHA Camp
+      currentPos = new google.maps.LatLng(<%= '25.0521298' %>,<%= '121.5325289' %>)
+      infoWindow.setPosition(currentPos);
+      infoWindow.setContent('Location found.');
+      map.setCenter(currentPos);
       handleLocationError(false, infoWindow, map.getCenter());
     }
-    stepDisplay = new google.maps.InfoWindow();
+    directionsDisplay.setMap(map);
+    var onChangeHandler = function() {
+      calculateAndDisplayRoute(directionsService, directionsDisplay);
+    };
+    document.getElementById('end').addEventListener('change', onChangeHandler);
 
+    stepDisplay = new google.maps.InfoWindow();
   }
   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     // First, clear out any existing markerArray
@@ -57,7 +61,7 @@
 
     directionsService.route({
       origin: currentPos,
-      destination: new google.maps.LatLng(<%= '25.025061' %>,<%= '121.518295' %>),
+      destination: new google.maps.LatLng(<%= '25.0495123' %>,<%= '121.5319727' %>),
       // document.getElementById('end').value,
       travelMode: google.maps.TravelMode.DRIVING
     }, function(response, status) {
