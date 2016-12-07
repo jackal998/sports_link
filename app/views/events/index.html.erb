@@ -1,10 +1,7 @@
-<div id="floating-panel" class="btn btn-primary">
-  <%= link_to 'match', match_events_path, remote: true %>
+<div id="floating-panel">
+  <%= link_to 'match', match_events_path, remote: true, :class => "btn btn-primary" %>
 </div>
+
 <div id="map"></div>
 <div id="directions-panel"></div>
-
-<%= render :partial => "map" %>
-
-<% google_config = Rails.application.config_for(:google) %>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%=google_config["app_id"]%>&callback=initMap" async defer></script>
+<%= render :partial => "mapjs" %>
