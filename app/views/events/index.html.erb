@@ -6,4 +6,27 @@
 <div id="directions-panel"></div>
 
 <%= render :partial => "mapjs" %>
-<div>yo 123 123 hahah</div>
+<div id="geocode"></div>
+
+<script>
+  <% google_config = Rails.application.config_for(:google) %>
+  googleGeocode();
+  function googleGeocode(){
+    $.ajax({
+      url: "https://maps.googleapis.com/maps/api/geocode/json",
+      data: {
+        address: "1600\+Amphitheatre\+Parkway\,\+Mountain\+View\,\+CA",
+        key: "<%=google_config["geo_id"]%>"
+      },
+      success: function( result ) {
+        if (result.status == "OK") {
+          console.log(result.status);
+        } else {
+          console.log(result.status);
+        }
+        console.log(result.status);
+        $( "#geocode" ).html();
+      }
+    });
+  }
+</script>
