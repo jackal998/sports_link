@@ -1,17 +1,21 @@
 <script>
   var stepDisplay;
   var markerArray = [];
+  var geocoder;
 
   function initMap() {
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 16,
       // center: {lat: 25.0521298, lng: 121.5325289}
     });
     var infoWindow = new google.maps.InfoWindow({map: map});
+    var geocoder = new google.maps.Geocoder();
 
     // Try HTML5 geolocation.
+    resultsPos = new google.maps.LatLng(<%= '25.0495123' %>,<%= '121.5319727' %>)
+
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         currentPos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude)
@@ -35,19 +39,39 @@
     var onChangeHandler = function() {
       calculateAndDisplayRoute(directionsService, directionsDisplay);
     };
-    document.getElementById('floating-panel').addEventListener('click', onChangeHandler);
+    document.getElementById('submit').addEventListener('click', function() {
+      geocodeAddress(geocoder, map);
+    });
+    document.getElementById('match_btn').addEventListener('click', onChangeHandler);
     stepDisplay = new google.maps.InfoWindow();
   };
+  function geocodeAddress(geocoder, resultsMap) {
+    var address = document.getElementById('address').value;
+    geocoder.geocode({'address': address}, function(results, status) {
+      if (status === google.maps.GeocoderStatus.OK) {
+        resultsPos = new google.maps.LatLng(results[0].geometry.location.lat(),results[0].geometry.location.lng());
+        resultsMap.setCenter(results[0].geometry.location);
+        var marker = new google.maps.Marker({
+          map: resultsMap,
+          position: results[0].geometry.location
+        });
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+      } else {
+        alert('Geocode was not successful for the following reason: ' + status);
+      }
+    });
+  }
   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     // First, clear out any existing markerArray
     // from previous calculations.
+
     for (i = 0; i < markerArray.length; i++) {
       markerArray[i].setMap(null);
     }
 
     directionsService.route({
       origin: currentPos,
-      destination: new google.maps.LatLng(<%= '25.0495123' %>,<%= '121.5319727' %>),
+      destination: resultsPos,
       // document.getElementById('end').value,
       travelMode: google.maps.TravelMode.DRIVING
     }, function(response, status) {
@@ -57,7 +81,6 @@
         var summaryPanel = document.getElementById('directions-panel');
         summaryPanel.innerHTML = '';
         // For each route, display summary information.
-        console.log(route);
         for (var i = 0; i < route.legs.length; i++) {
           var routeSegment = i + 1;
           summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
