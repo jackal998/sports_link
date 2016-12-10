@@ -73,6 +73,7 @@
             address_components: addr_comp,
           });
         });
+        console.log(params_to_post);
         $.ajax({
           type:'POST', 
           url: '/events.js', 
@@ -93,7 +94,6 @@
     directionsService.route({
       origin: currentPos,
       destination: resultsPos,
-      // document.getElementById('end').value,
       travelMode: google.maps.TravelMode.DRIVING
     }, function(response, status) {
       if (status === google.maps.DirectionsStatus.OK) {

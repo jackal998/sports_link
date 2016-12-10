@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161206112018) do
+ActiveRecord::Schema.define(version: 20161210094349) do
 
   create_table "events", force: :cascade do |t|
     t.string   "sport_name"
@@ -24,10 +24,14 @@ ActiveRecord::Schema.define(version: 20161206112018) do
   create_table "places", force: :cascade do |t|
     t.string   "name"
     t.string   "capacity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
     t.float    "latitude"
     t.float    "longitude"
+    t.string   "place_id"
+    t.string   "formatted_address"
+    t.string   "long_name"
+    t.string   "address_components"
   end
 
 end
