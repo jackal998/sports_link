@@ -2,6 +2,7 @@
   var stepDisplay;
   var markerArray = [];
   var geocoder;
+  var params_to_post = [];
 
   function initMap() {
     directionsService = new google.maps.DirectionsService;
@@ -18,11 +19,11 @@
 
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
-        currentPos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude)
         var pos = {
           lat: position.coords.latitude,
           lng: position.coords.longitude
         };
+        currentPos = new google.maps.LatLng(pos.lat,pos.lng);
         infoWindow.setPosition(pos);
         infoWindow.setContent('Location found.');
         map.setCenter(pos);
@@ -47,6 +48,8 @@
   };
   function geocodeAddress(geocoder, resultsMap) {
     var address = document.getElementById('address').value;
+    var param;
+
     geocoder.geocode({'address': address}, function(results, status) {
       if (status === google.maps.GeocoderStatus.OK) {
         resultsPos = new google.maps.LatLng(results[0].geometry.location.lat(),results[0].geometry.location.lng());
@@ -55,7 +58,27 @@
           map: resultsMap,
           position: results[0].geometry.location
         });
+
         calculateAndDisplayRoute(directionsService, directionsDisplay);
+        $.each(results, function(index_of_results, results_i) {
+          var addr_comp = [];
+          $.each(results_i.address_components, function(index_of_addr_comp, addr_comp_i) {
+            addr_comp.push(addr_comp_i);
+          });
+          params_to_post.push({
+            place_id: results_i.place_id,
+            formatted_address: results_i.formatted_address,
+            latitude: results_i.geometry.location.lat(),
+            longitude: results_i.geometry.location.lng(),
+            address_components: addr_comp,
+          });
+        });
+        $.ajax({
+          type:'POST', 
+          url: '/events.js', 
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          data: $.param({params_to_post})
+        }); 
       } else {
         alert('Geocode was not successful for the following reason: ' + status);
       }
@@ -64,11 +87,9 @@
   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
     // First, clear out any existing markerArray
     // from previous calculations.
-
     for (i = 0; i < markerArray.length; i++) {
       markerArray[i].setMap(null);
     }
-
     directionsService.route({
       origin: currentPos,
       destination: resultsPos,
@@ -91,7 +112,6 @@
           for (var j = 0; j < route.legs[i].steps.length; j++) {
             summaryPanel.innerHTML += route.legs[i].steps[j].instructions + route.legs[i].steps[j].distance.text + '<br><br>';
           }
-
         }
         showSteps(response);
       } else {

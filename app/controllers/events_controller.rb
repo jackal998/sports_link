@@ -3,6 +3,9 @@ class EventsController < ApplicationController
     @events = Event.all
 
   end
+  def create
+    byebug
+  end
   def match
   end
 end
