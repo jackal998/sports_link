@@ -2,5 +2,5 @@
   <%= link_to "Log out", destroy_user_session_path, :method => "delete" %>
 <% else %>
 
-<%= link_to "FB Sign in", user_facebook_omniauth_authorize_path %>
+  <%= link_to "FB Sign in", user_facebook_omniauth_authorize_path %>
 <% end %>
