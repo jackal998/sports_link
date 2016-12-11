@@ -9,14 +9,25 @@
     directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 16,
-      // center: {lat: 25.0521298, lng: 121.5325289}
+      mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     var infoWindow = new google.maps.InfoWindow({map: map});
-    var geocoder = new google.maps.Geocoder();
+    // var geocoder = new google.maps.Geocoder();
 
-    // Try HTML5 geolocation.
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // Set default result
     resultsPos = new google.maps.LatLng(<%= '25.0495123' %>,<%= '121.5319727' %>)
 
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function() {
+      searchBox.setBounds(map.getBounds());
+    });
+
+    // Try HTML5 geolocation.
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -25,7 +36,7 @@
         };
         currentPos = new google.maps.LatLng(pos.lat,pos.lng);
         infoWindow.setPosition(pos);
-        infoWindow.setContent('Location found.');
+        infoWindow.setContent('You are here !');
         map.setCenter(pos);
       }, function() {
         currentPos = new google.maps.LatLng(<%= '25.0521298' %>,<%= '121.5325289' %>)
@@ -36,61 +47,78 @@
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
-    directionsDisplay.setMap(map);
-    var onChangeHandler = function() {
-      calculateAndDisplayRoute(directionsService, directionsDisplay);
-    };
-    document.getElementById('submit').addEventListener('click', function() {
-      geocodeAddress(geocoder, map);
+
+    var markers = [];
+    // [START region_getplaces]
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+      var places = searchBox.getPlaces();
+
+      // Clear out the old markers.
+      markers.forEach(function(marker) {
+        marker.setMap(null);
+      });
+      markers = [];
+
+      // First, clear out any existing markerArray
+      // from previous calculations.
+      for (i = 0; i < markerArray.length; i++) {
+        markerArray[i].setMap(null);
+      }
+
+      if (places.length == 0) {
+        return;
+      } else {
+        if (places.length == 1) {
+          resultsPos = new google.maps.LatLng(
+            places[0].geometry.location.lat(),
+            places[0].geometry.location.lng()
+          )
+          calculateAndDisplayRoute(directionsService, directionsDisplay);
+          directionsDisplay.setMap(map);
+        }
+      }
+
+      // For each place, get the icon, name and location.
+      var bounds = new google.maps.LatLngBounds();
+      
+      places.forEach(function(place) {
+
+        var icon = {
+          url: place.icon,
+          size: new google.maps.Size(71, 71),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(17, 34),
+          scaledSize: new google.maps.Size(16, 16)
+        };
+
+        // Create a marker for each place.
+        markers.push(new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: place.name,
+          position: place.geometry.location
+        }));
+
+        if (place.geometry.viewport) {
+          // Only geocodes have viewport.
+          bounds.union(place.geometry.viewport);
+        } else {
+          bounds.extend(place.geometry.location);
+        }
+      });
+      map.fitBounds(bounds);
     });
-    document.getElementById('match_btn').addEventListener('click', onChangeHandler);
+    // [END region_getplaces]
+    // directionsDisplay.setMap(map);
+    // document.getElementById('submit').addEventListener('click', function() {
+    //   geocodeAddress(geocoder, map);
+    // });
     stepDisplay = new google.maps.InfoWindow();
   };
-  function geocodeAddress(geocoder, resultsMap) {
-    var address = document.getElementById('address').value;
-    var param;
-
-    geocoder.geocode({'address': address}, function(results, status) {
-      if (status === google.maps.GeocoderStatus.OK) {
-        resultsPos = new google.maps.LatLng(results[0].geometry.location.lat(),results[0].geometry.location.lng());
-        resultsMap.setCenter(results[0].geometry.location);
-        var marker = new google.maps.Marker({
-          map: resultsMap,
-          position: results[0].geometry.location
-        });
-
-        calculateAndDisplayRoute(directionsService, directionsDisplay);
-        $.each(results, function(index_of_results, results_i) {
-          var addr_comp = [];
-          $.each(results_i.address_components, function(index_of_addr_comp, addr_comp_i) {
-            addr_comp.push(addr_comp_i);
-          });
-          params_to_post.push({
-            place_id: results_i.place_id,
-            formatted_address: results_i.formatted_address,
-            latitude: results_i.geometry.location.lat(),
-            longitude: results_i.geometry.location.lng(),
-            address_components: addr_comp,
-          });
-        });
-        console.log(params_to_post);
-        $.ajax({
-          type:'POST', 
-          url: '/events.js', 
-          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-          data: $.param({params_to_post})
-        }); 
-      } else {
-        alert('Geocode was not successful for the following reason: ' + status);
-      }
-    });
-  }
   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-    // First, clear out any existing markerArray
-    // from previous calculations.
-    for (i = 0; i < markerArray.length; i++) {
-      markerArray[i].setMap(null);
-    }
+
     directionsService.route({
       origin: currentPos,
       destination: resultsPos,
@@ -148,4 +176,5 @@
   };
 </script>
 <% google_config = Rails.application.config_for(:google) %>
-<script src="https://maps.googleapis.com/maps/api/js?key=<%=google_config["app_id"]%>&callback=initMap" defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=google_config["app_id"]%>&libraries=places&callback=initMap" defer></script>
+<!-- initAutocomplete/initMap -->

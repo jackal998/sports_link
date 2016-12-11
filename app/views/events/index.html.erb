@@ -1,15 +1,14 @@
 <div id="floating-panel">
-  <input id="address" type="textbox" value="台北">
-  <input id="submit" type="button" value="Geocode">
-  <%= link_to 'match', match_events_path, remote: true, :id=>"match_btn", :class => "btn btn-primary" %>
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+  <!-- <input id="address" type="textbox" value="台北"> -->
+  <!-- <input id="submit" type="button" value="Geocode"> -->
+  <%# link_to 'match', match_events_path, remote: true, :id=>"match_btn", :class => "btn btn-primary" %>
 </div>
 
 <div id="map"></div>
 <div id="directions-panel"></div>
 
 <%= render :partial => "mapjs" %>
-
-
 
 
 <div id="show"></div>
