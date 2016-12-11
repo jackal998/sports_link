@@ -1,26 +1,67 @@
-<h2>Log in</h2>
+<video class="background1" id="Video" mute="1" loop="" aria-flowto="Videoall" autoplay="" style="pointer-events: auto; position: absolute; overflow: visible; z-index: -2; width: 1663px; height: 935px; top: -135px; left: -108px;">
+      <source src="/Videos/MainVideo.mp4" type="video/mp4">
+</video>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+<div class="background2 close">
+  <img src="/images/background2.png" alt="background">
+</div>
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="container centered", style="z-index: 1">
+  <div class="row"> 
+    <div class="logo">
+      <img src="/images/icon.png" alt="Sports Link Logo"/>
     </div>
-  <% end -%>
+ 
+    <div class="marketing_tagline">
+      <h2>Play Sports</h2>
+      <h3>Anytime Anywhere</h3>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+    <div>
+      <%=link_to "Signin with Facebook", user_facebook_omniauth_authorize_path , :class =>"btn btn-default"%>
+    </div>
+    
+    <div id="email_button" class="btn btn-default">
+      <button>Signin with Email</button>
+    </div>
+    <div id="email_info" class="close">
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <div class="field">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+          <div class="field">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end -%>
+        <div class="actions">
+          <%= f.submit "Log in" %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="btn btn-default">
+      <button>Signin as Guest</button>
+    </div>
+    <div>
+      <%= render "devise/shared/links" %>
+    </div> 
   </div>
-<% end %>
+</div>
+  
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#email_button").on("click",function(){
+      $("#email_info").toggleClass("close");
+    });
+  });
+</script>
 
-<%= render "devise/shared/links" %>
