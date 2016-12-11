@@ -14,7 +14,8 @@ module ApplicationHelper
         return user.email.split("@").first
       end
     else
-      return Faker::Superhero.name
+      return "Guest"
+      # Faker::Superhero.name
     end
   end
 end
