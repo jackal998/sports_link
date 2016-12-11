@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   def index
     @events = Event.all
-
+    @event = Event.first
   end
   def create
     permitted_params = place_params
