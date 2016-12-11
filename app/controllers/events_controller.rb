@@ -1,9 +1,11 @@
 class EventsController < ApplicationController
+  before_action :authenticate_user!, :except => [:index]
+
   def index
     @events = Event.all
     @event = Event.first
   end
-  
+
   def create
     # permitted_params = place_params
     # @place = Place.find_by_place_id(permitted_params['place_id'])
