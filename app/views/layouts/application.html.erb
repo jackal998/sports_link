@@ -12,7 +12,6 @@
   <body>
     <%= content_tag(:p,notice,:class=>"notice") if notice %>
     <%= content_tag(:p,alert,:class=>"alert") if alert %>
-    <%= render :partial => "/layouts/navbar" %>
     <%= yield %>
   </body>
 </html>

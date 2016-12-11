@@ -2,8 +2,8 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
 
   def index
-    @events = Event.all
-    @event = Event.first
+    # @events = Event.all
+    # @event = Event.first
   end
 
   def create
