@@ -1,3 +1,11 @@
+<div id="floating-panel">
+  <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+</div>
+
+<div id="map"></div>
+
+<div id="directions-panel"></div>
+
 <script>
   var stepDisplay;
   var markerArray = [];
@@ -177,4 +185,3 @@
 </script>
 <% google_config = Rails.application.config_for(:google) %>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%=google_config["app_id"]%>&libraries=places&callback=initMap" defer></script>
-<!-- initAutocomplete/initMap -->
