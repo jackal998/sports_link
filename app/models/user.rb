@@ -7,6 +7,9 @@ class User < ApplicationRecord
 
   has_many :events, :dependent => :destroy
 
+  has_many :event_attendees, :dependent => :destroy
+  has_many :attended_events, :through => "event_attendees", :source => "event"
+
   def self.from_omniauth(auth)
     # Case 1: Find existing user by facebook uid
     user = User.find_by_fb_uid( auth.uid )
