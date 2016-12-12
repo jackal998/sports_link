@@ -2,8 +2,8 @@ class EventsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
 
   def index
-    # @events = Event.all
-    # @event = Event.first
+    @place = Place.find(params[:place_id])
+    @events = Event.where(:place_id => params[:place_id]).includes(:user)
   end
 
   def create
