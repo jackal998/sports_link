@@ -15,8 +15,12 @@ class Api::UsersController < Api::BaseController
 
   def show
     @user = User.find(params[:id])
+
+    byebug
     # render json: { user: @user }
   end
+
+
 
   def create
     @user = User.new(params.require(:user).permit(:email, :password))
@@ -29,6 +33,9 @@ class Api::UsersController < Api::BaseController
 
   def update
     @user = User.find(params[:id])
+
+byebug
+    
     render json: { user: @user }
   end
 end

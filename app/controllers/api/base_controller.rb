@@ -1,7 +1,6 @@
 class Api::BaseController < ApplicationController
-  before_action :enable_cors
-  before_action :client_auth
-
+  before_action :enable_cors, :client_auth
+  
   private
 
   def enable_cors
