@@ -1,12 +1,23 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, :except => [:index]
+  before_action :find_event, :only => [:update, :show]
 
   def index
     @place = Place.find(params[:place_id])
     @events = Event.where(:place_id => params[:place_id]).includes(:user)
+    @events = @events.where()
   end
 
   def create
+    @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
+
+    if @event.save
+      respond_to do |format|
+        format.js
+      end
+    else
+      redirect_to events_path
+    end
     # permitted_params = place_params
     # @place = Place.find_by_place_id(permitted_params['place_id'])
     # unless @place
@@ -22,10 +33,23 @@ class EventsController < ApplicationController
     # end
   end
 
+  def update
+    
+  end
+
+  def show
+
+
+  end
+
   def match
   end
 
   private
+
+  def find_event
+    @event = Event.find(params[:id])
+  end
   # def place_params
   #   info = {}
   #   params[:params_to_post].each_pair do |key, information| 
