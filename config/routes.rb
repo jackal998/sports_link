@@ -7,15 +7,15 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_scope :user do
-    authenticated :user do
-      root 'events#index', as: :authenticated_root
-    end
+  # devise_scope :user do
+  #   authenticated :user do
+  #     root 'events#index', as: :authenticated_root
+  #   end
 
-    unauthenticated do
-      root 'devise/sessions#new', as: :unauthenticated_root
-    end
-  end
+  #   unauthenticated do
+  #     root 'devise/sessions#new', as: :unauthenticated_root
+  #   end
+  # end
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -24,6 +24,6 @@ Rails.application.routes.draw do
       get :match
     end
   end
-    # root to: "devise/sessions#new"
-  # root :to => "events#index"
+  # root to: "devise/sessions#new"
+  root :to => "places#index"
 end
