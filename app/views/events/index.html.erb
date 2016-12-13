@@ -1,11 +1,8 @@
-<%= user_name(current_user) %>
-<%= render :partial => "/layouts/navbar" %>
-<%= render :partial => "mapjs"   %>
 <div><%= link_to "&lt", "#" %></div>
 <div><button>Today</button></div>
 
 <div><%#= @event.place.image %></div>
-<div><%= @event.place.name %></div>
+<div><%= @place.name %></div>
 
 <div><%#= @event.location_distance - user.current_location %></div>
 
