@@ -1,4 +1,4 @@
-<div id="floating-panel">
+<div id="floating-panel" class="hidden">
   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
 </div>
 
@@ -8,7 +8,7 @@
 
 <script>
   var stepDisplay;
-  var markerArray = [];
+  var markers = [];
   var geocoder;
   var params_to_post = [];
 
@@ -19,8 +19,6 @@
       zoom: 16,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-    var infoWindow = new google.maps.InfoWindow({map: map});
-    // var geocoder = new google.maps.Geocoder();
 
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
@@ -34,10 +32,10 @@
     map.addListener('bounds_changed', function() {
       searchBox.setBounds(map.getBounds());
     });
-
     var service = new google.maps.places.PlacesService(map);
+    infoWindow = new google.maps.InfoWindow();
 
-    // Try HTML5 geolocation.
+    // Try HTML5 geolocation
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -45,46 +43,40 @@
           lng: position.coords.longitude
         };
         currentPos = new google.maps.LatLng(pos.lat,pos.lng);
-        infoWindow.setPosition(pos);
-        infoWindow.setContent('You are here !');
-        map.setCenter(pos);
-        service.nearbySearch({
-          location: currentPos,
-          radius: 500,
-          types: ['school']
-        }, nearbySearchcallback)
+        // var image = {
+        //   url: 'images/here.png',
+        //   size: new google.maps.Size(256, 256),
+        //   origin: new google.maps.Point(0, 0),
+        //   anchor: new google.maps.Point(45, 45),
+        //   scaledSize: new google.maps.Size(45, 45)
+        // };
+        var marker = new google.maps.Marker({
+            position: currentPos,
+            map: map,
+            animation: google.maps.Animation.DROP,
+        });
+        attachInstructionText(marker, 'Your here!')
+        markers.push(marker)
+        searchFromCurrentPos(currentPos);
       }, function() {
         currentPos = new google.maps.LatLng(<%= '25.0521298' %>,<%= '121.5325289' %>)
-        map.setCenter(currentPos);
-        service.nearbySearch({
-          location: currentPos,
-          radius: 500,
-          types: ['store']
-        }, nearbySearchcallback)
+        searchFromCurrentPos(currentPos);
         handleLocationError(true, infoWindow, map.getCenter());
       });
     } else {
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
-    var markers = [];
     // [START region_getplaces]
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
     searchBox.addListener('places_changed', function() {
       var places = searchBox.getPlaces();
-
       // Clear out the old markers.
       markers.forEach(function(marker) {
         marker.setMap(null);
+        markers = [];
       });
-      markers = [];
-
-      // First, clear out any existing markerArray
-      // from previous calculations.
-      for (i = 0; i < markerArray.length; i++) {
-        markerArray[i].setMap(null);
-      }
 
       if (places.length == 0) {
         return;
@@ -94,31 +86,20 @@
             places[0].geometry.location.lat(),
             places[0].geometry.location.lng()
           )
-          calculateAndDisplayRoute(directionsService, directionsDisplay);
-          directionsDisplay.setMap(map);
+          service.nearbySearch({
+            location: resultsPos,
+            radius: 500,
+            types: ['school']
+          }, nearbySearchcallback)
+          // calculateAndDisplayRoute(directionsService, directionsDisplay);
+          // directionsDisplay.setMap(map);
         }
       }
-
       // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
       
       places.forEach(function(place) {
-        var icon = {
-          url: place.icon,
-          size: new google.maps.Size(71, 71),
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(17, 34),
-          scaledSize: new google.maps.Size(16, 16)
-        };
-
-        // Create a marker for each place.
-        markers.push(new google.maps.Marker({
-          map: map,
-          icon: icon,
-          title: place.name,
-          position: place.geometry.location
-        }));
-
+        createMarker(place);
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
           bounds.union(place.geometry.viewport);
@@ -133,8 +114,18 @@
     // document.getElementById('submit').addEventListener('click', function() {
     //   geocodeAddress(geocoder, map);
     // });
-    stepDisplay = new google.maps.InfoWindow();
   };
+  function searchFromCurrentPos(position){
+    var service = new google.maps.places.PlacesService(map);
+    map.setCenter(position);
+    $('#floating-panel').removeClass('hidden')
+    service.nearbySearch({
+      location: position,
+      radius: 500,
+      types: ['school']
+    }, nearbySearchcallback)
+  };
+
   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
     directionsService.route({
@@ -172,35 +163,43 @@
     // routes.
     var myRoute = directionResult.routes[0].legs[0];
     for (var i = 0; i < myRoute.steps.length; i++) {
-        var marker = new google.maps.Marker({
+        markers.push( new google.maps.Marker({
           position: myRoute.steps[i].start_point,
           map: map
-        });
+        }));
         attachInstructionText(marker, myRoute.steps[i].instructions);
-        markerArray[i] = marker;
     }
   };
   function nearbySearchcallback(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
-        if (results[i].rating > 0) {
+        if (results[i].rating > 0 && results[i].icon.match('school')!= null) {
           createMarker(results[i]);
         }
       }
     }
   }
   function createMarker(place) {
-    var placeLoc = place.geometry.location;
-    var marker = new google.maps.Marker({
+    var icon = {
+      url: place.icon,
+      size: new google.maps.Size(71, 71),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(17, 34),
+      scaledSize: new google.maps.Size(30, 30)
+    };
+    marker = new google.maps.Marker({
       map: map,
+      icon: icon,
+      title: place.name,
       position: place.geometry.location
     });
     attachInstructionText(marker, place.name)
+    markers.push(marker)
   }
   function attachInstructionText(marker, text) {
     google.maps.event.addListener(marker, 'click', function() {
-      stepDisplay.setContent(text);
-      stepDisplay.open(map, marker);
+      infoWindow.setContent(text);
+      infoWindow.open(map, marker);
     });
   };
   function handleLocationError(browserHasGeolocation, infoWindow, pos) {
