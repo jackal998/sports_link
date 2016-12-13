@@ -1,16 +1,21 @@
-<div>
+<div><%= link_to "&lt", "#" %></div>
+<div><button>Today</button></div>
+
+<div><%#= @event.place.image %></div>
+<div><%= @event.place.name %></div>
+
+<div><%#= @event.location_distance - user.current_location %></div>
+
+<div><%#= @event.places.rating%></div>
+<hr>
+<div><%#= @event.nearby_store %></div>
+
+<div><h4>Join Games</h4></div>
+
+<% @events.each do |event| %>
 	<div>
-		<div>
-			<h1>Logo</h1>	
-		</div>
-
-		<div>
-			<h2>Play Sports</h2>
-			<h3>Anytime Anywhere</h3>
-		</div>
-
-		<div>
-			<button>Signin with Facebook</button>
-			<button>Signin as Guest</button>	
-		</div>
-
+		<%= event.start_at %>
+		<%= event.duration %>
+		<%= link_to "Join", "#" %>
+	</div>
+<% end %>	

@@ -10,8 +10,9 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <%= content_tag(:p,notice,:class=>"notice") if notice %>
+    <%= content_tag(:p,alert,:class=>"alert") if alert %>
+    <%= render :partial => "/layouts/navbar" %>
     <%= yield %>
   </body>
 </html>
