@@ -1,3 +1,24 @@
 <%= user_name(current_user) %>
 <%= render :partial => "/layouts/navbar" %>
 <%= render :partial => "mapjs"   %>
+<div><%= link_to "&lt", "#" %></div>
+<div><button>Today</button></div>
+
+<div><%#= @event.place.image %></div>
+<div><%= @event.place.name %></div>
+
+<div><%#= @event.location_distance - user.current_location %></div>
+
+<div><%#= @event.places.rating%></div>
+<hr>
+<div><%#= @event.nearby_store %></div>
+
+<div><h4>Join Games</h4></div>
+
+<% @events.each do |event| %>
+	<div>
+		<%= event.start_at %>
+		<%= event.duration %>
+		<%= link_to "Join", "#" %>
+	</div>
+<% end %>	

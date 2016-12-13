@@ -33,9 +33,6 @@ class Api::UsersController < Api::BaseController
 
   def update
     @user = User.find(params[:id])
-
-byebug
-    
     render json: { user: @user }
   end
 end
