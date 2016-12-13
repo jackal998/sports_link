@@ -35,6 +35,8 @@
       searchBox.setBounds(map.getBounds());
     });
 
+    var service = new google.maps.places.PlacesService(map);
+
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
@@ -46,16 +48,25 @@
         infoWindow.setPosition(pos);
         infoWindow.setContent('You are here !');
         map.setCenter(pos);
+        service.nearbySearch({
+          location: currentPos,
+          radius: 500,
+          types: ['school']
+        }, nearbySearchcallback)
       }, function() {
         currentPos = new google.maps.LatLng(<%= '25.0521298' %>,<%= '121.5325289' %>)
         map.setCenter(currentPos);
+        service.nearbySearch({
+          location: currentPos,
+          radius: 500,
+          types: ['store']
+        }, nearbySearchcallback)
         handleLocationError(true, infoWindow, map.getCenter());
       });
     } else {
       // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
-
     var markers = [];
     // [START region_getplaces]
     // Listen for the event fired when the user selects a prediction and retrieve
@@ -169,6 +180,23 @@
         markerArray[i] = marker;
     }
   };
+  function nearbySearchcallback(results, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      for (var i = 0; i < results.length; i++) {
+        if (results[i].rating > 0) {
+          createMarker(results[i]);
+        }
+      }
+    }
+  }
+  function createMarker(place) {
+    var placeLoc = place.geometry.location;
+    var marker = new google.maps.Marker({
+      map: map,
+      position: place.geometry.location
+    });
+    attachInstructionText(marker, place.name)
+  }
   function attachInstructionText(marker, text) {
     google.maps.event.addListener(marker, 'click', function() {
       stepDisplay.setContent(text);

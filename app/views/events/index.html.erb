@@ -1,4 +1,4 @@
-<div><%= link_to "&lt", "#" %></div>
+<div><%= link_to '<', :back %></div>
 <div><button>Today</button></div>
 
 <div><%#= @event.place.image %></div>
@@ -6,9 +6,9 @@
 
 <div><%#= @event.location_distance - user.current_location %></div>
 
-<div><%#= @event.places.rating%></div>
+<div><%#= @place.rating%></div>
 <hr>
-<div><%#= @event.nearby_store %></div>
+<div><%#= @place.nearby_store %></div>
 
 <div><h4>Join Games</h4></div>
 
