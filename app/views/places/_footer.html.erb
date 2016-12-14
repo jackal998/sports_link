@@ -1,0 +1,12 @@
+<div id="footer">
+  <div id="place_content">
+    <div id="place_name"></div>
+    <div id="place_rating"></div>
+    <div id="place_distance"></div>
+  </div>
+  <div id="event_time">
+    <% if @events.present? %>
+      <%= render :partial => "event_time" %>
+    <% end %>
+  </div>
+</div>

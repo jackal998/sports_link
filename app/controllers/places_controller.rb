@@ -22,5 +22,9 @@ class PlacesController < ApplicationController
         @place.save
       end
     end
+    @events = @place.events
+    if @events
+      @events = @events.where("start_at > ? and start_at < ?", Time.now + 3600 * 8, Date.today + 1)
+    end
   end
 end

@@ -1,0 +1,10 @@
+<% byebug %>
+<% if @events.present? %>
+  <ul>
+    <% @events.each do |event| %>
+      <li>
+        <%= event.start_at.strftime("%H:%M") %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

@@ -214,11 +214,14 @@
 
       $.ajax({   
         type:'POST',
-        dataType: 'json',
-        url: '/places.js',    
+        url: '/places',
         beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},   
-        data: {params_to_post: params_to_post}
-      });
+        data: {params_to_post: params_to_post},
+        success: function(){
+          console.log('ajax_success')
+          }
+        })
+
       params_to_post = [];
       $('#place_name').html(place.name);
       var placePos = new google.maps.LatLng(

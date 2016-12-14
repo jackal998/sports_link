@@ -1,13 +1,4 @@
 <%= user_name(current_user) %>
 <%= render :partial => "/layouts/navbar" %>
 <%= render :partial => "/events/mapjs"   %>
-<div id="footer">
-  <div id="place_content">
-    <div>
-      <img id="place_image" src="" alt="">
-    </div>
-    <div id="place_name"></div>
-    <div id="place_rating"></div>
-    <div id="place_distance"></div>
-  </div>
-</div>
+<%= render :partial => "/places/footer"   %>
