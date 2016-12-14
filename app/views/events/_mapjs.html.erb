@@ -61,6 +61,11 @@
       }, function() {
         currentPos = new google.maps.LatLng(<%= '25.0521298' %>,<%= '121.5325289' %>)
         searchFromCurrentPos(currentPos);
+        var marker = new google.maps.Marker({
+          position: currentPos,
+          map: map,
+        });
+        attachInstructionText(marker, 'failed to load your position')
         handleLocationError(true, infoWindow, map.getCenter());
       });
     } else {
@@ -125,7 +130,6 @@
       types: ['school']
     }, nearbySearchcallback)
   };
-
   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
     directionsService.route({
@@ -184,8 +188,8 @@
       url: place.icon,
       size: new google.maps.Size(71, 71),
       origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(17, 34),
-      scaledSize: new google.maps.Size(30, 30)
+      anchor: new google.maps.Point(0,0),
+      scaledSize: new google.maps.Size(25, 25)
     };
     marker = new google.maps.Marker({
       map: map,
@@ -193,9 +197,36 @@
       title: place.name,
       position: place.geometry.location
     });
-    attachInstructionText(marker, place.name)
+    attachInfromations(marker,place)
+    // attachInstructionText(marker, place.name)
     markers.push(marker)
   }
+  function attachInfromations(marker, place) {
+    google.maps.event.addListener(marker, 'click', function() {
+      $('#place_name').html(place.name);
+      var place_image = document.getElementById("place_image");
+      place_image.src = ''
+      place_image.src = place.photos[0].getUrl({maxWidth:100,maxHeight:100});
+      place_image.alt = place.name
+      var placePos = new google.maps.LatLng(
+        place.geometry.location.lat(),
+        place.geometry.location.lng()
+      );
+      directionsService.route({
+        origin: currentPos,
+        destination: placePos,
+        travelMode: google.maps.TravelMode.DRIVING
+      }, function(response, status) {
+        if (status === google.maps.DirectionsStatus.OK) {
+          var route = response.routes[0];
+          var place_distance = document.getElementById('place_distance');
+          place_distance.innerHTML = route.legs[0].distance.text;
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        };
+      });
+    });
+  };
   function attachInstructionText(marker, text) {
     google.maps.event.addListener(marker, 'click', function() {
       infoWindow.setContent(text);
