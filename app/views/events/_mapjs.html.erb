@@ -105,6 +105,7 @@
       
       places.forEach(function(place) {
         createMarker(place);
+        console.log(place.geometry.viewport);
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
           bounds.union(place.geometry.viewport);
@@ -176,9 +177,17 @@
   };
   function nearbySearchcallback(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
+      var bounds = new google.maps.LatLngBounds();
       for (var i = 0; i < results.length; i++) {
         if (results[i].rating > 0 && results[i].icon.match('school')!= null) {
           createMarker(results[i]);
+          if (results[i].geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(results[i].geometry.viewport);
+          } else {
+            bounds.extend(results[i].geometry.location);
+          }
+          map.fitBounds(bounds);
         }
       }
     }
