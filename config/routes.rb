@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :places
+
   # devise_scope :user do
   #   authenticated :user do
   #     root 'events#index', as: :authenticated_root

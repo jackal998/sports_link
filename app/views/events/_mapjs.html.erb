@@ -5,7 +5,7 @@
 <div id="map"></div>
 
 <div id="directions-panel"></div>
-
+<% google_config = Rails.application.config_for(:google) %>
 <script>
   var stepDisplay;
   var markers = [];
@@ -91,11 +91,7 @@
             places[0].geometry.location.lat(),
             places[0].geometry.location.lng()
           )
-          service.nearbySearch({
-            location: resultsPos,
-            radius: 500,
-            types: ['school']
-          }, nearbySearchcallback)
+          searchFromCurrentPos(resultsPos);
           // calculateAndDisplayRoute(directionsService, directionsDisplay);
           // directionsDisplay.setMap(map);
         }
@@ -105,7 +101,6 @@
       
       places.forEach(function(place) {
         createMarker(place);
-        console.log(place.geometry.viewport);
         if (place.geometry.viewport) {
           // Only geocodes have viewport.
           bounds.union(place.geometry.viewport);
@@ -116,10 +111,6 @@
       map.fitBounds(bounds);
     });
     // [END region_getplaces]
-    // directionsDisplay.setMap(map);
-    // document.getElementById('submit').addEventListener('click', function() {
-    //   geocodeAddress(geocoder, map);
-    // });
   };
   function searchFromCurrentPos(position){
     var service = new google.maps.places.PlacesService(map);
@@ -209,14 +200,27 @@
     attachInfromations(marker,place)
     // attachInstructionText(marker, place.name)
     markers.push(marker)
-  }
+  };
   function attachInfromations(marker, place) {
     google.maps.event.addListener(marker, 'click', function() {
+      params_to_post.push({
+        name: place.name,
+        location: place.geometry.location.toJSON(),
+        place_id: place.place_id,
+        reference: place.reference,
+        rating: place.rating,
+        vicinity: place.vicinity
+      })
+
+      $.ajax({   
+        type:'POST',
+        dataType: 'json',
+        url: '/places.js',    
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},   
+        data: {params_to_post: params_to_post}
+      });
+      params_to_post = [];
       $('#place_name').html(place.name);
-      var place_image = document.getElementById("place_image");
-      place_image.src = ''
-      place_image.src = place.photos[0].getUrl({maxWidth:100,maxHeight:100});
-      place_image.alt = place.name
       var placePos = new google.maps.LatLng(
         place.geometry.location.lat(),
         place.geometry.location.lng()
@@ -249,5 +253,5 @@
                           'Error: Your browser doesn\'t support geolocation.');
   };
 </script>
-<% google_config = Rails.application.config_for(:google) %>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=<%=google_config["app_id"]%>&libraries=places&callback=initMap" defer></script>
