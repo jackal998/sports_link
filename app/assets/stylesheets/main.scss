@@ -9,4 +9,80 @@
 .marketing_tagline{
 	color: white;
 }
+.background{
+	z-index: -2
+}
 
+.content{
+	z-index: 1
+}
+
+.hamburger{
+	width:100%;
+	height:auto;
+}
+
+ul{
+	margin: 0;
+	padding-left: 0;
+}
+
+.container{
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+#logo{
+	float:left;
+}
+nav{
+	float:right;
+}
+
+nav li{
+	float: left;
+}
+
+nav ul{
+	list-style-type: none;
+}
+
+nav a{
+	padding: 0 12px;
+}
+
+#menu-trigger{
+	display: none;
+	position: fixed;
+	top: 0;
+	right: 0;
+	width: 52px;
+
+}
+
+@media (max-width: 425px){
+	
+	nav{
+		display: none;
+	}
+
+	nav.open {
+		display: block;
+		float: none;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100vw;
+		height: 100vh;
+		background: #ccc;
+		text-align: center;
+		padding-top: 50%;
+	}
+	nav li{
+		float: none;
+
+	}
+	#menu-trigger {
+		display: block;
+	}
+}

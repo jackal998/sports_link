@@ -5,6 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
 
+  ratyrate_rater
+
   has_many :events, :dependent => :destroy
 
   has_many :event_attendees, :dependent => :destroy
