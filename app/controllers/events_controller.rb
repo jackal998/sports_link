@@ -5,7 +5,7 @@ class EventsController < ApplicationController
   def index
     @place = Place.find(params[:place_id])
     @events = Event.where(:place_id => params[:place_id]).includes(:user)
-    # @events = @events.where()
+    @events = @events.where()
   end
 
   def new
