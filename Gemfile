@@ -27,8 +27,6 @@ gem 'faker'
 # Use devise as an user recognize plugin. 'j'
 gem 'devise'
 
-gem 'ratyrate'
-
 gem 'omniauth-facebook'
 
 # Use jquery as the JavaScript library
