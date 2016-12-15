@@ -24,7 +24,7 @@ class PlacesController < ApplicationController
     end
     @events = @place.events
     if @events
-      @events = @events.where("start_at > ? and start_at < ?", Time.now + 3600 * 8, Date.today + 1)
+      @event = @events.where("start_at > ? and start_at < ?", Time.now + 3600 * 8, Date.today + 1).first
     end
   end
 

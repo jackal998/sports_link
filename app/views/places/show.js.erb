@@ -2,3 +2,10 @@ var show_events = "<%= j render(:partial => 'show_events') %>"
 var day_selection = "<%= j render(:partial => 'day_selection') %>"
 $('#show_events').html(show_events);
 $('#day_selection').html(day_selection);
+
+if ( "<%= params[:date] %>" == "yesterday" ) {
+  $('#host_buttun').addClass('close');
+} else {
+  $('#host_buttun').removeClass('close');
+}
+

@@ -9,8 +9,8 @@ class EventsController < ApplicationController
   end
 
   def create
+    byebug
     @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
-
     if @event.save
       respond_to do |format|
         format.js
@@ -21,11 +21,13 @@ class EventsController < ApplicationController
   end
 
   def update
-    
+    @event = Event.find(params[:id])
+    unless @event.event_attendees.pluck(:user_id).include?(current_user.id)
+      EventAttendee.create(:event_id => @event.id, :user_id => current_user.id)
+    end
   end
 
   def show
-
 
   end
 
