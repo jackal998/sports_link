@@ -5,8 +5,9 @@
     <div id="place_distance"></div>
   </div>
   <div id="event_time">
-    <% if @events.present? %>
-      <%= render :partial => "event_time" %>
-    <% end %>
   </div>
+  <%= link_to '更多', places_path, class: "btn btn-link close", id: "more_events_link"%>
 </div>
+
+
+<div id="hidden_informations" style="display: none" href=<%= places_path %>></div>

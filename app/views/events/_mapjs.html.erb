@@ -203,6 +203,8 @@
   };
   function attachInfromations(marker, place) {
     google.maps.event.addListener(marker, 'click', function() {
+      var hidden_informations = document.getElementById('hidden_informations');
+      var more_events_link = document.getElementById('more_events_link');
       params_to_post.push({
         name: place.name,
         location: place.geometry.location.toJSON(),
@@ -211,36 +213,49 @@
         rating: place.rating,
         vicinity: place.vicinity
       })
-
       $.ajax({   
         type:'POST',
         url: '/places',
         beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},   
         data: {params_to_post: params_to_post},
         success: function(){
-          console.log('ajax_success')
+          console.log('[POST]ajax_to_places_success')
+          },
+        error: function(event, jqxhr, settings){
+          console.log('[POST]ajax_to_places_error:')
+          console.log('event: ')
+          console.log(event)
+          console.log('jqxhr: '+jqxhr)
+          console.log('settings: '+settings)
           }
         })
-
       params_to_post = [];
+      $('#more_events_link').removeClass('close')
+      if (distance = hidden_informations.getAttribute(place.place_id)) {
+        $('#place_distance').html(distance + '公尺')
+        more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
+      }else{
+        var placePos = new google.maps.LatLng(
+          place.geometry.location.lat(),
+          place.geometry.location.lng()
+        );
+        directionsService.route({
+          origin: currentPos,
+          destination: placePos,
+          travelMode: google.maps.TravelMode.DRIVING
+        }, function(response, status) {
+          if (status === google.maps.DirectionsStatus.OK) {
+            var route = response.routes[0];
+            var distance = route.legs[0].distance.value;
+            hidden_informations.setAttribute(place.place_id,distance);
+            $('#place_distance').html(distance + '公尺')
+            more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          };
+        });
+      }
       $('#place_name').html(place.name);
-      var placePos = new google.maps.LatLng(
-        place.geometry.location.lat(),
-        place.geometry.location.lng()
-      );
-      directionsService.route({
-        origin: currentPos,
-        destination: placePos,
-        travelMode: google.maps.TravelMode.DRIVING
-      }, function(response, status) {
-        if (status === google.maps.DirectionsStatus.OK) {
-          var route = response.routes[0];
-          var place_distance = document.getElementById('place_distance');
-          place_distance.innerHTML = route.legs[0].distance.text;
-        } else {
-          window.alert('Directions request failed due to ' + status);
-        };
-      });
     });
   };
   function attachInstructionText(marker, text) {

@@ -1,10 +1,5 @@
-<% byebug %>
 <% if @events.present? %>
-  <ul>
-    <% @events.each do |event| %>
-      <li>
-        <%= event.start_at.strftime("%H:%M") %>
-      </li>
-    <% end %>
-  </ul>
+  <%= @events.first.start_at.strftime("%H:%M") %>
+<% else %>
+  <%= '這個場地今天沒有活動了，主辦一個吧！' %>
 <% end %>
