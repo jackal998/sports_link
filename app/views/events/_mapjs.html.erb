@@ -10,7 +10,6 @@
   var stepDisplay;
   var markers = [];
   var geocoder;
-  var params_to_post = [];
 
   function initMap() {
     directionsService = new google.maps.DirectionsService;
@@ -205,31 +204,6 @@
     google.maps.event.addListener(marker, 'click', function() {
       var hidden_informations = document.getElementById('hidden_informations');
       var more_events_link = document.getElementById('more_events_link');
-      params_to_post.push({
-        name: place.name,
-        location: place.geometry.location.toJSON(),
-        place_id: place.place_id,
-        reference: place.reference,
-        rating: place.rating,
-        vicinity: place.vicinity
-      })
-      $.ajax({   
-        type:'POST',
-        url: '/places',
-        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},   
-        data: {params_to_post: params_to_post},
-        success: function(){
-          console.log('[POST]ajax_to_places_success')
-          },
-        error: function(event, jqxhr, settings){
-          console.log('[POST]ajax_to_places_error:')
-          console.log('event: ')
-          console.log(event)
-          console.log('jqxhr: '+jqxhr)
-          console.log('settings: '+settings)
-          }
-        })
-      params_to_post = [];
       $('#more_events_link').removeClass('close')
       if (distance = hidden_informations.getAttribute(place.place_id)) {
         if (distance > 1000) {
@@ -238,6 +212,7 @@
           $('#place_distance').html('距離' + distance + '公尺')
         }
         more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
+        sendAjaxtoServer(place,distance);
       }else{
         var placePos = new google.maps.LatLng(
           place.geometry.location.lat(),
@@ -257,14 +232,49 @@
             }else{
               $('#place_distance').html('距離約' + distance + '公尺')
             }
+
+
+
             more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
+
+            sendAjaxtoServer(place,distance);
           } else {
             window.alert('Directions request failed due to ' + status);
           };
         });
-      }
+      } 
+
       $('#place_name').html(place.name);
     });
+  };
+  function sendAjaxtoServer(place,distance){
+    var params_to_post = [];
+    params_to_post.push({
+      name: place.name,
+      location: place.geometry.location.toJSON(),
+      distance: distance,
+      place_id: place.place_id,
+      reference: place.reference,
+      rating: place.rating,
+      vicinity: place.vicinity
+    })
+    $.ajax({   
+      type:'POST',
+      url: '/places',
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},   
+      data: {params_to_post: params_to_post},
+      success: function(){
+        console.log('[POST]ajax_to_places_success')
+      },
+      error: function(event, jqxhr, settings){
+        console.log('[POST]ajax_to_places_error:')
+        console.log('event: ')
+        console.log(event)
+        console.log('jqxhr: '+jqxhr)
+        console.log('settings: '+settings)
+      }
+    })
+    params_to_post = [];
   };
   function attachInstructionText(marker, text) {
     google.maps.event.addListener(marker, 'click', function() {

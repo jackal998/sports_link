@@ -57,7 +57,7 @@
   </div>
 
   <% if @events.count <= 4 %>
-    <%= link_to '主辦', events_path(:place_id => @place.place_id), class: "btn btn-link", id: "host_buttun" %> 
+    <%= link_to '主辦', new_event_path(:place_id => @place.place_id, :distance => params[:distance]), class: "btn btn-link", id: "host_buttun" %> 
   <% end %> 
 </div>
 

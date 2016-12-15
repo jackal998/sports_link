@@ -15,10 +15,9 @@ class PlacesController < ApplicationController
         @place.latitude = value[:location][:lat]
         @place.longitude = value[:location][:lng]
         @place.place_id = value[:place_id]
-        @place.long_name = value[:reference]
+        @place.reference = value[:reference]
         @place.address_components = value[:vicinity]
         @place.quality = value[:rating]
-
         @place.save
       end
     end

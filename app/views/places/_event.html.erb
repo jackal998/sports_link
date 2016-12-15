@@ -3,5 +3,5 @@
   <%= link_to '加入', event_path(@event), class: "btn btn-link", id: "join_event_link", method: "PATCH" %>
 <% else %>
   <%= '這個場地今天沒有活動了，主辦一個吧！' %>
-  <%= link_to '主辦', events_path(:place_id => @place.place_id), class: "btn btn-link", id: "host_event_link"%>
+  <%= link_to '主辦', new_event_path(:place_id => @place.place_id), class: "btn btn-link", id: "host_event_link" %>
 <% end %>
