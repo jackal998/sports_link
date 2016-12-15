@@ -3,18 +3,17 @@ class EventsController < ApplicationController
   before_action :find_event, :only => [:update, :show]
 
   def index
-    @place = Place.find(params[:place_id])
+    @place = Place.find_by_place_id(params[:place_id])
     @events = Event.where(:place_id => params[:place_id]).includes(:user)
-    @events = @events.where()
-  end
+  end 
 
   def new
-    @place = Place.find(params[:place_id])
+    @place = Place.find_by_place_id(params[:place_id])
     @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
   end  
 
   def create
-    byebug
+    @place = Place.find_by_place_id(params[:place_id])
     @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
     if @event.save
       respond_to do |format|
