@@ -4,9 +4,9 @@
 			<%= link_to "<", :back %></h3>
 		</div>
 
-		<div class="col-sm-8 col-md-8 col-xs-8 centered">
-			<div><h3><%= link_to "<", "/day_before" %>   Today  <%= link_to ">", "/day_after" %></h3></div>	
-		</div> 
+    <div id="day_selection" class="col-sm-8 col-md-8 col-xs-8 centered">
+      <%= render :partial => "day_selection" %>
+    </div> 
 		
 		<nav class="open col-md-2 col-sm-2 col-xs-2">
 			<ul>
@@ -35,9 +35,6 @@
 			</div>
 
 			<div><%#= @place_location_distance_from_user %>0.2Km away</div>
-			<div>
-				Ratings: <%= rating_for @place, "quality", enable_half: true %>
-  		</div>
 		</div>
 		<div class="clearfix"></div>	
 		<hr>
@@ -65,7 +62,7 @@
 
 		<% if @events.count <= 4 %>
 			<div>
-				<%= button_to "Create Event", Event.new %>	
+				<%= button_to "Create Event", new_event %>	
 			</div>
 		<% end %>	
 </div>
