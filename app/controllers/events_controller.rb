@@ -10,9 +10,10 @@ class EventsController < ApplicationController
   def new
     @place = Place.find_by_place_id(params[:place_id])
     @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
-  end  
+  end 
 
   def create
+
     @place = Place.find_by_place_id(params[:place_id])
     @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
     if @event.save
@@ -29,6 +30,7 @@ class EventsController < ApplicationController
     unless @event.event_attendees.pluck(:user_id).include?(current_user.id)
       EventAttendee.create(:event_id => @event.id, :user_id => current_user.id)
     end
+    @place = Place.find(@event.place.id)
   end
 
   def show

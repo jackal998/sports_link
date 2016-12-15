@@ -1,3 +1,4 @@
+<% google_config = Rails.application.config_for(:google) %>
 <div class="container content">
 	<div class="row">
 		<div class="col-sm-2 col-md-2 col-xs-2"><h3>
@@ -20,12 +21,10 @@
 			<img class="hamburger" src="images/menu.png" alt="trigger">
 		</div>
 	</div>	
-	
 	<div class="row">
 		<div class="place_detail col-md-4 col-sm-4 col-xs-4">
 			<div>
-				<img src="http://placehold.it/100x100" alt="revenue image">
-				<%#= @place.image %>
+				<img src="https://maps.googleapis.com/maps/api/streetview?size=100x100&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt="revenue image">
 			</div>
 		</div>
 
@@ -41,7 +40,7 @@
 		<div><%#= @place.nearby_store %></div>
 	</div>
 	
-<%= form_for @event, :url => events_path do |f| %>
+	<%= form_for @event, :url => events_path do |f| %>
 		<%= f.datetime_field(:start_at,:default => {:start_at => Time.now}) %>
 		<!-- hidden value for self.place and current.user. -->
 		<select class="selectpicker" data-live-search="true">
@@ -52,16 +51,13 @@
 </div>
 
 <script>
-$(document).on('ready', function(){
-    $('#input-3').rating({displayOnly: true, step: 0.5});
-});
-
-$(document).ready(function() {
-    
-    $('#menu-trigger').click(function(){
-        $('nav').toggleClass('open');
-    });
-
-});
+	$(document).on('ready', function(){
+	  $('#input-3').rating({displayOnly: true, step: 0.5});
+	});
+	$(document).ready(function() {
+	  $('#menu-trigger').click(function(){
+	    $('nav').toggleClass('open');
+	  });
+	});
 
 </script>
