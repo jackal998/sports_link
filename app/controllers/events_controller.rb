@@ -8,6 +8,11 @@ class EventsController < ApplicationController
     # @events = @events.where()
   end
 
+  def new
+    @place = Place.find(params[:place_id])
+    @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
+  end  
+
   def create
     byebug
     @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
