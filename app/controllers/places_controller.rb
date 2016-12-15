@@ -27,4 +27,12 @@ class PlacesController < ApplicationController
       @events = @events.where("start_at > ? and start_at < ?", Time.now + 3600 * 8, Date.today + 1)
     end
   end
+
+  def show
+    @place = Place.find_by_place_id(params[:id])
+    @events = @place.events
+    if @events
+      @events = @events.where("start_at > ? and start_at < ?", Time.now + 3600 * 8, Date.today + 1)
+    end
+  end
 end
