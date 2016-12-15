@@ -5,7 +5,6 @@ class EventsController < ApplicationController
   def index
     @place = Place.find(params[:place_id])
     @events = Event.where(:place_id => params[:place_id]).includes(:user)
-    @events = @events.where()
   end
 
   def new
@@ -14,7 +13,6 @@ class EventsController < ApplicationController
   end  
 
   def create
-    byebug
     @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
     if @event.save
       respond_to do |format|
@@ -30,6 +28,7 @@ class EventsController < ApplicationController
     unless @event.event_attendees.pluck(:user_id).include?(current_user.id)
       EventAttendee.create(:event_id => @event.id, :user_id => current_user.id)
     end
+    @place = Place.find(@event.place.id)
   end
 
   def show
