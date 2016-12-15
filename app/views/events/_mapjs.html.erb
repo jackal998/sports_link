@@ -232,11 +232,7 @@
             }else{
               $('#place_distance').html('距離約' + distance + '公尺')
             }
-
-
-
             more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
-
             sendAjaxtoServer(place,distance);
           } else {
             window.alert('Directions request failed due to ' + status);

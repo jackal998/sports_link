@@ -18,7 +18,7 @@
 		</nav>
 
 		<div id="menu-trigger">
-			<img class="hamburger" src="images/menu.png" alt="trigger">
+			<img class="hamburger" src="/images/menu.png" alt="trigger">
 		</div>
 	</div>	
 	<div class="row">
@@ -33,10 +33,13 @@
 				<%= @place.name %>		
 			</div>
 
-			<div><%#= @place_location_distance_from_user %>0.2Km away</div>
-<!-- 			<div>
-				Ratings: <%# rating_for @place, "quality", enable_half: true %>
-  		</div> -->
+			<div>
+        <% if params[:distance].to_i > 1000 %>
+          <%= '距離約' + (params[:distance].to_i/1000).round(2).to_s + '公里' %>
+        <% else %>
+          <%= '距離約' + params[:distance] + '公尺' %>
+        <% end %>
+       </div>
 		</div>
 		<div class="clearfix"></div>	
 		<hr>
@@ -50,7 +53,6 @@
 		<%= f.select :end_at, [['1 Hour',60],['1.5 Hours',90],['2 Hours',120],['2.5 Hours',150],['3 Hours',180],['3.5 Hours',210],['4 Hours',240]] %></select>
 		<%=  f.submit "Create" %>
 	<% end %>
-
 </div>
 
 <script>
