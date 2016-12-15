@@ -1,0 +1,18 @@
+<div>
+  <h3>
+    <% case params[:date] %>
+    <% when 'yesterday' %>
+      <
+      Yesterday
+      <%= link_to ">", place_path(@place.place_id, date: 'today'), :remote => "true" %>
+    <% when 'tomorrow' %>
+      <%= link_to "<", place_path(@place.place_id, date: 'today'), :remote => "true" %>
+      Tomorrow
+      >
+    <% else  %>
+      <%= link_to "<", place_path(@place.place_id, date: 'yesterday'), :remote => "true" %>
+      Today
+      <%= link_to ">", place_path(@place.place_id, date: 'tomorrow'), :remote => "true" %>
+    <% end %>
+  </h3>
+</div> 
