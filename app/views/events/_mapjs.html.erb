@@ -232,7 +232,11 @@
       params_to_post = [];
       $('#more_events_link').removeClass('close')
       if (distance = hidden_informations.getAttribute(place.place_id)) {
-        $('#place_distance').html(distance + '公尺')
+        if (distance > 1000) {
+          $('#place_distance').html('距離' + Math.round(distance/10)/100 + '公里')
+        }else{
+          $('#place_distance').html('距離' + distance + '公尺')
+        }
         more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
       }else{
         var placePos = new google.maps.LatLng(
@@ -248,7 +252,11 @@
             var route = response.routes[0];
             var distance = route.legs[0].distance.value;
             hidden_informations.setAttribute(place.place_id,distance);
-            $('#place_distance').html(distance + '公尺')
+            if (distance > 1000) {
+              $('#place_distance').html('距離約' + Math.round(distance/10)/100 + '公里')
+            }else{
+              $('#place_distance').html('距離約' + distance + '公尺')
+            }
             more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
           } else {
             window.alert('Directions request failed due to ' + status);

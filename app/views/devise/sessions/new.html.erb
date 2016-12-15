@@ -46,10 +46,7 @@
       <% end %>
     </div>
     <div class="clearfix"></div>
-
-    <div class="btn btn-default">
-      <div>Signin as Guest</div>
-    </div>
+    <%= link_to "Signin as Guest", places_path, class: "btn btn-default" %>
     <div>
       <%= render "devise/shared/links" %>
     </div> 

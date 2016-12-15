@@ -5,11 +5,10 @@
         <%= event.start_at.strftime('%H:%M') %>   
       </span>
       <span class="tag tag-info tag-pill float-xs-right">
-        1.5hr
+        1.5hr  (ready_to_go#EJ)
       </span>
-      <%#= event.duration %>
       <span class="pull-right">
-        <%= link_to "Join", "#" %>    
+        <%= link_to '加入', event_path(event), class: "btn btn-link" %>
       </span>
     </li>
   <% end %> 
