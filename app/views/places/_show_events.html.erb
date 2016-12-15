@@ -1,0 +1,16 @@
+<ul class="events centered list-group">
+  <% @events.each do |event| %>
+    <li class="list-group-item">
+      <span class="pull-left">
+        <%= event.start_at.strftime('%H:%M') %>   
+      </span>
+      <span class="tag tag-info tag-pill float-xs-right">
+        1.5hr
+      </span>
+      <%#= event.duration %>
+      <span class="pull-right">
+        <%= link_to "Join", "#" %>    
+      </span>
+    </li>
+  <% end %> 
+</ul> 
