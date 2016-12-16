@@ -1,0 +1,33 @@
+<p>
+  this create event after success
+</p>
+
+<p>
+event informations:
+<br>
+
+  <% @event.attributes.each do |k,v| %>
+    <br>
+    <%= k %>
+    <%= v %>
+  <% end %>
+  <br><br><hr>
+
+place informations:
+<br>
+
+  <% @place.attributes.each do |k,v| %>
+    <br>
+    <%= k %>
+    <%= v %>
+  <% end %>
+</p>
+<p>
+  distance:
+  <%= params[:distance] %>
+</p>
+<p>
+  feel free to put some informations from this two instanse variables [@event,@place]
+</p>
+
+<%= link_to '首頁', root_path %>

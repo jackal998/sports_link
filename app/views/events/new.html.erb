@@ -46,12 +46,20 @@
 		<div><%#= @place.nearby_store %></div>
 	</div>
 	
-	<%= form_for @event, :url => events_path do |f| %>
-		<%= f.datetime_field(:start_at,:default => {:start_at => Time.now}) %>
-		<!-- hidden value for self.place and current.user. -->
-	
-		<%= f.select :end_at, [['1 Hour',60],['1.5 Hours',90],['2 Hours',120],['2.5 Hours',150],['3 Hours',180],['3.5 Hours',210],['4 Hours',240]] %>
-		<%=  f.submit "Create" %>
+	<%= form_for @event, :url => events_path(:place_id => @place.place_id, :distance => params[:distance]) do |f| %>
+		<div class="text-center">
+			<h3>
+				<%= f.time_field(:start_at, :min => Time.now.strftime("%I:%M%p")) %>
+			</h3>
+			<hr>
+			<h3>
+				<%= f.time_field(:end_at, :min => Time.now.strftime("%I:%M%p")) %>
+			</h3>
+			<br />
+		</div>
+		<hr>
+		<%= link_to '取消', :back, :class => "pull-right btn btn-link" %>
+		<%=  f.submit "確認", :class => "pull-right btn btn-link" %>
 	<% end %>
 </div>
 

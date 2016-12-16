@@ -9,19 +9,14 @@ class EventsController < ApplicationController
 
   def new
     @place = Place.find_by_place_id(params[:place_id])
-    @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
+    @event = Event.new(:start_at => Time.now.strftime("%I:%M%p"), :end_at => (Time.now + 2 * 3600).strftime("%I:%M%p"))
   end 
 
   def create
-
     @place = Place.find_by_place_id(params[:place_id])
-    @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
-    if @event.save
-      respond_to do |format|
-        format.js
-      end
-    else
-      redirect_to events_path
+    @event = @event = Event.new(place_id: @place.id, user_id: current_user.id, start_at: params[:event][:start_at], end_at: params[:event][:end_at])
+    unless @event.save
+      redirect_to event_path(@event)
     end
   end
 
@@ -34,7 +29,6 @@ class EventsController < ApplicationController
   end
 
   def show
-
   end
 
   def match
