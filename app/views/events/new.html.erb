@@ -1,14 +1,13 @@
 <% google_config = Rails.application.config_for(:google) %>
 <div class="container content">
-	<div class="row">
-		<div class="col-sm-2 col-md-2 col-xs-2"><h3>
-			<%= link_to "<", :back %></h3>
-		</div>
-
-		<div class="col-sm-8 col-md-8 col-xs-8 centered">
-			<div><h3><%= link_to "<", "/day_before" %>   Today  <%= link_to ">", "/day_after" %></h3></div>	
-		</div> 
-		
+  <div>
+    <%= render :partial => "/layouts/navbar" %>
+  </div>
+	<div class="clear-fix"></div>
+  <div>
+    <%= render :partial => "/places/day_selection" %>
+  </div> 
+	<hr>
 	<div class="row">
 		<div class="place_detail col-md-4 col-sm-4 col-xs-4">
 			<div>
