@@ -9,18 +9,6 @@
 			<div><h3><%= link_to "<", "/day_before" %>   Today  <%= link_to ">", "/day_after" %></h3></div>	
 		</div> 
 		
-		<nav class="open col-md-2 col-sm-2 col-xs-2">
-			<ul>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">about</a></li>
-				<li><a href="#">contact</a></li>	
-			</ul>
-		</nav>
-
-		<div id="menu-trigger">
-			<img class="hamburger" src="/images/menu.png" alt="trigger">
-		</div>
-	</div>	
 	<div class="row">
 		<div class="place_detail col-md-4 col-sm-4 col-xs-4">
 			<div>
@@ -63,14 +51,3 @@
 	<% end %>
 </div>
 
-<script>
-	$(document).on('ready', function(){
-	  $('#input-3').rating({displayOnly: true, step: 0.5});
-	});
-	$(document).ready(function() {
-	  $('#menu-trigger').click(function(){
-	    $('nav').toggleClass('open');
-	  });
-	});
-
-</script>
