@@ -1,10 +1,14 @@
 <div id="footer">
-  <div id="place_content">
+  <div id="place_content" class="col-sm-9 col-xs-9 col-md-10">
     <div id="place_name"></div>
-    <div id="place_rating"></div>
     <div id="place_distance"></div>
   </div>
-  <%= link_to '更多', places_path, class: "btn btn-link close", id: "more_events_link"%>
+  <div class="col-sm-3 col-xs-3 col-md-2">
+  	<%= link_to '更多', places_path, :class => "btn btn-default close", id: "more_events_link"%>
+  </div>
+  <div class="clearfix"></div>
+	<hr>
+	<div class="clearfix"></div>
   <div id="event">
   </div>
 </div>

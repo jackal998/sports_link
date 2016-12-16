@@ -10,8 +10,8 @@
 
 #map {
   float: left;
-  height: 60vh;
-  width: 80vw;
+  height: 62vh;
+  width: 100vw;
 }
 
 .controls {
@@ -61,3 +61,19 @@
 }
 
 .hidden{display: none;}
+
+.gm-style-mtc{
+  display: none;
+}
+
+.gmnoprint .gm-style-cc{
+  display: none;
+}
+
+#place_name{
+  font-size: 3rem;
+}
+
+#place_distance{
+  font-size: 1rem;
+}

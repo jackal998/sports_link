@@ -1,7 +1,15 @@
 <% if @event.present? %>
+	<div class="pull-right">
   <%= @event.start_at.strftime("%H:%M") %>
-  <%= link_to '加入', event_path(@event), class: "btn btn-link", id: "join_event_link", method: "PATCH" %>
+  </div>
+  <div class="col-md-12 col-xs-12 col-sm-12"
+  <%= link_to '加入', event_path(@event), class: "btn btn-default", id: "join_event_link", method: "PATCH" %>
+  </div>
 <% else %>
+	<div class="col-sm-9 col-xs-9 col-md-10">
   <%= '這個場地今天沒有活動了，主辦一個吧！' %>
-  <%= link_to '主辦', new_event_path(:place_id => @place.place_id, :distance => params[:params_to_post]['0'][:distance]), class: "btn btn-link", id: "host_event_link" %>
+  </div>
+  <div class="col-sm-3 col-xs-3 col-md-2">
+  <%= link_to '主辦', new_event_path(:place_id => @place.place_id, :distance => params[:params_to_post]['0'][:distance]), :class => "btn btn-default", id: "host_event_link" %>
+  </div>
 <% end %>

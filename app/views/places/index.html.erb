@@ -1,4 +1,8 @@
 <%= user_name(current_user) %>
 <%= render :partial => "/layouts/navbar" %>
+<div class="clear-fix"></div>
+<%= render :partial => "/places/day_selection" %>
+<hr>
 <%= render :partial => "/events/mapjs"   %>
+<div class="clearfix"></div>
 <%= render :partial => "/places/footer"   %>

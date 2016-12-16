@@ -5,3 +5,25 @@
 
   <%= link_to "FB Sign in", user_facebook_omniauth_authorize_path %>
 <% end %>
+<div class="container content">
+  <div class="row">
+    <div class="col-sm-4 col-md-2 col-xs-4 centered">
+	    <h4>
+	      <%= button_to "<", places_path %>   	
+	    </h4>
+    </div>
+
+    <div class="col-sm-4 col-md-5 col-xs-4 centered">
+    	<h5>
+    		<%= button_to "Create Event", new_event_path %>
+    	</h5>	
+    </div>
+
+    <div class="col-sm-4 col-md-5 col-xs-4 centered">
+    	<h5>
+    		<%= button_to "Upcoming", "#" %>
+    	</h5>
+    </div>
+  </div>
+</div>
+
