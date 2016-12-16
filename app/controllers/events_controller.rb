@@ -9,11 +9,11 @@ class EventsController < ApplicationController
 
   def new
     @place = Place.find_by_place_id(params[:place_id])
-    @event = Event.new(:start_at => Time.now + 3600 * 8)
+    @event = Event.new(:start_at => Time.now.strftime("%I:%M%p"), :end_at => (Time.now + 2 * 3600).strftime("%I:%M%p"))
   end 
 
   def create
-
+byebug
     @place = Place.find_by_place_id(params[:place_id])
     @event = Event.new(place_id: params[:place_id], user_id: current_user.id, start_at: params[:selected_time])
     if @event.save
