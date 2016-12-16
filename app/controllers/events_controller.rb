@@ -29,7 +29,6 @@ class EventsController < ApplicationController
   end
 
   def show
-    byebug
   end
 
   def match
