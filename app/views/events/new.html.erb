@@ -46,7 +46,7 @@
 		<div><%#= @place.nearby_store %></div>
 	</div>
 	
-	<%= form_for @event, :url => events_path(:place_id => @place.place_id) do |f| %>
+	<%= form_for @event, :url => events_path(:place_id => @place.place_id, :distance => params[:distance]) do |f| %>
 		<div class="text-center">
 			<h3>
 				<%= f.time_field(:start_at, :min => Time.now.strftime("%I:%M%p")) %>
