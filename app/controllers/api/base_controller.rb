@@ -15,7 +15,7 @@ class Api::BaseController < ApplicationController
   end
 
   def client_auth
-    unless request.headers.to_h["HTTP_J_TTOOKKEENN"] == 'token'
+    unless request.headers["HTTP_SL_TTOOKKEENN"] == 'token'
       render json: { errors: 'fail' }, :status => 400
     end
   end

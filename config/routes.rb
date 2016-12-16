@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   namespace :api, path: '' do
     constraints(host: 'api.localhost') do
       resources :users
     end
+    constraints(host: 'api.just.got-game.org') do
+      resources :users
+    end
   end
+
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+
 
   resources :places
 

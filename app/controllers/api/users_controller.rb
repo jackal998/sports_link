@@ -15,8 +15,6 @@ class Api::UsersController < Api::BaseController
 
   def show
     @user = User.find(params[:id])
-
-    byebug
     # render json: { user: @user }
   end
 
