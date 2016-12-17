@@ -1,25 +1,34 @@
 class Api::PlacesController < Api::BaseController
-  skip_before_action :authenticate_user!, :only => [:create]
+  skip_before_action :authenticate_user!, :only => [:index, :create]
+  def index
+    
+  end
 
   def create
-    params[:params_to_post].each do |key,value|
-      @place = Place.find_by_place_id(value[:place_id])
-      unless @place
-        @place = Place.new
-        @place.name = value[:name]
-        @place.latitude = value[:location][:lat]
-        @place.longitude = value[:location][:lng]
-        @place.place_id = value[:place_id]
-        @place.reference = value[:reference]
-        @place.address_components = value[:vicinity]
-        @place.quality = value[:rating]
-        @place.save
-      end
-    end
+    byebug
+    # params[]
+    @place = Place.find_by_place_id(params[:place_id])
     @events = @place.events
     if @events
       @event = @events.where("start_at > ? and start_at < ?", Time.now + 3600 * 8, Date.today + 1).first
     end
+
+
+
+    
+    # params[:params_to_post].each do |key,value|
+    #   unless @place
+    #     @place = Place.new
+    #     @place.name = value[:name]
+    #     @place.latitude = value[:location][:lat]
+    #     @place.longitude = value[:location][:lng]
+    #     @place.place_id = value[:place_id]
+    #     @place.reference = value[:reference]
+    #     @place.address_components = value[:vicinity]
+    #     @place.quality = value[:rating]
+    #     @place.save
+    #   end
+    # end
   end
 
   def show
