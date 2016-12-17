@@ -9,12 +9,30 @@ class EventsController < ApplicationController
 
   def new
     @place = Place.find_by_place_id(params[:place_id])
-    @event = Event.new(:start_at => Time.now.strftime("%I:%M%p"), :end_at => (Time.now + 2 * 3600).strftime("%I:%M%p"))
+    case params[:date]
+    when 'day_after'
+      @event = Event.new(:start_at => (Time.now + 86400 * 2).strftime("%I:%M%p"), :end_at => (Time.now + 86400 * 2 + 2 * 3600).strftime("%I:%M%p"))
+    when 'tomorrow'
+      @event = Event.new(:start_at => (Time.now + 86400).strftime("%I:%M%p"), :end_at => (Time.now + 86400 + 2 * 3600).strftime("%I:%M%p"))
+    else 
+      @event = Event.new(:start_at => Time.now.strftime("%I:%M%p"), :end_at => (Time.now + 2 * 3600).strftime("%I:%M%p"))
+    end
   end 
 
   def create
     @place = Place.find_by_place_id(params[:place_id])
-    @event = @event = Event.new(place_id: @place.id, user_id: current_user.id, start_at: params[:event][:start_at], end_at: params[:event][:end_at])
+    case params[:date]
+    when 'day_after'
+      start_at = params[:event][:start_at].to_time + 86400 * 2
+      end_at = params[:event][:end_at].to_time + 86400 * 2
+    when 'tomorrow'
+      start_at = params[:event][:start_at].to_time + 86400 * 1
+      end_at = params[:event][:end_at].to_time + 86400 * 1
+    else 
+      start_at = params[:event][:start_at].to_time
+      end_at = params[:event][:end_at].to_time
+    end
+    @event = @event = Event.new(place_id: @place.id, user_id: current_user.id, start_at: start_at, end_at: end_at)
     unless @event.save
       redirect_to event_path(@event)
     end
