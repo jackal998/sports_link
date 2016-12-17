@@ -9,7 +9,7 @@
       </span>
       <span class="pull-right">
         <% if event.start_at > Time.now + 3600 * 8 %>
-          <%= link_to '加入', event_path(event), class: "btn btn-link", method: 'PATCH' %>
+          <%= link_to '加入', event_path(event), class: "btn btn-default", method: 'PATCH' %>
         <% end %>
       </span>
     </li>
