@@ -1,36 +1,21 @@
 <div class="cointainer">
   <div class="row">
     <h3>
-      <% case params[:date] %>
-      <% when 'day_after' %>
+      <% [{今天: 'today'},{明天: 'tomorrow'},{後天: 'day_after'}].each do |day| %>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "今天", places_path(date: 'today', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
-        </div>
-        <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "明天", places_path(date: 'tomorrow', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
-        </div>
-        <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          後天
-        </div>
-      <% when 'tomorrow' %>
-        <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "今天", places_path(date: 'today', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
-        </div>
-        <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          明天
-        </div>
-        <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "後天", places_path(date: 'day_after', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
-        </div> 
-      <% else %>
-        <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          今天
-        </div>
-        <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "明天", places_path(date: 'tomorrow', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
-        </div>
-        <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "後天", places_path(date: 'day_after', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
+          <% if day.values[0] == params[:date] %>
+            <%= day.keys[0] %>
+          <% elsif params[:date] == nil && day.values[0] == 'today' %>
+            今天
+          <% else %>
+            <% if action_name == "show" %>
+              <%= link_to day.keys[0], place_path(@place.place_id,date: day.values[0], distance: params[:distance]), :remote => "true" %>
+            <% elsif controller_name == "events" %>
+              <%= link_to day.keys[0], new_event_path(date: day.values[0], place_id: @place.place_id, distance: params[:distance]), :remote => "true" %>
+            <% else %>
+              <%= link_to day.keys[0], places_path(date: day.values[0], place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     </h3>
