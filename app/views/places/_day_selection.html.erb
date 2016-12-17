@@ -1,8 +1,8 @@
-<div class="cointainer">
+<div class="cointainer day_selection">
   <div class="row">
     <h3>
       <% [{今天: 'today'},{明天: 'tomorrow'},{後天: 'day_after'}].each do |day| %>
-        <div class="col-sm-4 col-xs-4 col-md-4 centered">
+        <div class="col-sm-4 col-xs-4 col-md-4 centered small-text">
           <% if day.values[0] == params[:date] %>
             <%= day.keys[0] %>
           <% elsif params[:date] == nil && day.values[0] == 'today' %>

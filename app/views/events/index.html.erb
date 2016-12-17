@@ -1,26 +1,13 @@
-<div class="container content">
+<!-- <div class="container content">
 	<div class="row">
 		<div class="col-sm-2 col-md-2 col-xs-2"><h3>
 			<%= link_to "<", :back %></h3>
 		</div>
 
     <div id="day_selection" class="col-sm-8 col-md-8 col-xs-8 centered">
-      <%= render :partial => "day_selection" %>
+      <%= render :partial => "/places/day_selection" %>
     </div> 
-		
-		<nav class="open col-md-2 col-sm-2 col-xs-2">
-			<ul>
-				<li><a href="#">Home</a></li>
-				<li><a href="#">about</a></li>
-				<li><a href="#">contact</a></li>	
-			</ul>
-		</nav>
 
-		<div id="menu-trigger">
-			<img class="hamburger" src="images/menu.png" alt="trigger">
-		</div>
-	</div>	
-	
 	<div class="row">
 		<div class="place_detail col-md-4 col-sm-4 col-xs-4">
 			<div>
@@ -41,7 +28,7 @@
 		<div><%#= @place.nearby_store %></div>
 	</div>
 
-	<div><h4>Join Games</h4></div>
+	<div><h4>場次加入</h4></div>
 	<ul class="events centered list-group">
 		<% @events.each do |event| %>
 			<li class="list-group-item">
@@ -66,17 +53,4 @@
 			</div>
 		<% end %>	
 </div>
-
-<script>
-$(document).on('ready', function(){
-    $('#input-3').rating({displayOnly: true, step: 0.5});
-});
-
-$(document).ready(function() {
-    
-    $('#menu-trigger').click(function(){
-        $('nav').toggleClass('open');
-    });
-
-});
-</script>
+ -->
