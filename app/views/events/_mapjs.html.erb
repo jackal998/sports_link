@@ -75,6 +75,7 @@
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
     searchBox.addListener('places_changed', function() {
+
       var places = searchBox.getPlaces();
       // Clear out the old markers.
       markers.forEach(function(marker) {
@@ -168,6 +169,7 @@
   function nearbySearchcallback(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       var bounds = new google.maps.LatLngBounds();
+
       for (var i = 0; i < results.length; i++) {
         if (results[i].rating > 0 && results[i].icon.match('school')!= null) {
           createMarker(results[i]);
@@ -197,7 +199,6 @@
       position: place.geometry.location
     });
     attachInfromations(marker,place)
-    // attachInstructionText(marker, place.name)
     markers.push(marker)
   };
   function attachInfromations(marker, place) {
@@ -211,7 +212,7 @@
         }else{
           $('#place_distance').html('距離' + distance + '公尺')
         }
-        more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
+        updatePlaceToLinks(place,distance);
         sendAjaxtoServer(place,distance);
       }else{
         var placePos = new google.maps.LatLng(
@@ -232,15 +233,30 @@
             }else{
               $('#place_distance').html('距離約' + distance + '公尺')
             }
-            more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
+            updatePlaceToLinks(place,distance);
             sendAjaxtoServer(place,distance);
           } else {
             window.alert('Directions request failed due to ' + status);
           };
         });
       } 
-
       $('#place_name').html(place.name);
+    });
+  };
+  function updatePlaceToLinks(place,distance){
+    var hidden_informations = document.getElementById('hidden_informations');
+    var more_events_link = document.getElementById('more_events_link');
+    more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
+    $('#day_selection a').each( function( index, element ){
+      var a_tag = this
+      var a_url = $(a_tag).attr('href')
+      var place_id = getURLParameter(a_url, 'place_id');
+      if (place_id == null) {
+        a_tag.href = a_url + '&place_id=' + place.place_id + "&distance=" + distance
+      } else {
+        a_url = a_url.replace(/distance=[^&]+/, 'distance=' + distance);
+        a_tag.href = a_url.replace(/place_id=[^&]+/, 'place_id=' + place.place_id);
+      }
     });
   };
   function sendAjaxtoServer(place,distance){
@@ -283,6 +299,9 @@
     infoWindow.setContent(browserHasGeolocation ?
                           'Error: The Geolocation service failed.' :
                           'Error: Your browser doesn\'t support geolocation.');
+  };
+  function getURLParameter(url, name) {
+    return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
   };
 </script>
 

@@ -1,7 +1,9 @@
 <%= user_name(current_user) %>
 <%= render :partial => "/layouts/navbar" %>
 <div class="clear-fix"></div>
-<%= render :partial => "/places/day_selection" %>
+ <div id="day_selection">
+    <%= render :partial => "/places/day_selection" %>
+ </div>
 <hr>
 <%= render :partial => "/events/mapjs"   %>
 <div class="clearfix"></div>
