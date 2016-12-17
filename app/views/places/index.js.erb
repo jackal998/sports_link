@@ -1,4 +1,16 @@
 var event = "<%= j render(:partial => 'event') %>"
 var day_selection = "<%= j render(:partial => 'day_selection') %>"
+var more_events_link = document.getElementById('more_events_link');
+var date = getURLParameter(more_events_link.href, 'date');
+
 $('#event').html(event);
 $('#day_selection').html(day_selection);
+
+if (date == null) {
+  more_events_link.href = more_events_link.href + '&date=<%= params[:date] %>'
+} else {
+  more_events_link.href = more_events_link.href.replace(/date=[^&]+/, 'date=<%= params[:date] %>');
+}
+function getURLParameter(url, name) {
+  return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
+};
