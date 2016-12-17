@@ -1,0 +1,15 @@
+<%= form_for @event, :url => events_path(:place_id => @place.place_id, :distance => params[:distance], :date => params[:date]) do |f| %>
+  <div class="text-center">
+    <h3>
+      <%= f.time_field(:start_at, :min => Time.now.strftime("%I:%M%p")) %>
+    </h3>
+    <hr>
+    <h3>
+      <%= f.time_field(:end_at, :min => Time.now.strftime("%I:%M%p")) %>
+    </h3>
+    <br />
+  </div>
+  <hr>
+  <%= link_to '取消', root_path, :class => "pull-right btn btn-link" %>
+  <%=  f.submit "確認", :class => "pull-right btn btn-link" %>
+<% end %>

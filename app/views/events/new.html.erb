@@ -4,49 +4,34 @@
     <%= render :partial => "/layouts/navbar" %>
   </div>
 	<div class="clear-fix"></div>
-  <div>
+  <div id="day_selection">
     <%= render :partial => "/places/day_selection" %>
   </div> 
 	<hr>
 	<div class="row">
 		<div class="place_detail col-md-4 col-sm-4 col-xs-4">
 			<div>
-				<img src="https://maps.googleapis.com/maps/api/streetview?size=100x100&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt="revenue image">
+				<img src="https://maps.googleapis.com/maps/api/streetview?size=100x100&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt=<%= @place.name %>>
 			</div>
 		</div>
-
 		<div class=" col-md-8 col-sm-8 col-xs-8">
 			<div>	
 				<%= @place.name %>		
 			</div>
-
 			<div>
         <% if params[:distance].to_i > 1000 %>
           <%= '距離約' + (params[:distance].to_i/1000).round(2).to_s + '公里' %>
         <% else %>
           <%= '距離約' + params[:distance] + '公尺' %>
         <% end %>
-       </div>
+      </div>
 		</div>
-		<div class="clearfix"></div>	
+		<div class="clearfix"></div>
 		<hr>
 		<div><%#= @place.nearby_store %></div>
 	</div>
-	
-	<%= form_for @event, :url => events_path(:place_id => @place.place_id, :distance => params[:distance]) do |f| %>
-		<div class="text-center">
-			<h3>
-				<%= f.time_field(:start_at, :min => Time.now.strftime("%I:%M%p")) %>
-			</h3>
-			<hr>
-			<h3>
-				<%= f.time_field(:end_at, :min => Time.now.strftime("%I:%M%p")) %>
-			</h3>
-			<br />
-		</div>
-		<hr>
-		<%= link_to '取消', :back, :class => "pull-right btn btn-link" %>
-		<%=  f.submit "確認", :class => "pull-right btn btn-link" %>
-	<% end %>
+  <div id="form_for_new_event">
+	 <%= render :partial => "form_for_new_event" %> 
+  </div>
 </div>
 
