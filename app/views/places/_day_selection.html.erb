@@ -4,33 +4,33 @@
       <% case params[:date] %>
       <% when 'day_after' %>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "今天", places_path( date: 'today'), :remote => "true" %>
+          <%= link_to "今天", places_path(date: 'today', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
         </div>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "明天", place_path(date: 'tomorrow'), :remote => "true" %>
+          <%= link_to "明天", places_path(date: 'tomorrow', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
         </div>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
           後天
         </div>
       <% when 'tomorrow' %>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "<", places_path( date: 'today'), :remote => "true" %>
+          <%= link_to "今天", places_path(date: 'today', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
         </div>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
           明天
         </div>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to ">", place_path( date: 'day_after'), :remote => "true" %>
+          <%= link_to "後天", places_path(date: 'day_after', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
         </div> 
       <% else %>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
           今天
         </div>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "明天", places_path( date: 'tomorrow'), :remote => "true" %>
+          <%= link_to "明天", places_path(date: 'tomorrow', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
         </div>
         <div class="col-sm-4 col-xs-4 col-md-4 centered">
-          <%= link_to "後天", places_path(date: 'day_after'), :remote => "true" %>
+          <%= link_to "後天", places_path(date: 'day_after', place_id: params[:place_id], distance: params[:distance]), :remote => "true" %>
         </div>
       <% end %>
     </h3>
