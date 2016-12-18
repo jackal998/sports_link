@@ -13,7 +13,7 @@ class PlacesController < ApplicationController
         when 'tomorrow'
           @events = @events.where("start_at > ? and start_at < ?", Date.today + 1, Date.today + 2)
         else 
-          @events = @events.where("start_at > ? and start_at < ?", Time.now + 3600 * 8, Date.today + 1)
+          @events = @events.where("start_at > ? and start_at < ?", Time.now, Date.today + 1)
         end
       end
       @event = @events.first
@@ -37,7 +37,14 @@ class PlacesController < ApplicationController
     end
     @events = @place.events
     if @events
-      @event = @events.where("start_at > ? and start_at < ?", Time.now + 3600 * 8, Date.today + 1).first
+      case params[:params_to_post]['0'][:date]
+      when 'day_after'
+        @event = @events.where("start_at > ? and start_at < ?", Date.today + 2, Date.today + 3).first
+      when 'tomorrow'
+        @event = @events.where("start_at > ? and start_at < ?", Date.today + 1, Date.today + 2).first
+      else 
+        @event = @events.where("start_at > ? and start_at < ?", Time.now, Date.today + 1).first
+      end
     end
   end
 
@@ -51,7 +58,7 @@ class PlacesController < ApplicationController
       when 'tomorrow'
         @events = @events.where("start_at > ? and start_at < ?", Date.today + 1, Date.today + 2)
       else 
-        @events = @events.where("start_at > ? and start_at < ?", Time.now + 3600 * 8, Date.today + 1)
+        @events = @events.where("start_at > ? and start_at < ?", Time.now, Date.today + 1)
       end
     end
   end

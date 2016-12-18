@@ -9,26 +9,19 @@ class EventsController < ApplicationController
 
   def new
     @place = Place.find_by_place_id(params[:place_id])
-    case params[:date]
-    when 'day_after'
-      @event = Event.new(:start_at => (Time.now + 86400 * 2).strftime("%I:%M%p"), :end_at => (Time.now + 86400 * 2 + 2 * 3600).strftime("%I:%M%p"))
-    when 'tomorrow'
-      @event = Event.new(:start_at => (Time.now + 86400).strftime("%I:%M%p"), :end_at => (Time.now + 86400 + 2 * 3600).strftime("%I:%M%p"))
-    else 
-      @event = Event.new(:start_at => Time.now.strftime("%I:%M%p"), :end_at => (Time.now + 2 * 3600).strftime("%I:%M%p"))
-    end
+    @event = Event.new(:start_at => Time.now.strftime("%I:%M%p"), :end_at => Time.now.strftime("%I:%M%p"))
   end 
 
   def create
     @place = Place.find_by_place_id(params[:place_id])
     case params[:date]
     when 'day_after'
-      start_at = params[:event][:start_at].to_time + 86400 * 2
-      end_at = params[:event][:end_at].to_time + 86400 * 2
+      start_at = params[:event][:start_at].to_time.advance(days: 2)
+      end_at = params[:event][:end_at].to_time.advance(days: 2)
     when 'tomorrow'
-      start_at = params[:event][:start_at].to_time + 86400 * 1
-      end_at = params[:event][:end_at].to_time + 86400 * 1
-    else 
+      start_at = params[:event][:start_at].to_time.advance(days: 1)
+      end_at = params[:event][:end_at].to_time.advance(days: 1)
+    else
       start_at = params[:event][:start_at].to_time
       end_at = params[:event][:end_at].to_time
     end
