@@ -1,10 +1,42 @@
-<%= user_name(current_user) %>
 <%= render :partial => "/layouts/navbar" %>
 <div class="clear-fix"></div>
- <div id="day_selection">
-    <%= render :partial => "/places/day_selection" %>
- </div>
+<div id="day_selection">
+  <%= render :partial => "/places/day_selection", :locals => { date: 'today', distance: ""} %>
+</div>
 <hr>
 <%= render :partial => "/events/mapjs"   %>
 <div class="clearfix"></div>
 <%= render :partial => "/places/footer"   %>
+<script>
+  $(document).ready(function() {
+    $('.navicons a').each(function(index, element ){
+      if (getURLParameter(element.href, 'place_id') == null) {      
+        element.addEventListener("click", preventfromDefault);
+        element.addEventListener("click", function(){
+          if (getURLParameter(element.href, 'place_id') != null) {
+            element.removeEventListener("click", preventfromDefault);
+            element.click()
+          }
+        });
+      }
+    });
+    $('#day_selection a').each(function(index, element ){
+      if (getURLParameter(element.href, 'distance') == null) {      
+        element.addEventListener("click", preventfromDefault);
+        element.addEventListener("click", function(){
+          if (getURLParameter(element.href, 'distance') != null) {
+            element.removeEventListener("click", preventfromDefault);
+            element.click()
+          }
+        });
+      }
+    });
+    function preventfromDefault(event) {
+      event.preventDefault();
+      event.stopPropagation()
+    };
+    function getURLParameter(url, name) {
+      return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
+    };
+  });
+</script>  
