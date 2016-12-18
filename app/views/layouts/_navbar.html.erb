@@ -1,27 +1,24 @@
-<% if current_user %>
-  <%= link_to "Log out", destroy_user_session_path, :method => "delete" %>
-<% else %>
-  <%= link_to "Sign in/up", new_user_session_path %>
-
-  <%= link_to "FB Sign in", user_facebook_omniauth_authorize_path %>
-<% end %>
-<div class="container content">
+<%# if current_user %>
+  <%# link_to "Log out", destroy_user_session_path, :method => "delete" %>
+<%# else %>
+  <%# link_to "Sign in/up", new_user_session_path %>
+  <%# link_to "FB Sign in", user_facebook_omniauth_authorize_path %>
+<%# end %>
+<div class="container navicons">
   <div class="row">
-    <div class="col-sm-4 col-md-2 col-xs-4 centered">
-	    <h4>
-	      <%= button_to "<", places_path %>   	
-	    </h4>
+    <div class="col-sm-4 col-md-4 col-xs-4 centered">
+	    <h5>
+	      <%= link_to "<", :back, :class => "btn" %>   	
+	    </h5>
     </div>
-
-    <div class="col-sm-4 col-md-5 col-xs-4 centered">
+    <div class="col-sm-4 col-md-4 col-xs-4 centered">
     	<h5>
-    		<%= button_to "Create Event", new_event_path %>
+    		<%= link_to "", new_event_path, :class => "btn glyphicon glyphicon-scale", :id => "nav_host_event_link" %>
     	</h5>	
     </div>
-
-    <div class="col-sm-4 col-md-5 col-xs-4 centered">
+    <div class="col-sm-4 col-md-4 col-xs-4 centered">
     	<h5>
-    		<%= button_to "Upcoming", "#" %>
+    		<%= link_to "", events_path, :class => "btn glyphicon glyphicon-calendar" %>
     	</h5>
     </div>
   </div>
