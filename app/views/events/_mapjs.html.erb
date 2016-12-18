@@ -5,7 +5,7 @@
 <div id="map"></div>
 
 <div id="directions-panel"></div>
-
+<% google_config = Rails.application.config_for(:google) %>
 <script>
   var stepDisplay;
   var markers = [];
@@ -308,5 +308,5 @@
     return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
   };
 </script>
-<% google_config = Rails.application.config_for(:google) %>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=<%=google_config["app_id"]%>&libraries=places&callback=initMap" defer></script>
