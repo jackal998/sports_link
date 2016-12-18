@@ -9,7 +9,7 @@
             今天
           <% else %>
             <% if action_name == "show" %>
-              <%= link_to day.keys[0], place_path(@place.place_id,date: day.values[0], distance: params[:distance]), :remote => "true" %>
+              <%= link_to day.keys[0], place_path(@place.place_id, date: day.values[0], distance: params[:distance]), :remote => "true" %>
             <% elsif controller_name == "events" %>
               <%= link_to day.keys[0], new_event_path(date: day.values[0], place_id: @place.place_id, distance: params[:distance]), :remote => "true" %>
             <% else %>
