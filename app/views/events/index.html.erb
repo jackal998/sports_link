@@ -1,56 +1,6 @@
-<!-- <div class="container content">
-	<div class="row">
-		<div class="col-sm-2 col-md-2 col-xs-2"><h3>
-			<%= link_to "<", :back %></h3>
-		</div>
+<%= render :partial => "/layouts/navbar" %>
+Events index
 
-    <div id="day_selection" class="col-sm-8 col-md-8 col-xs-8 centered">
-      <%= render :partial => "/places/day_selection" %>
-    </div> 
-
-	<div class="row">
-		<div class="place_detail col-md-4 col-sm-4 col-xs-4">
-			<div>
-				<img src="http://placehold.it/100x100" alt="revenue image">
-				<%#= @place.image %>
-			</div>
-		</div>
-
-		<div class=" col-md-8 col-sm-8 col-xs-8">
-			<div>	
-				<%= @place.name %>		
-			</div>
-
-			<div><%#= @place_location_distance_from_user %>0.2Km away</div>
-		</div>
-		<div class="clearfix"></div>	
-		<hr>
-		<div><%#= @place.nearby_store %></div>
-	</div>
-
-	<div><h4>場次加入</h4></div>
-	<ul class="events centered list-group">
-		<% @events.each do |event| %>
-			<li class="list-group-item">
-				<span class="pull-left">
-					<%= event.start_at.strftime('%H:%M') %>		
-				</span>
-
-				<span class="tag tag-info tag-pill float-xs-right">
-					1.5hr
-				</span>
-				<%#= event.duration %>
-				<span class="pull-right">
-					<%= link_to "Join", "#" %>		
-				</span>
-			</li>
-		<% end %>	
-	</ul>	
-
-		<% if @events.count <= 4 %>
-			<div>
-				<%= button_to "Create Event", new_event %>	
-			</div>
-		<% end %>	
-</div>
- -->
+<% @events.each do |e| %>
+	<%= e.place_id %>
+<% end %> %>
