@@ -246,7 +246,10 @@
   function updatePlaceToLinks(place,distance){
     var hidden_informations = document.getElementById('hidden_informations');
     var more_events_link = document.getElementById('more_events_link');
-    more_events_link.href = hidden_informations.getAttribute('href') + '/' + place.place_id + "?distance=" + distance
+    var more_events_link_url = more_events_link.getAttribute('href');
+    if (getURLParameter(more_events_link_url, 'distance') == null) {
+      more_events_link.href = '/places/' + place.place_id + "?distance=" + distance
+    }
     $('#day_selection a').each( function( index, element ){
       var a_tag = this
       var a_url = $(a_tag).attr('href')
@@ -268,7 +271,8 @@
       place_id: place.place_id,
       reference: place.reference,
       rating: place.rating,
-      vicinity: place.vicinity
+      vicinity: place.vicinity,
+      date: getURLParameter($('#more_events_link').attr('href'), 'date')
     })
     $.ajax({   
       type:'POST',
