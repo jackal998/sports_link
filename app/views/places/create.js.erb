@@ -1,2 +1,4 @@
-var content = "<%= j render(:partial => 'event') %>"
-$('#event').html(content);
+var more_events_link = document.getElementById('more_events_link');
+more_events_link.href = '<%= raw place_path(params[:params_to_post]['0'][:place_id], date: params[:params_to_post]['0'][:date], distance: params[:params_to_post]['0'][:distance]) %>'
+var event = "<%= j render(:partial => 'event') %>"
+$('#event').html(event);
