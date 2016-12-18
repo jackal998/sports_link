@@ -3,8 +3,8 @@ class EventsController < ApplicationController
   before_action :find_event, :only => [:update, :show]
 
   def index
-    @place = Place.find_by_place_id(params[:place_id])
-    @events = Event.where(:place_id => params[:place_id]).includes(:user)
+    # @place = Place.find_by_place_id(params[:place_id])
+    @events = Event.where("start_at > ? ", Time.now).includes(:user)
   end 
 
   def new
