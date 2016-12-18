@@ -25,7 +25,7 @@ class EventsController < ApplicationController
       start_at = params[:event][:start_at].to_time
       end_at = params[:event][:end_at].to_time
     end
-    @event = @event = Event.new(place_id: @place.id, user_id: current_user.id, start_at: start_at, end_at: end_at)
+    @event = @event = Event.new(place_id: @place.id, user_id: current_user.id, start_at: start_at, end_at: end_at, characteristic_of_user: params[:event][:characteristic_of_user])
     unless @event.save
       redirect_to event_path(@event)
     end
