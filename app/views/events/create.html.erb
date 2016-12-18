@@ -5,29 +5,21 @@
 <p>
 event informations:
 <br>
-
-  <% @event.attributes.each do |k,v| %>
     <br>
-    <%= k %>
-    <%= v %>
-  <% end %>
+    <div>活動開始時間：<%= @event.start_at%></div>
+    <div>活動結束時間<%= @event.end_at %></div>
   <br><br><hr>
 
 place informations:
 <br>
-
-  <% @place.attributes.each do |k,v| %>
-    <br>
-    <%= k %>
-    <%= v %>
-  <% end %>
+  <%= @place.name %>
+  <%= @place.address_components %>
+  <%= @place.quality %>
 </p>
+
 <p>
   distance:
   <%= params[:distance] %>
-</p>
-<p>
-  feel free to put some informations from this two instanse variables [@event,@place]
 </p>
 
 <%= link_to '首頁', root_path %>
