@@ -24,9 +24,9 @@
 </p>
 
 <% if @event.characteristic_of_user? %>
-  <%= @event.characteristic_of_user %>
+  <h4>特徵：<%= @event.characteristic_of_user %></h4>
 <% end %>  
 
 <div class="centered" >
-  <%= button_to '       首頁       ', root_path, :class => "btn btn-default" %>
+  <%= link_to '       首頁       ', root_path, :class => "btn btn-default" %>
 </div>
