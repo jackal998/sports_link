@@ -17,4 +17,11 @@ module ApplicationHelper
       return Faker::Superhero.name + "(Guest)"
     end
   end
+  def show_duration(event)
+    if (event.end_at - Time.now) > (event.end_at - event.start_at)
+      return '約' + ((event.end_at - event.start_at)/1.hour).round(0).to_s + '小時'
+    else
+      return '約' + ((event.end_at - Time.now)/1.hour).round(0).to_s + '小時'
+    end
+  end
 end
