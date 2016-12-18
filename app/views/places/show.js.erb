@@ -1,15 +1,18 @@
+<% params[:distance] ? distance = params[:distance] : distance = params[:params_to_post]['0'][:distance] %>
+<% params[:date] ? date = params[:date] : date = params[:params_to_post]['0'][:date] %>
+
 var show_events = "<%= j render(:partial => 'show_events') %>"
-var day_selection = "<%= j render(:partial => 'day_selection') %>"
+var day_selection = "<%= j render(:partial => 'day_selection', :locals => { distance: distance, date: date}) %>"
 var host_buttun = document.getElementById('host_buttun');
-var date = getURLParameter(host_buttun.href, 'date');
+var host_buttun_date = getURLParameter(host_buttun.href, 'date');
 
 $('#show_events').html(show_events);
 $('#day_selection').html(day_selection);
 
-if (date == null) {
-  host_buttun.href = host_buttun.href + '&date=<%= params[:date] %>'
+if (host_buttun_date == null) {
+  host_buttun.href = host_buttun.href + '&date=<%= date %>'
 } else {
-  host_buttun.href = host_buttun.href.replace(/date=[^&]+/, 'date=<%= params[:date] %>');
+  host_buttun.href = host_buttun.href.replace(/date=[^&]+/, 'date=<%= date %>');
 }
 function getURLParameter(url, name) {
   return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];

@@ -1,4 +1,7 @@
-var day_selection = "<%= j render(:partial => '/places/day_selection') %>"
+<% params[:distance] ? distance = params[:distance] : distance = params[:params_to_post]['0'][:distance] %>
+<% params[:date] ? date = params[:date] : date = params[:params_to_post]['0'][:date] %>
+
+var day_selection = "<%= j render(:partial => '/places/day_selection', :locals => { distance: distance, date: date}) %>"
 var form_for_new_event = "<%= j render(:partial => 'form_for_new_event') %>"
 
 $('#day_selection').html(day_selection);
