@@ -6,8 +6,10 @@ Rails.application.routes.draw do
       resources :places
       resources :events
     end
-    constraints(host: 'api.just.got-game.org') do
+    constraints(host: 'api.sports-link.online') do
       resources :users
+      resources :places
+      resources :events
     end
   end
 
