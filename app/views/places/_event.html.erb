@@ -1,24 +1,38 @@
 <% if @place.present? %>
   <% if @event.present? %>
+    <div class="col-md-12 col-xs-12 col-sm-12">
+      <div class="button-1 centered">
+        <%= link_to '加入', event_path(@event, :place_id => @place.place_id, :date => date, :distance => distance), id: "join_event_link", method: "PATCH" %>
+      </div>  
+    </div>    
     <div class="pull-right">
       <%= (@event.start_at + 3600 * 8 ).strftime("%H:%M") %>
     </div>
-    <div class="col-md-12 col-xs-12 col-sm-12">
-      <%= link_to '加入', event_path(@event, :place_id => @place.place_id, :date => date, :distance => distance), class: "btn btn-default", id: "join_event_link", method: "PATCH" %>
-    </div>
+
   <% else %>
-    <div class="col-sm-9 col-xs-9 col-md-10">
-      <% case date %>
-      <% when 'day_after' %>
-        <%= '這個場地後天還沒有活動，快來主辦一個吧！' %>
-      <% when 'tomorrow' %>
-        <%= '這個場地明天還沒有活動，快來主辦一個吧！' %>
-      <% else %>
-        <%= '這個場地今天已經沒有活動了，再主辦一個吧！' %>
-      <% end %>
-    </div>
-    <div class="col-sm-3 col-xs-3 col-md-2">
-    <%= link_to '主辦', new_event_path(:place_id => @place.place_id, :date => date, :distance => distance), :class => "btn btn-default", id: "host_event_link" %>
+    <div class="col-sm-12 col-xs-12 col-md-12">
+      <div class="col-sm-12 col-xs-12 col-md-12">
+        <div class="button-1 centered">
+          <%= link_to '主辦', new_event_path(:place_id => @place.place_id, :date => date, :distance => distance), id: "host_event_link" %>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="no-events">
+        <% case date %>
+        <% when 'day_after' %>
+          <div class="pull-right">
+            <%= '後天還沒有活動' %>
+          </div>
+        <% when 'tomorrow' %>
+          <div class="pull-right">
+            <%= '明天還沒有活動' %>
+          </div>  
+        <% else %>
+          <div class="pull-right">
+            <%= '今天已經沒有活動了' %>
+          </div>  
+        <% end %>
+      </div>
     </div>
   <% end %>
 <% end %>

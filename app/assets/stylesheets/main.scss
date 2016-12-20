@@ -9,6 +9,7 @@
 .marketing_tagline{
 	color: white;
 }
+
 .background{
 	z-index: -2
 }
@@ -30,11 +31,14 @@ ul{
 .container{
   max-width: 1000px;
   margin: 0 auto;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 #logo{
 	float:left;
 }
+
 nav{
 	float:right;
 }
@@ -57,17 +61,74 @@ nav a{
 	top: 0;
 	right: 0;
 	width: 52px;
-
 }
+
 .white{
 	color: white;
 }
 
 .small-text{
-	font-size: 16px;
-	line-height: 0;
+	font-size: 1.6rem;
+  color: #BF0000;
+  margin-top: -8px;
 }
 
+.current_day{
+	padding: 0 20px 20px;
+	border-width: 0 0 2px 0;
+	border-style: solid;
+	border-color: #BF0000;
+}
+
+.small-text a{
+	    padding: 17px 28%;
+  color: #555;
+}
+.small-text:nth-child(2) {
+	border-width: 0 1px 0 1px;
+	border-style: solid;
+	border-color: #555;
+}
+
+.call_to_action p {
+  margin: 2px 16px 10px;
+  font-size: 18px;
+}
+
+.button-1{
+  padding: 14px 4px;
+  border-radius: 16px;
+  width: 100%;
+  margin: -12px auto 0;
+  z-index: 2;
+  opacity: 0.65;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #BF0000;
+  font-size: 2rem;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+}
+.button-1 a{
+	text-decoration: none;
+	color: #FFF;
+	padding: 10px 38%;
+}
+
+.navbar1 a{
+	font-size: x-large;
+	color: #BF0000;
+}
+
+.navbar2{
+	min-height: 60px;
+	border-width:0 0 25px 0 ;
+	box-shadow:0 0 25px 0 rgba(0, 0, 0, 0.01), 0 0 18px 0 rgba(0, 0, 0, 0.1)
+}
+
+.day_selection{
+	min-height: 50px;
+}
 @media (max-width: 425px){
 	
 	nav{

@@ -6,20 +6,22 @@
 <%# end %>
 <div class="container navicons">
   <div class="row">
-    <div class="col-sm-4 col-md-4 col-xs-4 centered">
-	    <h5>
-	      <%= link_to "<", :back, :class => "btn" %>   	
-	    </h5>
-    </div>
-    <div class="col-sm-4 col-md-4 col-xs-4 centered">
-    	<h5>
-    		<%= link_to "", new_event_path, :class => "btn glyphicon glyphicon-scale", :id => "nav_host_event_link" %>
-    	</h5>	
-    </div>
-    <div class="col-sm-4 col-md-4 col-xs-4 centered">
-    	<h5>
-    		<%= link_to "", events_path, :class => "btn glyphicon glyphicon-calendar" %>
-    	</h5>
+    <div class="navbar2">
+      <div class="col-sm-4 col-md-4 col-xs-4 centered navbar1">
+  	    <h5>
+  	      <%= link_to "<", :back, :class => "btn" %>   	
+  	    </h5>
+      </div>
+      <div class="col-sm-4 col-md-4 col-xs-4 centered navbar1">
+      	<h5>
+      		<%= link_to "", new_event_path, :class => "btn glyphicon glyphicon-plus", :id => "nav_host_event_link" %>
+      	</h5>	
+      </div>
+      <div class="col-sm-4 col-md-4 col-xs-4 centered navbar1">
+      	<h5>
+      		<%= link_to "", events_path, :class => "btn glyphicon glyphicon-calendar" %>
+      	</h5>
+      </div>
     </div>
   </div>
 </div>

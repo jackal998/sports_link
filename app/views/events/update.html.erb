@@ -1,5 +1,27 @@
-場地：
-<%= @place.name %>
-開始時間：
-<%= @event.start_at.strftime("%H:%M") %>
+<div class="centered">
+<h3> 恭喜，您已經成功加入活動了！<br>等一下見!!</h3>
+</div>
+<div>
+<h3>場地：
+<%= @place.name %></h3>
+</div>
+<br>
+<div>
+<h4>開始時間：
+<%= @event.start_at.strftime("%H:%M") %></h4>
+</div>
 
+<div>
+<h4>結束時間：
+<%= @event.end_at.strftime("%H:%M") %></h4>
+</div>
+<div>
+	<% if @event.characteristic_of_user? %>
+	  <h4>特徵：<%= @event.characteristic_of_user %></h4>
+	<% end %>  
+</div>
+<br>
+
+<div class="button-1 centered" >
+  <%= link_to '首頁', root_path %>
+</div>

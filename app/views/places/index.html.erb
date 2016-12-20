@@ -3,10 +3,16 @@
 <div id="day_selection">
   <%= render :partial => "/places/day_selection", :locals => { date: 'today', distance: ""} %>
 </div>
-<hr>
+<div class="clearfix"></div>
 <%= render :partial => "/events/mapjs"   %>
 <div class="clearfix"></div>
 <%= render :partial => "/places/footer"   %>
+<div class="clearfix"></div>
+<div class="call_to_action">
+  <p>
+    Hey！先在地圖上選擇附近推薦的球場然後選日期查看活動，或者搜索別的地點附近球場的資訊就可以秒速參加籃球鬥牛活動了！
+  </p>
+</div>
 <script>
   $(document).ready(function() {
     $('.navicons a').each(function(index, element ){

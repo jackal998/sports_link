@@ -4,7 +4,9 @@
       <% [{今天: 'today'},{明天: 'tomorrow'},{後天: 'day_after'}].each do |day| %>
         <div class="col-sm-4 col-xs-4 col-md-4 centered small-text">
           <% if day.values[0] == date %>
-            <%= day.keys[0] %>
+            <div class="current_day">
+              <%= day.keys[0] %>
+            </div>
           <% else %>
             <% if action_name == "show" %>
               <%= link_to day.keys[0], place_path(@place.place_id, date: day.values[0], distance: distance), :remote => "true" %>
@@ -19,3 +21,4 @@
     </h3>
   </div> 
 </div>
+<div class="clearfix"></div>
