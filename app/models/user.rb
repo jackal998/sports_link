@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  before_create :generate_authentication_token
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -17,7 +19,7 @@ class User < ApplicationRecord
       user.fb_token = auth.credentials.token
       user.fb_name = auth.info.name
       user.fb_avatar = auth.info.image
-      user.fb_raw_data = auth
+      # user.fb_raw_data = auth
       user.save!
       return user
     end
@@ -29,7 +31,7 @@ class User < ApplicationRecord
       existing_user.fb_token = auth.credentials.token
       existing_user.fb_name = auth.info.name
       user.fb_avatar = auth.info.image
-      existing_user.fb_raw_data = auth
+      # existing_user.fb_raw_data = auth
       existing_user.save!
       return existing_user
     end
@@ -42,8 +44,12 @@ class User < ApplicationRecord
     user.fb_avatar = auth.info.image
     user.email = auth.info.email
     user.password = Devise.friendly_token[0,20]
-    user.fb_raw_data = auth
+    # user.fb_raw_data = auth
     user.save!
     return user
+  end
+
+  def generate_authentication_token
+     self.authentication_token = Devise.friendly_token
   end
 end
