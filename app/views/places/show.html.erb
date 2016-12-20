@@ -9,29 +9,38 @@
   <div class="clear-fix"></div>
   <div id="day_selection">
     <%= render :partial => "/places/day_selection", :locals => { distance: distance, date: date} %>
-  </div> 
-  <hr>
+  </div>
+  <div class="clear-fix"></div> 
   <div class="row">
-    <div class="place_detail col-md-4 col-sm-4 col-xs-4">
+    <div class="place_detail col-md-12 col-sm-12 col-xs-12 rectangle_pic">
       <div>
-        <img src="https://maps.googleapis.com/maps/api/streetview?size=100x100&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt=<%= @place.name %>>
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=425x150&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt=<%= @place.name %>>
       </div>
     </div>
-    <div class=" col-md-8 col-sm-8 col-xs-8">
-      <div> 
+    <div class="col-md-8 col-sm-8 col-xs-8">
+      <h3> 
         <%= @place.name %>    
-      </div>
-      <div>
+      </h3>
+      <h5>
         <% if distance.to_i > 1000 %>
           <%= '距離約' + (distance.to_i/1000).round(2).to_s + '公里' %>
         <% else %>
           <%= '距離約' + distance + '公尺' %>
         <% end %>
-      </div>
+      </h5>
     </div>
-    <div class="clearfix"></div>  
-    <hr>
-    <div><%#= @place.nearby_store %></div>
+    <div class="col-md-4 col-sm-4 col-xs-4 nearby_information pull-right">
+      <!-- NearbyDrinks -->
+      <!-- NearbyRestroom -->
+      <!-- NearbyParking -->
+    </div>
+    <div class="court_information col-md-12 col-xs-12 col-sm-12">
+      <!-- basketbal net -->
+      <!-- court count -->
+      <!-- light closing -->
+      <!-- powerful-skill -->
+    </div>
+    <!-- Description of court -->
   </div>
   <div><h4>場次加入</h4></div>
   <div id="show_events">

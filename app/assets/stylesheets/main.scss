@@ -18,11 +18,6 @@
 	z-index: 1
 }
 
-.hamburger{
-	width:100%;
-	height:auto;
-}
-
 ul{
 	margin: 0;
 	padding-left: 0;
@@ -121,6 +116,15 @@ nav a{
 .day_selection{
 	min-height: 50px;
 }
+
+.rectangle_pic{
+	margin-left: -15px;
+}
+
+.rectangle_pic img{
+	height: 10%;
+}
+
 @media (max-width: 425px){
 	
 	nav{
