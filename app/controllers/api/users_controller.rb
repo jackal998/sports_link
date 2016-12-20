@@ -1,7 +1,7 @@
 class Api::UsersController < Api::BaseController
 
   # skip_befor_action_auth_for_devise(postman_testing)
-  skip_before_action :authenticate_user!
+  # skip_before_action :authenticate_user!
   #rescue_from (class)=> Ac_R_::R_N_F.. , with def somthing(e)=> e.message...do_something... => render json:....
 
   def index

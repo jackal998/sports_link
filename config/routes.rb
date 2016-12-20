@@ -5,11 +5,15 @@ Rails.application.routes.draw do
       resources :users
       resources :places
       resources :events
+      post "login" => "auth#login"
+      post "logout" => "auth#logout"
     end
     constraints(host: 'api.sports-link.online') do
       resources :users
       resources :places
       resources :events
+      post "login" => "auth#login"
+      post "logout" => "auth#logout"
     end
   end
 

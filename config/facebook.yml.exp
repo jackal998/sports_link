@@ -1,3 +1,4 @@
 development:
   app_id:
   secret:
+  callback_url:

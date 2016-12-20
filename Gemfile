@@ -29,6 +29,7 @@ gem 'faker'
 gem 'devise'
 
 gem 'omniauth-facebook'
+gem "rest-client"
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
