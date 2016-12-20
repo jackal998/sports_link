@@ -9,29 +9,56 @@
   <div class="clear-fix"></div>
   <div id="day_selection">
     <%= render :partial => "/places/day_selection", :locals => { distance: distance, date: date} %>
-  </div> 
-  <hr>
+  </div>
+  <div class="clear-fix"></div> 
   <div class="row">
-    <div class="place_detail col-md-4 col-sm-4 col-xs-4">
+    <div class="place_detail col-md-12 col-sm-12 col-xs-12 rectangle_pic">
       <div>
-        <img src="https://maps.googleapis.com/maps/api/streetview?size=100x100&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt=<%= @place.name %>>
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=425x150&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt=<%= @place.name %>>
       </div>
     </div>
-    <div class=" col-md-8 col-sm-8 col-xs-8">
-      <div> 
+    <div class="col-md-5 col-sm-5 col-xs-5">
+      <h3> 
         <%= @place.name %>    
-      </div>
-      <div>
+      </h3>
+      <h5>
         <% if distance.to_i > 1000 %>
           <%= '距離約' + (distance.to_i/1000).round(2).to_s + '公里' %>
         <% else %>
           <%= '距離約' + distance + '公尺' %>
         <% end %>
+      </h5>
+    </div>
+    <div class="col-md-7 col-sm-7 col-xs-7 nearby_information pull-right">
+      <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/nearby.jpg" alt="nearby">
+      <!-- NearbyDrinks -->
+      <!-- NearbyRestroom -->
+      <!-- NearbyParking -->
+    </div>
+    <div class="court_information col-md-12 col-xs-12 col-sm-12">
+      <div class="col-md-3 col-xs-3 col-sm-3 centered">
+      <!-- basketbal net -->
+        <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/5.png" alt="basketbal net">
+      </div>
+      <div class="col-md-3 col-xs-3 col-sm-3 centered">
+      <!-- court count -->
+        <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/8.png" alt="court count">
+      </div>
+      <div class="col-md-3 col-xs-3 col-sm-3 centered">
+      <!-- light closing -->
+        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/9.png" alt="light closing">
+      </div>
+      <div class="col-md-3 col-xs-3 col-sm-3 centered">
+      <!-- powerful-skill -->
+        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/10.png" alt="powerful-skill">
       </div>
     </div>
-    <div class="clearfix"></div>  
-    <hr>
-    <div><%#= @place.nearby_store %></div>
+    <div class="clearfix"></div>
+    <!-- Description of court -->
+    <br>
+    <div class="description">
+      <p>場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺</p>
+    </div>
   </div>
   <div><h4>場次加入</h4></div>
   <div id="show_events">

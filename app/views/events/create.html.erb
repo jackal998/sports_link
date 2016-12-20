@@ -10,8 +10,8 @@
 <p>
 活動信息:
 <br>
-    <div><h3>活動開始時間：<%= (@event.start_at + 3600 * 8 ).strftime("%H:%M") %></h3></div>
-    <div><h5>活動結束時間：<%= (@event.end_at + 3600 * 8 ).strftime("%H:%M") %></h5></div>
+  <div><h3>活動開始時間：<%= (@event.start_at + 3600 * 8 ).strftime("%H:%M") %></h3></div>
+  <div><h5>活動結束時間：<%= (@event.end_at + 3600 * 8 ).strftime("%H:%M") %></h5></div>
 <hr>
 
 場地資料:
@@ -27,6 +27,6 @@
   <h4>特徵：<%= @event.characteristic_of_user %></h4>
 <% end %>  
 
-<div class="centered" >
-  <%= link_to '       首頁       ', root_path, :class => "btn btn-default" %>
+<div class="button-1 centered" >
+  <%= link_to '首頁', root_path %>
 </div>

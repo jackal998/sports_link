@@ -1,16 +1,25 @@
 <div id="footer">
-  <div id="place_content" class="col-sm-9 col-xs-9 col-md-10">
+  <div id="place_content" class="col-sm-12 col-xs-12 col-md-12">
+    <div class="clearfix"></div>
+      <div id="event">
+    </div>
     <div id="place_name"></div>
     <div id="place_distance"></div>
+  </div> 
+  <div class="clearfix"></div>
+  <hr>
+  <div class="col-sm-9 col-xs-9 col-md-10">
+    <div class="nearby_information pull-left">
+      <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/nearby.jpg" alt="nearby">
+      <!-- NearbyDrinks -->
+      <!-- NearbyRestroom -->
+      <!-- NearbyParking -->
+    </div>
   </div>
-  <div class="col-sm-3 col-xs-3 col-md-2">
+  <div class="col-sm-3 col-xs-3 col-md-2 pull-right">
   	<%= link_to '更多', places_path, :class => "btn btn-default close", id: "more_events_link"%>
   </div>
   <div class="clearfix"></div>
-	<hr>
-	<div class="clearfix"></div>
-  <div id="event">
-  </div>
 </div>
 
 <div id="hidden_informations" style="display: none"></div>
