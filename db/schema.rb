@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161217101641) do
+ActiveRecord::Schema.define(version: 20161219093912) do
 
   create_table "average_caches", force: :cascade do |t|
     t.integer  "rater_id"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 20161217101641) do
     t.text     "reference"
     t.string   "address_components"
     t.float    "quality"
+    t.index ["place_id"], name: "index_places_on_place_id"
   end
 
   create_table "rates", force: :cascade do |t|
@@ -103,6 +104,8 @@ ActiveRecord::Schema.define(version: 20161217101641) do
     t.string   "fb_name"
     t.string   "fb_avatar"
     t.string   "nickname"
+    t.string   "authentication_token"
+    t.index ["authentication_token"], name: "index_users_on_authentication_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["fb_uid"], name: "index_users_on_fb_uid"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
