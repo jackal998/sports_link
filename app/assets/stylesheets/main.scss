@@ -55,12 +55,9 @@ nav a{
 	padding: 0 12px;
 }
 
-#menu-trigger{
-	display: none;
-	position: fixed;
-	top: 0;
-	right: 0;
-	width: 52px;
+#call_to_action p{
+  margin: 2px 16px 10px;
+  font-size: 18px;
 }
 
 .white{
@@ -81,18 +78,13 @@ nav a{
 }
 
 .small-text a{
-	    padding: 17px 28%;
+	padding: 17px 28%;
   color: #555;
 }
 .small-text:nth-child(2) {
 	border-width: 0 1px 0 1px;
 	border-style: solid;
 	border-color: #555;
-}
-
-.call_to_action p {
-  margin: 2px 16px 10px;
-  font-size: 18px;
 }
 
 .button-1{

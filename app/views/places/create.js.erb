@@ -8,3 +8,5 @@ var nav_host_event_link = document.getElementById('nav_host_event_link');
 $('#event').html(event);
 more_events_link.href = '<%= raw place_path(@place.place_id, date: date, distance: distance) %>'
 nav_host_event_link.href = '<%= raw new_event_path(place_id: @place.place_id, date: date, distance: distance) %>'
+
+$('#call_to_action').addClass('close');
