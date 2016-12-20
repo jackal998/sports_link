@@ -125,6 +125,25 @@ nav a{
 	height: 10%;
 }
 
+.court_information{
+	border-width:0 0 1px 0 ;
+	border-color: #555;
+}
+
+.nearby_information img{
+  max-height: 63px;
+  margin-top: 6px;
+}    
+
+.description{
+	border-width:0 0 1px 0 ;
+	border-color: #555;
+}
+
+.description p{
+	margin: 0 15px;
+}
+
 @media (max-width: 425px){
 	
 	nav{
