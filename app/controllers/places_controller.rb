@@ -3,25 +3,12 @@ class PlacesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index, :create]
 
   def index
-    @place = Place.find_by_place_id(params[:place_id])
-    if @place.present?
-      @events = @place.events
-      if @events
-        case params[:date]
-        when 'day_after'
-          @events = @events.where("start_at > ? and start_at < ?", Date.today + 2, Date.today + 3)
-        when 'tomorrow'
-          @events = @events.where("start_at > ? and start_at < ?", Date.today + 1, Date.today + 2)
-        else 
-          @events = @events.where("start_at > ? and start_at < ?", Time.now, Date.today + 1)
-        end
-      end
-      @event = @events.first
-    end
+    @place = Place.find_by_place_id(params[:place_id]) if params[:place_id]    
+    @event = get_events_by_place_and_date(@place, params[:date]).first
   end
 
   def create
-    params[:params_to_post].each do |key,value|
+    params[:params_to_post].each do |key, value|
       @place = Place.find_by_place_id(value[:place_id])
       unless @place
         @place = Place.new
@@ -35,31 +22,13 @@ class PlacesController < ApplicationController
         @place.save
       end
     end
-    @events = @place.events
-    if @events
-      case params[:params_to_post]['0'][:date]
-      when 'day_after'
-        @event = @events.where("start_at > ? and start_at < ?", Date.today + 2, Date.today + 3).first
-      when 'tomorrow'
-        @event = @events.where("start_at > ? and start_at < ?", Date.today + 1, Date.today + 2).first
-      else 
-        @event = @events.where("start_at > ? and start_at < ?", Time.now, Date.today + 1).first
-      end
-    end
+    
+    @event = get_events_by_place_and_date(@place, params[:params_to_post]["0"][:date]).first
   end
 
   def show
     @place = Place.find_by_place_id(params[:id])
-    @events = @place.events
-    if @events
-      case params[:date]
-      when 'day_after'
-        @events = @events.where("start_at > ? and start_at < ?", Date.today + 2, Date.today + 3)
-      when 'tomorrow'
-        @events = @events.where("start_at > ? and start_at < ?", Date.today + 1, Date.today + 2)
-      else 
-        @events = @events.where("start_at > ? and start_at < ?", Time.now, Date.today + 1)
-      end
-    end
+    @events = get_events_by_place_and_date(@place, params[:date])
   end
+
 end

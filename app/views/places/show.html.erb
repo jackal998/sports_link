@@ -23,9 +23,9 @@
       </h3>
       <h5>
         <% if distance.to_i > 1000 %>
-          <%= '距離約' + (distance.to_i/1000).round(2).to_s + '公里' %>
+          距離約<%= distance.to_i/1000).round(2) %>公里
         <% else %>
-          <%= '距離約' + distance + '公尺' %>
+          距離約<%= distance %>公尺
         <% end %>
       </h5>
     </div>
@@ -64,7 +64,7 @@
   <div id="show_events">
     <%= render :partial => "show_events" %>
   </div>
-  <% unless @events.present? && @events.count >= 4 %>
+  <% if @events.nil? || @events.size < 4 %>
     <%= link_to '主辦', new_event_path(:place_id => @place.place_id, :distance => params[:distance], :date => params[:date]), class: "btn btn-link", id: "host_buttun" %> 
   <% end %> 
 </div>

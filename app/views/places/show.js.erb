@@ -14,6 +14,3 @@ if (host_buttun_date == null) {
 } else {
   host_buttun.href = host_buttun.href.replace(/date=[^&]+/, 'date=<%= date %>');
 }
-function getURLParameter(url, name) {
-  return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
-};

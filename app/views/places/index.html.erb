@@ -14,7 +14,7 @@
   </p>
 </div>
 <script>
-  $(document).ready(function() {
+
     $('.navicons a').each(function(index, element ){
       if (getURLParameter(element.href, 'place_id') == null) {      
         element.addEventListener("click", preventfromDefault);
@@ -41,8 +41,5 @@
       event.preventDefault();
       event.stopPropagation()
     };
-    function getURLParameter(url, name) {
-      return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
-    };
-  });
+    
 </script>  

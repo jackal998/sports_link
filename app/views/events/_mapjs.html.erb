@@ -5,7 +5,6 @@
 <div id="map"></div>
 
 <div id="directions-panel"></div>
-<% google_config = Rails.application.config_for(:google) %>
 <script>
   var stepDisplay;
   var markers = [];
@@ -263,8 +262,8 @@
     });
   };
   function sendAjaxtoServer(place,distance){
-    var params_to_post = [];
-    params_to_post.push({
+    var places = [];
+    places.push({
       name: place.name,
       location: place.geometry.location.toJSON(),
       distance: distance,
@@ -276,9 +275,9 @@
     })
     $.ajax({   
       type:'POST',
-      url: '/places',
-      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},   
-      data: {params_to_post: params_to_post},
+      dataType: "script",
+      url: '/places',  
+      data: { params_to_post: places },
       success: function(){
         console.log('[POST]ajax_to_places_success')
       },
@@ -290,7 +289,6 @@
         console.log('settings: '+settings)
       }
     })
-    params_to_post = [];
   };
   function attachInstructionText(marker, text) {
     google.maps.event.addListener(marker, 'click', function() {
@@ -304,9 +302,8 @@
                           'Error: The Geolocation service failed.' :
                           'Error: Your browser doesn\'t support geolocation.');
   };
-  function getURLParameter(url, name) {
-    return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
-  };
+  
 </script>
 
+<% google_config = Rails.application.config_for(:google) %>
 <script src="https://maps.googleapis.com/maps/api/js?key=<%=google_config["app_id"]%>&libraries=places&callback=initMap" defer></script>
