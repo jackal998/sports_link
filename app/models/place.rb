@@ -12,8 +12,7 @@ class Place < ApplicationRecord
   end
 
   private
-
-  def search_edge_from(latitude,longitude,distance)
+  def self.search_edge_from(latitude,longitude,distance)
     lat_diff = distance / 110574.0
     lon_distance = 111320.0 * Math.cos(latitude*Math::PI/180)
     lon_diff = distance / lon_distance

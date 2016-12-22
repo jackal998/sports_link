@@ -18,7 +18,6 @@ class Api::PlacesController < Api::BaseController
       @place = Place.find_by_place_id(params[:id])
       @events = get_events_by_place_and_date(@place, params[:date])
     else
-      #render json: { errors: 'Invalid date format' , needed: { date: 'string: "today", "tomorrow" or "day_after"'}}, :status => 400
       render json: { errors: 'No Place or Date Error' , needed: { id: 'place_id string', date: 'string: "today", "tomorrow" or "day_after"'}}, :status => 400
     end
   end

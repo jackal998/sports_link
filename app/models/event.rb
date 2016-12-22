@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   has_many :attendees, :through => "event_attendees", :source => "user"
 
   validates_presence_of :start_at
+  validates_presence_of :end_at
 
   def self.during(start_at, end_at)
     where("start_at >= ? and start_at < ?", start_at, end_at) 

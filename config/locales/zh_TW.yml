@@ -1,4 +1,26 @@
 zh_TW:
-  today: 今天
-  tomorrow: 明天
-  day_after: 後天
+  activerecord:
+    errors:
+      models:
+        event:
+          attributes:
+            start_at:
+              blank: "開始時間定義錯誤"
+            end_at:
+              blank: "結束時間定義錯誤"
+  today: "今天"
+  tomorrow: "明天"
+  day_after: "後天"
+  devise:
+    failure:
+      already_authenticated: "已經登入"
+      user:
+        invalid: "不合法的 %{authentication_keys} 或是密碼"
+        not_found_in_database: "不合法的金鑰 %{authentication_keys} 或是密碼"
+        timeout: "登入逾時，請重新登入"
+        unauthenticated: "請先註冊，或是登入"
+    sessions:
+      user:
+        signed_in: "登入成功"
+        signed_out: "登出成功"
+        already_signed_out: "登出成功"

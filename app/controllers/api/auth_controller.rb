@@ -29,8 +29,7 @@ class Api::AuthController < Api::BaseController
 
     if success
       render :json => { :message => "Login success",
-                        :auth_token => user.authentication_token,
-                        :user_id => user.id}
+                        :auth_token => user.authentication_token}
     else
       render :json => { :errors => "Email or Password is missing or wrong", :needed => { email: "string", password: "string", access_token: "string"} }, :status => 401
     end
