@@ -1,4 +1,4 @@
-<%= render :partial => "/layouts/navbar" %>
+<%= render :partial => "/layouts/navbar", :locals => { place_id: '', date: 'today', distance: '' } %>
 <div class="clear-fix"></div>
 <div id="day_selection">
   <%= render :partial => "/places/day_selection", :locals => { place_id: '', date: 'today', distance: '', action: 'places'} %>
@@ -15,7 +15,7 @@
 </div>
 <script>
 
-    $('.navicons a').each(function(index, element ){
+    $('.navicons a').each(function(index, element){
       if (getURLParameter(element.href, 'place_id') == null) {      
         element.addEventListener("click", preventfromDefault);
         element.addEventListener("click", function(){
@@ -26,11 +26,11 @@
         });
       }
     });
-    $('#day_selection a').each(function(index, element ){
-      if (getURLParameter(element.href, 'distance') == null) {      
+    $('#day_selection a').each(function(index, element){
+      if (getURLParameter(element.href, 'place_id') == null) {      
         element.addEventListener("click", preventfromDefault);
         element.addEventListener("click", function(){
-          if (getURLParameter(element.href, 'distance') != null) {
+          if (getURLParameter(element.href, 'place_id') != null) {
             element.removeEventListener("click", preventfromDefault);
             element.click()
           }

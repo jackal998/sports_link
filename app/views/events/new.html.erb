@@ -3,7 +3,7 @@
 
 <div class="container content">
   <div>
-    <%= render :partial => "/layouts/navbar" %>
+    <%= render :partial => "/layouts/navbar", :locals => {place_id: place_id, distance: distance, date: date } %>
   </div>
 	<div class="clear-fix"></div>
   <div id="day_selection">

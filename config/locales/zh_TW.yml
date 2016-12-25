@@ -8,8 +8,12 @@ zh_TW:
               blank: "開始時間定義錯誤"
             end_at:
               blank: "結束時間定義錯誤"
-  today: "今天"
-  tomorrow: "明天"
+        user:
+          attributes:
+            email:
+              blank: "信箱不可以為空"
+            password:
+              blank: "密碼不可以為空"
   day_after: "後天"
   devise:
     failure:
@@ -30,3 +34,8 @@ zh_TW:
     omniauth_callbacks:
       user:
         success: "登入成功"
+  errors: 
+    messages:
+      not_saved: "尚未儲存"
+  today: "今天"
+  tomorrow: "明天"

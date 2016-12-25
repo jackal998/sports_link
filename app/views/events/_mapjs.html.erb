@@ -13,11 +13,27 @@
   function initMap() {
     directionsService = new google.maps.DirectionsService;
     directionsDisplay = new google.maps.DirectionsRenderer;
+    var styles = [
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+          { lightness: 100 },
+          { visibility: "simplified" }
+        ]
+      },{
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      }
+    ];
     map = new google.maps.Map(document.getElementById('map'), {
       zoom: 16,
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-
+    map.setOptions({styles: styles});
     // Create the search box and link it to the UI element.
     var input = document.getElementById('pac-input');
     var searchBox = new google.maps.places.SearchBox(input);
@@ -41,17 +57,17 @@
           lng: position.coords.longitude
         };
         currentPos = new google.maps.LatLng(pos.lat,pos.lng);
-        // var image = {
-        //   url: 'images/here.png',
-        //   size: new google.maps.Size(256, 256),
-        //   origin: new google.maps.Point(0, 0),
-        //   anchor: new google.maps.Point(45, 45),
-        //   scaledSize: new google.maps.Size(45, 45)
-        // };
+        var here = {
+          url: 'images/here.png',
+          size: new google.maps.Size(16, 17),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(8, 8),
+          scaledSize: new google.maps.Size(17, 17)
+        };
         var marker = new google.maps.Marker({
+            icon: here,
             position: currentPos,
-            map: map,
-            animation: google.maps.Animation.DROP,
+            map: map
         });
         attachInstructionText(marker, 'Your here!')
         markers.push(marker)
@@ -186,13 +202,7 @@
     }
   }
   function createMarker(place) {
-    var icon = {
-      url: place.icon,
-      size: new google.maps.Size(71, 71),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(0,0),
-      scaledSize: new google.maps.Size(25, 25)
-    };
+    var icon = 'images/places.png'
     marker = new google.maps.Marker({
       map: map,
       icon: icon,
@@ -204,6 +214,12 @@
   };
   function attachInfromations(marker, place) {
     google.maps.event.addListener(marker, 'click', function() {
+      markers.forEach(function(m,index) {
+        if (index != 0) {
+          m.setIcon('images/places.png');
+        }
+      });
+      marker.setIcon('images/pselect.png');
       var hidden_informations = document.getElementById('hidden_informations');
       var more_events_link = document.getElementById('more_events_link');
       $('#more_events_link').removeClass('close')
