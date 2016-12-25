@@ -1,0 +1,20 @@
+<div class="col-sm-12 col-xs-12 col-md-12">
+  <div class="button-1 centered">
+    <%= link_to '主辦', new_event_path(:place_id => place_id, :date => date, :distance => distance), id: "host_event_link" %>
+  </div>
+</div>
+<div class="clearfix"></div>
+<div class="no-events">
+  <div class="pull-right">
+    <h3>
+      <% case date %>
+      <% when 'day_after' %>
+        <%= '後天還沒有活動' %> 
+      <% when 'tomorrow' %>
+        <%= '明天還沒有活動' %>
+      <% else %>
+        <%= '今天已經沒有活動了' %>
+      <% end %>
+    </h3>
+  </div>  
+</div>

@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
 
   def get_events_by_place_and_date(place, date)
     return [] unless place
-
     case date
       when 'day_after'
         place.events.during( (Date.today + 2).beginning_of_day, (Date.today + 2).end_of_day)

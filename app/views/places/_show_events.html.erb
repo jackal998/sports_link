@@ -1,19 +1,21 @@
-<% if @events.present? %>
-  <ul class="events centered list-group">
-    <% @events.each do |event| %>
-      <li class="list-group-item">
-        <span class="pull-left">
-          <%= (event.start_at + 3600 * 8).strftime('%H:%M') %>   
-        </span>
-        <span class="tag tag-info tag-pill float-xs-right">
-          <%= show_duration(event) %>
-        </span>
-        <span class="pull-right">
-          <% if event.start_at > Time.now %>
-            <%= link_to '加入', event_path(event), class: "btn btn-link", method: 'PATCH' %>
+<ul class="events centered list-group">
+  <% @events.each do |event| %>
+    <li class="list-group-item">
+      <span class="pull-left">
+        <%= event.start_at.strftime('%H:%M') %>   
+      </span>
+      <span class="tag tag-info tag-pill float-xs-right">
+        <%= show_duration(event) %>
+      </span>
+      <span class="pull-right">
+        <% if event.start_at > Time.now %>
+          <% if current_user.attended_events.find(event) %>
+            <%= link_to '已參加！', events_path %>
+          <% else %>
+            <%= link_to '加入', join_event_path(event, :place_id => place_id, :date => date, :distance => distance), id: "join_event_link", method: "post" %>
           <% end %>
-        </span>
-      </li>
-    <% end %> 
-  </ul> 
-<% end %>
+        <% end %>
+      </span>
+    </li>
+  <% end %> 
+</ul>

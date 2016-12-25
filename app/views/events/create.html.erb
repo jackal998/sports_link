@@ -8,18 +8,23 @@
   </p>
 </div>
 <p>
-活動信息:
-<br>
-  <div><h3>活動開始時間：<%= (@event.start_at).strftime("%H:%M") %></h3></div>
-  <div><h5>活動結束時間：<%= (@event.end_at).strftime("%H:%M") %></h5></div>
-<hr>
+  活動信息:
+  <br>
+  <div>
+    <h3>活動開始時間：<%= @event.start_at.strftime("%H:%M") %></h3>
+  </div>
+  <div>
+    <h5>活動結束時間：<%= @event.end_at.strftime("%H:%M") %></h5>
+  </div>
+  <hr>
 
-場地資料:
-<br>
+  場地資料:
+  <br>
   <div>
     <h2><%= @place.name %></h2>
-    <h3><%= link_to @place.address_components, "link to googlemap routes" %></h3>
-    <h4>距離：<%= params[:distance] %>m</h4>
+    <h3>
+      <%= link_to @place.address_components, 'http://maps.google.com/?q=' + @place.address_components %></h3>
+    <h4>距離：<%= params[:distance] %>公尺</h4>
   </div>
 </p>
 

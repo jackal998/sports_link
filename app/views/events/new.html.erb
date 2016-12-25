@@ -1,6 +1,5 @@
 <% google_config = Rails.application.config_for(:google) %>
-<% params[:distance] ? distance = params[:distance] : distance = params[:params_to_post]['0'][:distance] %>
-<% params[:date] ? date = params[:date] : date = params[:params_to_post]['0'][:date] %>
+<% distance, date, place_id, event = params[:distance], params[:date], @place.place_id, @event %>
 
 <div class="container content">
   <div>
@@ -8,7 +7,7 @@
   </div>
 	<div class="clear-fix"></div>
   <div id="day_selection">
-    <%= render :partial => "/places/day_selection", :locals => { distance: distance, date: date} %>
+    <%= render :partial => "/places/day_selection", :locals => { distance: distance, date: date, place_id: place_id, action: "new_event"} %>
   </div> 
 	<hr>
 	<div class="row">
@@ -24,19 +23,18 @@
 				</h2>	
 			</div>
 			<div>
-        <% if params[:distance].to_i > 1000 %>
-          <%= '距離約' + (distance.to_i/1000).round(2).to_s + '公里' %>
+        <% if distance.to_i > 1000 %>
+          距離約<%= (distance.to_i/1000).round(2) %>公里
         <% else %>
-          <%= '距離約' + distance + '公尺' %>
+          距離約<%= distance %>公尺
         <% end %>
       </div>
 		</div>
 		<div class="clearfix"></div>
 		<hr>
-		<div><%#= @place.nearby_store %></div>
 	</div>
   <div id="form_for_new_event">
-	 <%= render :partial => "form_for_new_event" %> 
+	 <%= render :partial => "form_for_new_event", :locals => {event: event, distance: distance, date: date, place_id: place_id} %> 
   </div>
 </div>
 

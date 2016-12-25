@@ -8,35 +8,18 @@
               <%= t(day) %>
             </div>
           <% else %>
-
-            <% if action_name == "show" %>
-              <%= link_to t(day), place_path(@place.place_id, date: day, distance: distance), :remote => "true" %>
-            <% elsif controller_name == "events" %>
-              <%= link_to t(day), new_event_path(date: day, place_id: @place.place_id, distance: distance), :remote => "true" %>
-            <% else %>
-              <%= link_to t(day), places_path(date: day, place_id: params[:place_id], distance: distance), :remote => "true" %>
+            <% case action %>
+            <% when 'new_event' %>
+              <%= link_to t(day), new_event_path(distance: distance, date: day, place_id: place_id), :remote => true %>
+            <% when 'places' %>
+              <%= link_to t(day), places_path(date: day, place_id: place_id, distance: distance), :remote => true %>
+            <% when 'place' %>
+              <%= link_to t(day), place_path(place_id, date: day, distance: distance), :remote => true %>
             <% end %>
-
           <% end %>
         </div>
       <% end %>
     </h3>
   </div> 
 </div>
-
 <div class="clearfix"></div>
-
-
-<% if false %>
-
-  <%= render :partial => "day_selection", :locals => { :action => "new_event"} %>
-              <% if action == "show_place" %>
-                <%= link_to t(day), place_path(@place.place_id, date: day, distance: distance), :remote => "true" %>
-              <% elsif action == "new_event" %>
-                <%= link_to t(day), new_event_path(date: day, place_id: @place.place_id, distance: distance), :remote => "true" %>
-              <% elsif action == "places" %>
-                <%= link_to t(day), places_path(date: day, place_id: params[:place_id], distance: distance), :remote => "true" %>
-              <% end %>
-
-
-<% end %>            

@@ -30,7 +30,7 @@ class User < ApplicationRecord
       existing_user.fb_uid = auth.uid
       existing_user.fb_token = auth.credentials.token
       existing_user.fb_name = auth.info.name
-      user.fb_avatar = auth.info.image
+      existing_user.fb_avatar = auth.info.image
       # existing_user.fb_raw_data = auth
       existing_user.save!
       return existing_user
@@ -61,5 +61,9 @@ class User < ApplicationRecord
       Rails.logger.warn(res.body)
       nil
     end
+  end
+
+  def join_event(event)
+    EventAttendee.create(:event => event, :user => self) unless event.event_attendees.find_by_user_id(self.id)
   end
 end
