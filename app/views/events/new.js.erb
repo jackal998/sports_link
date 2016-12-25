@@ -2,6 +2,13 @@
 
 var day_selection = "<%= j render(:partial => '/places/day_selection', :locals => { place_id: place_id, distance: distance, date: date, action: 'new_event'}) %>"
 var form_for_new_event = "<%= j render(:partial => 'form_for_new_event', :locals => { event: event, distance: distance, date: date, place_id: place_id}) %>"
+var nav_host_event_link = $('#nav_host_event_link')[0]
+var nav_host_event_link_date = getURLParameter(nav_host_event_link.href, 'date');
 
 $('#day_selection').html(day_selection);
 $('#form_for_new_event').html(form_for_new_event);
+if (nav_host_event_link_date == null) {
+  nav_host_event_link.href = nav_host_event_link.href + '&date=<%= date %>'
+} else {
+  nav_host_event_link.href = nav_host_event_link.href.replace(/date=[^&]+/, 'date=<%= date %>');
+}
