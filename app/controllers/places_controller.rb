@@ -21,10 +21,9 @@ class PlacesController < ApplicationController
       )
       @place.save
     end
-    
-    @event = get_events_by_place_and_date(@place, params[:params_to_post]["0"][:date]).first
     params[:distance] = params[:params_from_map][:distance]
     params[:date] = params[:params_from_map][:date]
+    @event = get_events_by_place_and_date(@place, params[:params_from_map][:date]).first
   end
 
   def show
