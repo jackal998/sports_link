@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 
   def new
     @place = Place.find_by_place_id(params[:place_id])
-    @event = Event.new(:start_at => Time.now, :end_at => Time.now)
+    @event = Event.new(:start_at => Time.now.strftime("%I:%M%p"), :end_at => Time.now.strftime("%I:%M%p"))
   end
 
   def create
