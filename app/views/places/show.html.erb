@@ -1,6 +1,5 @@
 <% google_config = Rails.application.config_for(:google) %>
-<% params[:distance] ? distance = params[:distance] : distance = params[:params_to_post]['0'][:distance] %>
-<% params[:date] ? date = params[:date] : date = params[:params_to_post]['0'][:date] %>
+<% distance , date , place_id = params[:distance] , params[:date] , @place.place_id %>
 
 <div class="container content">
   <div>
@@ -8,7 +7,7 @@
   </div>
   <div class="clear-fix"></div>
   <div id="day_selection">
-    <%= render :partial => "/places/day_selection", :locals => { distance: distance, date: date} %>
+    <%= render :partial => "/places/day_selection", :locals => {place_id: place_id, distance: distance, date: date, action: 'place'} %>
   </div>
   <div class="clear-fix"></div> 
   <div class="row">
@@ -23,7 +22,7 @@
       </h3>
       <h5>
         <% if distance.to_i > 1000 %>
-          距離約<%= distance.to_i/1000).round(2) %>公里
+          距離約<%= (distance.to_i/1000).round(2) %>公里
         <% else %>
           距離約<%= distance %>公尺
         <% end %>
@@ -60,11 +59,13 @@
       <p>場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺</p>
     </div>
   </div>
-  <div><h4>場次加入</h4></div>
+  <div>
+    <h4>場次加入</h4>
+  </div>
   <div id="show_events">
-    <%= render :partial => "show_events" %>
+    <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date } if @events.present? %>
   </div>
   <% if @events.nil? || @events.size < 4 %>
-    <%= link_to '主辦', new_event_path(:place_id => @place.place_id, :distance => params[:distance], :date => params[:date]), class: "btn btn-link", id: "host_buttun" %> 
+    <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), class: "btn btn-link", id: "host_buttun" %> 
   <% end %> 
 </div>

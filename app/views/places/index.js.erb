@@ -1,17 +1,15 @@
-<% params[:distance] ? distance = params[:distance] : distance = params[:params_to_post]['0'][:distance] %>
-<% params[:date] ? date = params[:date] : date = params[:params_to_post]['0'][:date] %>
+<% distance , date , place_id = params[:distance] , params[:date] , @place.place_id %>
 
-var day_selection = "<%= j render(:partial => 'day_selection', :locals => { distance: distance, date: date}) %>"
-var more_events_link = document.getElementById('more_events_link');
-var nav_host_event_link = document.getElementById('nav_host_event_link');
 <% if @event.present? %>
   var event = '<%= j render(:partial => "have_event", :locals => {event: @event, place_id: place_id, distance: distance, date: date}) %>'
 <% else %>
   var event = '<%= j render(:partial => "no_event", :locals => {place_id: place_id, distance: distance, date: date}) %>'
 <% end %>
+var day_selection = "<%= j render(:partial => 'day_selection', :locals => { place_id: place_id, distance: distance, date: date, action: 'places'}) %>"
+var more_events_link = $('#more_events_link')[0]
+var nav_host_event_link = $('#nav_host_event_link')[0]
 
 $('#event').html(event);
 $('#day_selection').html(day_selection);
-
-more_events_link.href = '<%= raw place_path(@place.place_id, date: date, distance: distance) %>'
-nav_host_event_link.href = '<%= raw new_event_path(place_id: @place.place_id, date: date, distance: distance) %>'
+more_events_link.href = '<%= raw place_path(place_id, date: date, distance: distance) %>'
+nav_host_event_link.href = '<%= raw new_event_path(place_id: place_id, date: date, distance: distance) %>'

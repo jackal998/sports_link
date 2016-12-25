@@ -98,6 +98,8 @@
       // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
       
+
+      // CHECK BOUND IF ONLY ONE PLACE
       places.forEach(function(place) {
         createMarker(place);
         if (place.geometry.viewport) {
@@ -262,8 +264,13 @@
     });
   };
   function sendAjaxtoServer(place,distance){
-    var places = [];
-    places.push({
+    var date;
+    if (getURLParameter($('#more_events_link').attr('href'), 'date') == null){
+      date = 'today'
+    } else {
+      date = getURLParameter($('#more_events_link').attr('href'), 'date')
+    }
+    var place = {
       name: place.name,
       location: place.geometry.location.toJSON(),
       distance: distance,
@@ -271,13 +278,13 @@
       reference: place.reference,
       rating: place.rating,
       vicinity: place.vicinity,
-      date: getURLParameter($('#more_events_link').attr('href'), 'date')
-    })
+      date: date
+    };
     $.ajax({   
       type:'POST',
       dataType: "script",
       url: '/places',  
-      data: { params_to_post: places },
+      data: { params_from_map: place },
       success: function(){
         console.log('[POST]ajax_to_places_success')
       },

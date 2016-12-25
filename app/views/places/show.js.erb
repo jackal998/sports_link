@@ -1,9 +1,8 @@
-<% params[:distance] ? distance = params[:distance] : distance = params[:params_to_post]['0'][:distance] %>
-<% params[:date] ? date = params[:date] : date = params[:params_to_post]['0'][:date] %>
+<% distance , date , place_id = params[:distance] , params[:date] , @place.place_id %>
 
 var show_events = "<%= j render(:partial => 'show_events') %>"
-var day_selection = "<%= j render(:partial => 'day_selection', :locals => { distance: distance, date: date}) %>"
-var host_buttun = document.getElementById('host_buttun');
+var day_selection = "<%= j render(:partial => 'day_selection', :locals => {place_id: place_id, distance: distance, date: date, action: 'place'}) %>"
+var host_buttun = $('#host_buttun')[0]
 var host_buttun_date = getURLParameter(host_buttun.href, 'date');
 
 $('#show_events').html(show_events);

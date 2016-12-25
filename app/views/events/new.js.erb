@@ -1,8 +1,7 @@
-<% params[:distance] ? distance = params[:distance] : distance = params[:params_to_post]['0'][:distance] %>
-<% params[:date] ? date = params[:date] : date = params[:params_to_post]['0'][:date] %>
+<% distance, date, place_id, event = params[:distance], params[:date], @place.place_id, @event %>
 
-var day_selection = "<%= j render(:partial => '/places/day_selection', :locals => { distance: distance, date: date}) %>"
-var form_for_new_event = "<%= j render(:partial => 'form_for_new_event') %>"
+var day_selection = "<%= j render(:partial => '/places/day_selection', :locals => { place_id: place_id, distance: distance, date: date, action: 'new_event'}) %>"
+var form_for_new_event = "<%= j render(:partial => 'form_for_new_event', :locals => { event: event, distance: distance, date: date, place_id: place_id}) %>"
 
 $('#day_selection').html(day_selection);
 $('#form_for_new_event').html(form_for_new_event);

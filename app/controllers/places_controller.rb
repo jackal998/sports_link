@@ -8,22 +8,23 @@ class PlacesController < ApplicationController
   end
 
   def create
-    params[:params_to_post].each do |key, value|
-      @place = Place.find_by_place_id(value[:place_id])
-      unless @place
-        @place = Place.new
-        @place.name = value[:name]
-        @place.latitude = value[:location][:lat]
-        @place.longitude = value[:location][:lng]
-        @place.place_id = value[:place_id]
-        @place.reference = value[:reference]
-        @place.address_components = value[:vicinity]
-        @place.quality = value[:rating]
-        @place.save
-      end
+    @place = Place.find_by_place_id(params[:params_from_map][:place_id])
+    unless @place
+      @place = Place.new(
+        name: params[:params_from_map][:name],
+        latitude: params[:params_from_map][:location][:lat],
+        longitude: params[:params_from_map][:location][:lng],
+        place_id: params[:params_from_map][:place_id],
+        reference: params[:params_from_map][:reference],
+        address_components: params[:params_from_map][:vicinity],
+        quality: params[:params_from_map][:rating]
+      )
+      @place.save
     end
     
     @event = get_events_by_place_and_date(@place, params[:params_to_post]["0"][:date]).first
+    params[:distance] = params[:params_from_map][:distance]
+    params[:date] = params[:params_from_map][:date]
   end
 
   def show
