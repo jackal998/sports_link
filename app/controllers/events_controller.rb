@@ -31,6 +31,7 @@ class EventsController < ApplicationController
     unless @event.save
       redirect_to event_path(@event)
     end
+    current_user.join_event(@event)
   end
 
   # TODO: rename to join_event member route
@@ -50,6 +51,7 @@ class EventsController < ApplicationController
   end
 
   def match
+    current_user.join_event(@event)
   end
 
   private

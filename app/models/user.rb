@@ -14,8 +14,6 @@ class User < ApplicationRecord
 
   def self.from_omniauth(auth)
     # Case 1: Find existing user by facebook uid
-
-
     user = User.find_by_fb_uid( auth.uid )
     if user
       user.fb_token = auth.credentials.token
@@ -63,5 +61,9 @@ class User < ApplicationRecord
       Rails.logger.warn(res.body)
       nil
     end
+  end
+
+  def join_event(event)
+    EventAttendee.create(:event => event, :user => self) unless event.event_attendees.find_by_user_id(self.id)
   end
 end
