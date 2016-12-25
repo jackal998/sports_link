@@ -34,23 +34,9 @@ class EventsController < ApplicationController
     current_user.join_event(@event)
   end
 
-  # TODO: rename to join_event member route
-  def update
+  def join
     @event = Event.find(params[:id])
     
-    # current_user.join_event(@event)
-    unless @event.event_attendees.pluck(:user_id).include?(current_user.id)
-      EventAttendee.create(:event_id => @event.id, :user_id => current_user.id)
-    end
-
-    @place = Place.find(@event.place.id)
-  end
-
-  def show
-    # 這一頁是landing page!!
-  end
-
-  def match
     current_user.join_event(@event)
   end
 

@@ -18,7 +18,11 @@ Rails.application.routes.draw do
 
   resources :places
 
-  resources :events
+  resources :events do
+    member do
+      post :join
+    end
+  end
 
   get "sportmate" => "events#show"
 

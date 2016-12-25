@@ -11,6 +11,10 @@
         <span class="pull-right">
           <% if event.start_at > Time.now %>
             <%= link_to '加入', event_path(event), class: "btn btn-link", method: 'PATCH' %>
+          <% if current_user.attended_events.find(event) %>
+            <%= link_to '已參加！', events_path %>
+          <% else %>
+            <%= link_to '加入', join_event_path(event, :place_id => place_id, :date => date, :distance => distance), id: "join_event_link", method: "post" %>
           <% end %>
         </span>
       </li>
