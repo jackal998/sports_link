@@ -17,7 +17,7 @@ class EventsController < ApplicationController
       else 
         start_at , end_at = Time.now, (Date.today + 1).end_of_day
     end
-    @event = Event.new(:start_at => start_at.strftime('%H:%M'), :end_at => end_at.strftime('%H:%M'))
+    @event = Event.new(:start_at => start_at.strftime('%I:%M%p'), :end_at => end_at.strftime('%I:%M%p'))
   end
 
   def create
