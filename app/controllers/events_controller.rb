@@ -9,7 +9,15 @@ class EventsController < ApplicationController
   end 
 
   def new
-    @event = Event.new(:start_at => Time.now, :end_at => Time.now)
+    case params[:date]
+      when 'day_after'
+        start_at , end_at = (Date.today + 2).beginning_of_day, (Date.today + 2).end_of_day
+      when 'tomorrow'
+        start_at , end_at = (Date.today + 1).beginning_of_day, (Date.today + 1).end_of_day
+      else 
+        start_at , end_at = Time.now, (Date.today + 1).end_of_day
+    end
+    @event = Event.new(:start_at => start_at.strftime('%H:%M'), :end_at => end_at.strftime('%H:%M'))
   end
 
   def create
@@ -24,8 +32,7 @@ class EventsController < ApplicationController
         start_at = params[:event][:start_at].to_time
         end_at = params[:event][:end_at].to_time
     end
-
-    @event = Event.new(place_id: @place.id, user_id: current_user.id, start_at: start_at, end_at: end_at, characteristic_of_user: params[:event][:characteristic_of_user])
+    @event = Event.new(place: @place, user: current_user, start_at: start_at, end_at: end_at, characteristic_of_user: params[:event][:characteristic_of_user])
     unless @event.save
       redirect_to event_path(@event)
     end
