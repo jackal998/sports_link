@@ -1,6 +1,7 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, :except => [:index, :show]
   before_action :find_event, :only => [:update]
+  before_action :find_place, :except => [:index]
 
   def index
     # @place = Place.find_by_place_id(params[:place_id])
@@ -8,13 +9,10 @@ class EventsController < ApplicationController
   end 
 
   def new
-    @place = Place.find_by_place_id(params[:place_id])
     @event = Event.new(:start_at => Time.now, :end_at => Time.now)
   end
 
   def create
-    @place = Place.find_by_place_id(params[:place_id])
-    
     case params[:date]
       when 'day_after'
         start_at = params[:event][:start_at].to_time.advance(days: 2)
@@ -43,5 +41,8 @@ class EventsController < ApplicationController
   private
   def find_event
     @event = Event.find(params[:id])
+  end
+  def find_place
+    @place = Place.find_by_place_id(params[:place_id])
   end
 end
