@@ -10,8 +10,19 @@ class PlacesController < ApplicationController
       @place.quality = params[:score].to_i
       @place.latitude = params[:link].split('&q=')[1].split(',')[0].to_f
       @place.longitude = params[:link].split('&q=')[1].split(',')[1].to_f
-      @place.formatted_address = params[:context]['8']
-      @place.address_components = params[:context]['12']
+      @place.level = params[:ratyrate][0].to_f
+      @place.popularity = params[:ratyrate][1].to_f
+      @place.openhour = params[:context][1]
+      @place.contact = params[:context][3]
+      @place.fee = params[:context][5]
+      @place.formatted_address = params[:context][7]
+      if params[:img].split('http')[1]
+        @place.img = params[:img].split('"')[1]
+      else
+        @place.img = 'http://tw.basketball.biji.co' + params[:img].split('"')[1]
+      end
+      @place.place_id = SecureRandom.uuid
+      @place.address_components = params[:context][11]
       @place.save
     end
 
