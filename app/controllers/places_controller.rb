@@ -3,6 +3,18 @@ class PlacesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index, :create]
 
   def index
+
+    if params[:name]
+      @place = Place.new
+      @place.name = params[:name]
+      @place.quality = params[:score]
+      @place.latitude = params[:link].split('&q=')[1].split(',')[0]
+      @place.longitude = params[:link].split('&q=')[1].split(',')[1]
+      @place.formatted_address = params[:context]['8']
+      @place.address_components = params[:context]['12']
+      @place.save
+    end
+
     @place = Place.find_by_place_id(params[:place_id]) if params[:place_id]    
     @event = get_events_by_place_and_date(@place, params[:date]).first
   end
