@@ -32,16 +32,16 @@ class EventsController < ApplicationController
         start_at = params[:event][:start_at].to_time
         end_at = params[:event][:end_at].to_time
     end
-    @event = Event.new(place: @place, user: current_user, start_at: start_at, end_at: end_at, characteristic_of_user: params[:event][:characteristic_of_user])
-    unless @event.save
-      redirect_to event_path(@event)
+    if (end_at - start_at) > 0
+      @event = Event.create(place: @place, user: current_user, start_at: start_at, end_at: end_at, characteristic_of_user: params[:event][:characteristic_of_user])
+      current_user.join_event(@event)
+    else
+      redirect_to :back, flash: {alert: '結束時間需晚於開始時間！'}
     end
-    current_user.join_event(@event)
   end
 
   def join
     @event = Event.find(params[:id])
-    
     current_user.join_event(@event)
   end
 

@@ -4,14 +4,11 @@
     <title>SportsLink</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <%= content_tag(:p,notice,:class=>"notice") if notice %>
-    <%= content_tag(:p,alert,:class=>"alert") if alert %>
     <%= yield %>
   </body>
 </html>
