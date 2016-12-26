@@ -14,5 +14,5 @@ class Api::UsersController < Api::BaseController
     else
       render json: { errors: @user.errors.full_messages, :needed => { email: "string", password: "string"} }, status: 402
     end
-
+  end
 end
