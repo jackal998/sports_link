@@ -22,9 +22,7 @@ class Api::EventsController < Api::BaseController
   end
 
   def join
-    unless @event.event_attendees.pluck(:user_id).include?(current_user.id)
-      EventAttendee.create(:event => @event, :user => current_user)
-    end
+    current_user.join_event(@event)
     @place = Place.find(@event.place_id)
   end
 
