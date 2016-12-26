@@ -7,9 +7,9 @@ class PlacesController < ApplicationController
     if params[:name]
       @place = Place.new
       @place.name = params[:name]
-      @place.quality = params[:score]
-      @place.latitude = params[:link].split('&q=')[1].split(',')[0]
-      @place.longitude = params[:link].split('&q=')[1].split(',')[1]
+      @place.quality = params[:score].to_i
+      @place.latitude = params[:link].split('&q=')[1].split(',')[0].to_f
+      @place.longitude = params[:link].split('&q=')[1].split(',')[1].to_f
       @place.formatted_address = params[:context]['8']
       @place.address_components = params[:context]['12']
       @place.save
