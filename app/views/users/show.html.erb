@@ -1,10 +1,32 @@
-<%= render :partial => "/layouts/navbar" %>
+<% render :partial => "/layouts/navbar" %>
 <div class="clear-fix"></div>
-<div id="day_selection">
-  <%= render :partial => "/places/day_selection", :locals => { date: 'today', distance: ""} %>
-  </div>
-<div class="clearfix"></div>
-<%= user.fb_avatar %>
-<%= "籃球" %>
+
+<!-- <div id="day_selection"> --> 
+  <%#= render :partial => "/places/day_selection", :locals => { date: 'today', distance: "", :action => "places"} %>
+<!--   </div>
+ -->
+ <div class="clearfix"></div>
+<%= @user.fb_avatar %>
+
+<!-- base on selection -->
+<div class="sports_selection centered">
+	<h4><%= "籃球" %></h4>
+</div>
 
 <h4>主辦打球</h4>
+<!-- need cahnge controller, cant get photos yet.  -->
+<%# @event.current_user %>
+
+<h4>場次加入</h4>
+<table class ="table attended_events">
+	<% @user.attended_events.each do |event| %>
+		<tr>
+			<td width="50%">
+				開始時間：<%= event.start_at.strftime("%H:%M") %>
+			</td>
+			<td width="50%">	
+				結束時間：<%= event.end_at.strftime("%H:%M") %>
+			</td>
+		</tr>		
+	<% end %>	
+</table>
