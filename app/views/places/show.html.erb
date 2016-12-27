@@ -66,6 +66,8 @@
     <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date } if @events.present? %>
   </div>
   <% if @events.nil? || @events.size < 4 %>
-    <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), class: "btn btn-link", id: "host_buttun" %> 
+    <div class="button-1 centered">
+      <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
+    </div>
   <% end %> 
 </div>
