@@ -67,11 +67,16 @@ nav a{
 
 .current_day{
 	padding: 0 20px 20px;
+	margin: 0 0 -10px;
 	border-width: 0 0 2px 0;
 	border-style: solid;
 	border-color: #BF0000;
 }
 
+.other_days{
+	padding: 0 0 20px;
+	margin: 0 0 -10px;
+}
 .small-text a{
 	padding: 17px 28%;
   color: #555;
@@ -99,7 +104,7 @@ nav a{
 .button-1 a{
 	text-decoration: none;
 	color: #FFF;
-	padding: 10px 38%;
+	padding: 10px 30%;
 }
 
 .navbar1 a{
@@ -149,7 +154,10 @@ nav a{
 	color: white;
 }
 @media (max-width: 425px){
-	
+	html {
+    overflow-x: hidden; 
+  }
+    
 	nav{
 		display: none;
 	}

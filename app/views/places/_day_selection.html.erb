@@ -10,11 +10,17 @@
           <% else %>
             <% case action %>
             <% when 'new_event' %>
-              <%= link_to t(day), new_event_path(distance: distance, date: day, place_id: place_id), :remote => true %>
+              <div class="other_days">
+                <%= link_to t(day), new_event_path(distance: distance, date: day, place_id: place_id), :remote => true %>
+              </div>
             <% when 'places' %>
-              <%= link_to t(day), places_path(date: day, place_id: place_id, distance: distance), :remote => true %>
+              <div class="other_days">
+                <%= link_to t(day), places_path(date: day, place_id: place_id, distance: distance), :remote => true %>
+              </div>  
             <% when 'place' %>
-              <%= link_to t(day), place_path(place_id, date: day, distance: distance), :remote => true %>
+              <div class="other_days">
+                <%= link_to t(day), place_path(place_id, date: day, distance: distance), :remote => true %>
+              </div>  
             <% end %>
           <% end %>
         </div>
