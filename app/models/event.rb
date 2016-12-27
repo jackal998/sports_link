@@ -8,6 +8,8 @@ class Event < ApplicationRecord
   validates_presence_of :start_at
   validates_presence_of :end_at
 
+  scope :selected, ->{where('start_at >= ?', Time.now).order('start_at').includes(:place)}
+
   def self.during(start_at, end_at)
     where("start_at >= ? and start_at < ?", start_at, end_at) 
   end

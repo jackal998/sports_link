@@ -3,7 +3,6 @@ class Place < ApplicationRecord
   
   validates_presence_of :name, :latitude, :longitude
 
-
   def self.find_by_lat_and_long(latitude, longitude, distance)
       search_edge_from_arr = search_edge_from(latitude, longitude, distance)
       

@@ -10,6 +10,10 @@ class Api::BaseController < ApplicationController
       user = User.find_by_authentication_token( params[:auth_token] )
       # Devise: 設定 current_user
       sign_in(user, store: false) if user
+    elsif controller_name == "users" && action_name == "show"
+      user = User.find_by_authentication_token( params[:id] )
+      # Devise: 設定 current_user
+      sign_in(user, store: false) if user
     end
   end
 
