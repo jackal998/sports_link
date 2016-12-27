@@ -2,9 +2,13 @@ Rails.application.routes.draw do
 
   namespace :api, path: '', :defaults => { :format => :json } do
     constraints(host: ['api.sports-link.online','api.localhost'] ) do
-      resources :users
-      resources :places
-      resources :events do
+      resources :users, only: [:show] do
+        collection do
+          post :quit_event
+        end
+      end
+      resources :places, only: [:index, :show]
+      resources :events, only: [:index, :new, :create] do
         member do
           post :join
         end
@@ -25,8 +29,6 @@ Rails.application.routes.draw do
       post :join
     end
   end
-
-  get "sportmate" => "events#show"
 
   root :to => "places#index"
 end
