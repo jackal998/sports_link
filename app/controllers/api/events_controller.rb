@@ -35,10 +35,7 @@ class Api::EventsController < Api::BaseController
     end 
   end
   def find_event
-    if params[:id].present?
-      @event = Event.find(params[:id])
-    else
-      render json: { errors: 'No Evnet Error', needed: {id: 'integer'}}, :status => 400
-    end
+    @event = Event.find_by_id(params[:id]) if params[:id].present?
+    render json: { errors: 'No Evnet Error', needed: {id: 'integer'}}, :status => 400 unless @event
   end
 end
