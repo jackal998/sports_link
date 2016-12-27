@@ -5,7 +5,6 @@ class PlacesController < ApplicationController
   def index
 
     if params[:name]
-      byebug
       unless Place.find_by_name(params[:name])
         @place = Place.new
         @place.name = params[:name]
