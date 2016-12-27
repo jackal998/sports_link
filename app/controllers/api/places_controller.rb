@@ -1,16 +1,18 @@
 class Api::PlacesController < Api::BaseController
   before_action :authenticate_user!
 
-    if params[:latitude].present? && params[:longitude].present?    
-      @places = Place.find_by_lat_and_long(params[:latitude].to_f, params[:longitude].to_f, 1000)
+  def index
+    if params[:latitude].present? && params[:longitude].present?
+      @places = Place.find_by_lat_and_long(params[:latitude].to_f, params[:longitude].to_f, 500).includes(:events)
+      @attended_events = current_user.attended_events
     else
       render json: { errors: 'No Position Error' , needed: { latitude: 'float', longitude: 'float'}}, :status => 400
     end
   end
 
-  def create
-    render json: { errors: 'Oops! something is broken, We\'ll soon fix it!'}, :status => 400
-  end
+  # def create
+  #   render json: { errors: 'Oops! something is broken, We\'ll soon fix it!'}, :status => 400
+  # end
 
   def show
     if params[:id].present? && params[:date].present?
