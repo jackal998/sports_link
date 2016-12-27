@@ -5,7 +5,8 @@ class PlacesController < ApplicationController
   def index
 
     if params[:name]
-      unless Place.find_by_place_name(params[:name])
+      byebug
+      unless Place.find_by_name(params[:name])
         @place = Place.new
         @place.name = params[:name]
         @place.quality = params[:score].to_i
