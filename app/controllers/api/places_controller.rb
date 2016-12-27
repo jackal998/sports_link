@@ -1,7 +1,5 @@
 class Api::PlacesController < Api::BaseController
-  before_action :authenticate_user!, :only => [:show]
-  # skip_before_action :authenticate_user!, :only => [:index, :create]
-  def index
+  before_action :authenticate_user!
 
     if params[:latitude].present? && params[:longitude].present?    
       @places = Place.find_by_lat_and_long(params[:latitude].to_f, params[:longitude].to_f, 1000)

@@ -1,5 +1,5 @@
 class Api::EventsController < Api::BaseController
-  before_action :authenticate_user!, :except => [:index]
+  before_action :authenticate_user!
   before_action :find_event, :only => [:join, :show]
   before_action :find_place, :only => [:new, :create, :update]
 
