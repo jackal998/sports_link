@@ -30,7 +30,19 @@
       <%= f.label :characteristic_of_user, "特徵：" %>
     </h4>
     <%= f.text_field :characteristic_of_user, :class => "form-control" %>
-  </div> 
-  <%= link_to '取消', root_path, :class => "pull-right btn btn-link" %>
-  <%= f.submit "確認", :class => "pull-right btn btn-link" %>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-6 col-xs-6">  
+        <div class="button-1">
+          <%= link_to '取消', root_path %>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-xs-6">
+        <div class="button-1">
+          <%= f.submit "確認"%>
+        </div> 
+      </div>
+    </div>
+  </div>    
 <% end %>
