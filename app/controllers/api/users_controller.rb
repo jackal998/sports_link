@@ -17,7 +17,8 @@ class Api::UsersController < Api::BaseController
   # end
 
   def quit_event
-    if @event = Event.find(params[:event_id])
+    @event = Event.find(params[:event_id])
+    if @event
       if current_user.events.find(@event)
         @event.destroy
         render json: { message: "event:" + params[:event_id] + "deleted"}
