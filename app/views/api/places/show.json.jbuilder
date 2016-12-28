@@ -3,6 +3,7 @@ json.place do
   :formatted_address, :address_components, :quality, :level, 
   :popularity, :openhour, :contact, :fee, :facility, :img)
   json.events @events do |event|
-    json.(event, :id, :sport_name, :place_id, :user_id, :characteristic_of_user, :start_at, :end_at, :created_at, :updated_at)
+    json.(event, :id, :sport_name, :user_id, :characteristic_of_user, :start_at, :end_at)
+    json.attended @attended_events.include?(event)
   end
 end
