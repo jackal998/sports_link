@@ -2,8 +2,8 @@ json.search_radius params[:radius]
 json.places do
   json.array! @places do |place|
     json.(place, :name, :id, :place_id, :latitude, :longitude, 
-      :formatted_address, :address_components, :quality, :level, 
-      :popularity, :openhour, :contact, :fee, :facility, :img)
+    :formatted_address, :address_components, :drink, :restroom, :parking, 
+    :level, :basket, :courts, :light, :level, :img)
     json.events do
       ['today','tomorrow','day_after'].each do |date|
         json.set! date do
