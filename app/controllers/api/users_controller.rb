@@ -3,8 +3,8 @@ class Api::UsersController < Api::BaseController
 
   def show
     @user = current_user
-    @hosted_events = @user.events.selected
-    @attended_events = @user.attended_events.selected
+    @hosted_events = @user.events.includes(:place)
+    @attended_events = @user.attended_events.includes(:place)
   end
 
   # def create
