@@ -13,7 +13,7 @@ class Api::EventsController < Api::BaseController
   end 
 
   def create
-    start_at, end_at = params[:start_at], params[:end_at]
+    start_at, end_at = params[:start_at].to_time, params[:end_at].to_time
 
     @event = Event.new(
       place: @place, user: current_user, start_at: start_at, end_at: end_at,
