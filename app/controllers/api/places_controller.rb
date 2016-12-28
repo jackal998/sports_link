@@ -4,6 +4,15 @@ class Api::PlacesController < Api::BaseController
   def index
     if params[:latitude].present? && params[:longitude].present?
       @places = Place.find_by_lat_and_long(params[:latitude].to_f, params[:longitude].to_f, 500).includes(:events)
+      params[:radius] = 500
+      unless @places
+        @places = Place.find_by_lat_and_long(params[:latitude].to_f, params[:longitude].to_f, 1000).includes(:events)
+        params[:radius] = 1000
+        unless @places
+          @places = Place.find_by_lat_and_long(params[:latitude].to_f, params[:longitude].to_f, 2000).includes(:events)
+          params[:radius] = 2000
+        end
+      end
       @attended_events = current_user.attended_events
     else
       render json: { errors: 'No Position Error' , needed: { latitude: 'float', longitude: 'float'}}, :status => 400

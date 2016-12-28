@@ -1,3 +1,4 @@
+json.search_radius params[:radius]
 json.places do
   json.array! @places do |place|
     json.(place, :name, :id, :place_id, :latitude, :longitude, 

@@ -8,7 +8,7 @@ Rails.application.routes.draw do
         end
       end
       resources :places, only: [:index, :show]
-      resources :events, only: [:index, :new, :create] do
+      resources :events, only: [:new, :create] do
         member do
           post :join
         end
