@@ -7,7 +7,7 @@ json.places do
     json.events do
       ['today','tomorrow','day_after'].each do |date|
         json.set! date do
-          @event = get_events_by_place_and_date(place, date).first
+          @event = get_events_by_date(place.events, date).first
           if @event
             json.(@event, :id, :sport_name, :place_id, :user_id, :characteristic_of_user, :start_at, :end_at) 
             json.attended @attended_events.include?(@event)

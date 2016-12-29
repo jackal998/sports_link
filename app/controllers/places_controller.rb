@@ -5,7 +5,7 @@ class PlacesController < ApplicationController
   def index
     # valid_and_save_data
     @place = Place.find_by_place_id(params[:place_id]) if params[:place_id]    
-    @event = get_events_by_place_and_date(@place, params[:date]).first
+    @event = get_events_by_date(@place.events, params[:date]).first
   end
 
   def create
@@ -24,12 +24,12 @@ class PlacesController < ApplicationController
     end
     params[:distance] = params[:params_from_map][:distance]
     params[:date] = params[:params_from_map][:date]
-    @event = get_events_by_place_and_date(@place, params[:params_from_map][:date]).first
+    @event = get_events_by_date(@place.events, params[:params_from_map][:date]).first
   end
 
   def show
     @place = Place.find_by_place_id(params[:id])
-    @events = get_events_by_place_and_date(@place, params[:date])
+    @events = get_events_by_date(@place.events, params[:date])
   end
   private
   def valid_and_save_data

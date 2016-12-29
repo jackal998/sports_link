@@ -25,15 +25,15 @@ module ApplicationHelper
     end
   end
 
-  def get_events_by_place_and_date(place, date)
-    return [] unless place
+  def get_events_by_date(events, date)
+    return [] unless events
     case date
       when 'day_after'
-        place.events.map {|e| e if (e.start_at >= (Date.today + 2).beginning_of_day && e.start_at <= (Date.today + 2).end_of_day) }.compact
+        events.map {|e| e if (e.start_at >= (Date.today + 2).beginning_of_day && e.start_at <= (Date.today + 2).end_of_day) }.compact
       when 'tomorrow'
-        place.events.map {|e| e if (e.start_at >= (Date.today + 1).beginning_of_day && e.start_at <= (Date.today + 1).end_of_day) }.compact
+        events.map {|e| e if (e.start_at >= (Date.today + 1).beginning_of_day && e.start_at <= (Date.today + 1).end_of_day) }.compact
       else 
-        place.events.map {|e| e if (e.start_at >= Time.now && e.start_at <= Date.today.end_of_day) }.compact
+        events.map {|e| e if (e.start_at >= Time.now && e.start_at <= Date.today.end_of_day) }.compact
     end
   end
 end
