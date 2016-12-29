@@ -4,7 +4,7 @@ class Api::UsersController < Api::BaseController
   def show
     @user = current_user
     @hosted_events = @user.events.includes(:place)
-    @attended_events = @user.attended_events.includes(:place)
+    @attended_events = @user.attended_events.includes(:place).where.not(user: @user)
   end
 
   # def create
