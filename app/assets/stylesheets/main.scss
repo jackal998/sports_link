@@ -159,6 +159,13 @@ nav a{
 	background-color: orange;
 	color: white;
 }
+.indexbox img{
+	width: 42%;
+}
+
+.shift-left{
+	margin-left: -1%;
+}
 @media (max-width: 425px){
 	html {
     overflow-x: hidden; 
