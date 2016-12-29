@@ -13,19 +13,19 @@ class Api::EventsController < Api::BaseController
   end 
 
   def create
-    start_at, end_at = params[:start_at], params[:end_at]
+    start_at, end_at = params[:start_at].to_time, params[:end_at].to_time
 
     @event = Event.new(
       place: @place, user: current_user, start_at: start_at, end_at: end_at,
       characteristic_of_user: params[:characteristic_of_user])
     if (end_at - start_at) > 0
-      @event = Event.new(place: @place, user: current_user, start_at: start_at, end_at: end_at, characteristic_of_user: params[:event][:characteristic_of_user])
+      @event = Event.new(place: @place, user: current_user, start_at: start_at, end_at: end_at, characteristic_of_user: params[:characteristic_of_user])
       current_user.join_event(@event)
       unless @event.save
         render json: { errors: @event.errors.full_messages }, status: 402
       end
     else
-      render json: { errors: '結束時間需晚於開始時間！，新增失敗' }, status: 400
+      render json: { errors: '開始時間需較結束時間早！，新增失敗' }, status: 400
     end
 
   end

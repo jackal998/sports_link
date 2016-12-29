@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161226152725) do
+ActiveRecord::Schema.define(version: 20161228131504) do
 
   create_table "average_caches", force: :cascade do |t|
     t.integer  "rater_id"
@@ -50,8 +50,8 @@ ActiveRecord::Schema.define(version: 20161226152725) do
   create_table "places", force: :cascade do |t|
     t.string   "name"
     t.string   "capacity"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at",                                                   null: false
+    t.datetime "updated_at",                                                   null: false
     t.decimal  "latitude",           precision: 17, scale: 15
     t.decimal  "longitude",          precision: 17, scale: 14
     t.string   "place_id"
@@ -66,6 +66,12 @@ ActiveRecord::Schema.define(version: 20161226152725) do
     t.string   "fee"
     t.string   "facility"
     t.string   "img"
+    t.boolean  "restroom",                                     default: false
+    t.boolean  "drink",                                        default: false
+    t.boolean  "parking",                                      default: false
+    t.boolean  "light",                                        default: false
+    t.integer  "courts",                                       default: 0
+    t.integer  "basket",                                       default: 0
     t.index ["place_id"], name: "index_places_on_place_id"
   end
 
