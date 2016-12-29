@@ -17,7 +17,7 @@ class PlacesController < ApplicationController
         longitude: params[:params_from_map][:location][:lng],
         place_id: params[:params_from_map][:place_id],
         reference: params[:params_from_map][:reference],
-        address_components: params[:params_from_map][:vicinity],
+        formatted_address: params[:params_from_map][:vicinity],
         quality: params[:params_from_map][:rating]
       )
       @place.save
