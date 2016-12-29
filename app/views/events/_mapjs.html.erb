@@ -114,7 +114,6 @@
       // For each place, get the icon, name and location.
       var bounds = new google.maps.LatLngBounds();
       
-
       // CHECK BOUND IF ONLY ONE PLACE
       places.forEach(function(place) {
         createMarker(place);
@@ -130,14 +129,33 @@
     // [END region_getplaces]
   };
   function searchFromCurrentPos(position){
-    var service = new google.maps.places.PlacesService(map);
+    // var service = new google.maps.places.PlacesService(map);
     map.setCenter(position);
     $('#floating-panel').removeClass('hidden')
-    service.nearbySearch({
-      location: position,
-      radius: 500,
-      types: ['school']
+    $.ajax({   
+      type:'get',
+      dataType: 'json',
+      url: '/places',  
+      data: { 
+        latitude: position.lat(),
+        longitude: position.lng()
+      },
+      success: function(results, status){
+        nearbySearchcallback(results, status)
+      },
+      error: function(event, jqxhr, settings){
+        console.log('[POST]ajax_to_places_error:')
+        console.log('event: ')
+        console.log(event)
+        console.log('jqxhr: '+jqxhr)
+        console.log('settings: '+settings)
+      }
     }, nearbySearchcallback)
+    // service.nearbySearch({
+    //   location: position,
+    //   radius: 500,
+    //   types: ['school']
+    // }, nearbySearchcallback)
   };
   function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
@@ -186,7 +204,6 @@
   function nearbySearchcallback(results, status) {
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       var bounds = new google.maps.LatLngBounds();
-
       for (var i = 0; i < results.length; i++) {
         if (results[i].rating > 0 && results[i].icon.match('school')!= null) {
           createMarker(results[i]);
@@ -198,6 +215,18 @@
           }
           map.fitBounds(bounds);
         }
+      }
+    }else{
+      var icon = 'images/places.png'
+      for (var i = 0; i < results.places.length; i++) {
+        marker = new google.maps.Marker({
+          map: map,
+          icon: icon,
+          title: results.places[i].name,
+          position: new google.maps.LatLng(results.places[i].latitude,results.places[i].longitude)
+        });
+        attachInfromations(marker,results.places[i])
+        markers.push(marker)
       }
     }
   }
@@ -233,8 +262,10 @@
         sendAjaxtoServer(place,distance);
       }else{
         var placePos = new google.maps.LatLng(
-          place.geometry.location.lat(),
-          place.geometry.location.lng()
+          place.latitude,
+          place.longitude
+          // place.geometry.location.lat(),
+          // place.geometry.location.lng()
         );
         directionsService.route({
           origin: currentPos,
@@ -287,13 +318,13 @@
       date = getURLParameter($('#more_events_link').attr('href'), 'date')
     }
     var place = {
-      name: place.name,
-      location: place.geometry.location.toJSON(),
-      distance: distance,
+      // name: place.name,
+      // location: place.geometry.location.toJSON(),
+      // distance: distance,
       place_id: place.place_id,
-      reference: place.reference,
-      rating: place.rating,
-      vicinity: place.vicinity,
+      // reference: place.reference,
+      // rating: place.rating,
+      // vicinity: place.vicinity,
       date: date
     };
     $.ajax({   

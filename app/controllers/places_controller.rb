@@ -3,12 +3,24 @@ class PlacesController < ApplicationController
   skip_before_action :authenticate_user!, :only => [:index, :create]
 
   def index
-    # valid_and_save_data
     if params[:place_id]
       @place = Place.find_by_place_id(params[:place_id])
       @event = get_events_by_date(@place.events, params[:date]).first
     else
-      @event = []
+      if params[:latitude].present? && params[:longitude].present?
+        @places = Place.find_by_lat_and_long(params[:latitude].to_f, params[:longitude].to_f, 500).includes(:events)
+        params[:radius] = 500
+        unless @places.present?
+          @places = Place.find_by_lat_and_long(params[:latitude].to_f, params[:longitude].to_f, 1000).includes(:events)
+          params[:radius] = 1000
+          unless @places.present?
+            @places = Place.find_by_lat_and_long(params[:latitude].to_f, params[:longitude].to_f, 2000).includes(:events)
+            params[:radius] = 2000
+          end
+        end
+      else
+        @event = []
+      end
     end
   end
 
