@@ -4,8 +4,12 @@ class PlacesController < ApplicationController
 
   def index
     # valid_and_save_data
-    @place = Place.find_by_place_id(params[:place_id]) if params[:place_id]    
-    @event = get_events_by_date(@place.events, params[:date]).first
+    if params[:place_id]
+      @place = Place.find_by_place_id(params[:place_id])
+      @event = get_events_by_date(@place.events, params[:date]).first
+    else
+      @event = []
+    end
   end
 
   def create
