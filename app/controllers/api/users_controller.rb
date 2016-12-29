@@ -4,8 +4,9 @@ class Api::UsersController < Api::BaseController
   def show
     @user = current_user
     @hosted_events = @user.events.includes(:place)
-    @attended_events = @user.attended_events.includes(:place).where.not(user: @user)
+    @attended_events = @user.attended_events.where.not(user: @user).includes(:place)
   end
+  # .where.not(user: @user)
 
   # def create
   #   @user = User.new(params.require(:user).permit(:email, :password))
