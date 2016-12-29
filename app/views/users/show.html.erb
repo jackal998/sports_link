@@ -1,10 +1,9 @@
-<% render :partial => "/layouts/navbar" %>
+<%= render :partial => "/layouts/navbar" %>
 <div class="clear-fix"></div>
-
-<!-- <div id="day_selection"> --> 
+<!-- <div id="day_selection">
   <%#= render :partial => "/places/day_selection", :locals => { date: 'today', distance: "", :action => "places"} %>
-<!--   </div>
- -->
+</div> -->
+
  <div class="clearfix"></div>
 <%= @user.fb_avatar %>
 
@@ -14,8 +13,8 @@
 </div>
 
 <h4>主辦打球</h4>
-<!-- need cahnge controller, cant get photos yet.  -->
-<%# @event.current_user %>
+<!-- need cahnge controller, cant get photos yet. -->
+<% @hosted_events %>
 
 <h4>場次加入</h4>
 <table class ="table attended_events">
