@@ -7,7 +7,10 @@ json.user do
         if @hosted_events
           json.array! get_events_by_date(@hosted_events, date) do |he|
             json.partial! '/api/templates/event', event: he
-            json.place_id he.place.place_id if he
+            if he
+              json.place_id he.place.place_id
+              json.place_name he.place.name
+            end
           end
         else
           json.null!
@@ -17,7 +20,10 @@ json.user do
         if @attended_events
           json.array! get_events_by_date(@attended_events, date) do |ae|
             json.partial! '/api/templates/event', event: ae
-            json.place_id ae.place.place_id if ae
+            if ae
+              json.place_id ae.place.place_id
+              json.place_name ae.place.name
+            end
           end
         else
           json.null!
