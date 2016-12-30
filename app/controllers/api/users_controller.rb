@@ -6,7 +6,6 @@ class Api::UsersController < Api::BaseController
     @hosted_events = @user.events.includes(:place)
     @attended_events = @user.attended_events.where.not(user: @user).includes(:place)
   end
-  # .where.not(user: @user)
 
   # def create
   #   @user = User.new(params.require(:user).permit(:email, :password))
@@ -18,14 +17,19 @@ class Api::UsersController < Api::BaseController
   # end
 
   def quit_event
-    @event = Event.find(params[:event_id])
-    if @event
+    @event = Event.find_by_id(params[:event_id])
+    if @event.present?
       if @event.user == current_user
         @event.destroy
         render json: { message: "event:" + params[:event_id] + "deleted"}
       else
-        @event.event_attendees.find_by_user_id(current_user.id).destroy
-        render json: { message: "quit event:" + params[:event_id] }
+        @event_attendee = @event.event_attendees.find_by_user_id(current_user.id)
+        if @event_attendee.present?
+          @event_attendee.destroy
+          render json: { message: "quit event:" + params[:event_id] }
+        else
+          render json: { errors: 'No event error', :needed => { event_id: "integer"} }, status: 400
+        end
       end
     else
       render json: { errors: 'No event error', :needed => { event_id: "integer"} }, status: 400
