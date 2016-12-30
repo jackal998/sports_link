@@ -9,7 +9,7 @@
       </span>
       <span class="pull-right">
         <% if event.start_at > Time.now %>
-          <% if current_user.attended_events.find(event) %>
+          <% if current_user.attended_events.include?(event) %>
             <%= link_to '已參加！', events_path %>
           <% else %>
             <%= link_to '加入', join_event_path(event, :place_id => place_id, :date => date, :distance => distance), id: "join_event_link", method: "post" %>
