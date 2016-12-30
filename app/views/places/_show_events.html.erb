@@ -1,5 +1,5 @@
 <ul class="events centered list-group">
-  <% @events.each do |event| %>
+  <% events.each do |event| %>
     <li class="list-group-item" id="event_<%= event.id %>">
       <span class="pull-left">
         <%= event.start_at.strftime('%H:%M') %>   
@@ -8,12 +8,11 @@
         <%= show_duration(event) %>
       </span>
       <span class="pull-right">
-        <% if event.start_at > Time.now %>
-          <% if current_user.attended_events.include?(event) %>
-            <%= link_to '－', quit_event_users_path(event_id: event.id), :method => 'delete', :remote => true %>
-          <% else %>
-            <%= link_to '＋', join_event_path(event, :place_id => place_id, :date => date, :distance => distance), id: "join_event_link", method: "post" %>
-          <% end %>
+        <% if attended_events.include?(event) %>
+          <%= link_to '－', quit_event_users_path(event_id: event.id, :place_id => place_id, :date => date, :distance => distance), :method => 'delete', :remote => true %>
+        <% else %>
+        <!-- 將＋改變時（class或是其他）顯示上會錯誤，請同步修改quit_event.js.erb -->
+          <%= link_to '＋', join_event_path(event, :place_id => place_id, :date => date, :distance => distance), method: "post" %>
         <% end %>
       </span>
     </li>

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     @event = Event.find(params[:event_id])
     if @event.user == current_user
       @event.destroy
+      @event = nil
     else
       @event.event_attendees.find_by_user_id(current_user.id).destroy
     end

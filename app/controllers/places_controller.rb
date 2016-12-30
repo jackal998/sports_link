@@ -46,6 +46,7 @@ class PlacesController < ApplicationController
   def show
     @place = Place.find_by_place_id(params[:id])
     @events = get_events_by_date(@place.events, params[:date])
+    @attended_events = current_user.attended_events
   end
   private
   def valid_and_save_data

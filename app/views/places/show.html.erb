@@ -104,15 +104,10 @@
     <h4>場次加入</h4>
   </div>
   <div id="show_events">
-    <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date } if @events.present? %>
+    <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date, events: @events, attended_events: @attended_events } if @events.present? %>
   </div>
-  <% if @events.nil? || @events.size < 4 %>
-    <div class="button-1 centered">
-      <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
-    </div>
-  <% else %>
-    <div class="close">
-      <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
-    </div>
-  <% end %> 
+  <% host_class =  (@events.nil? || @events.size < 4) ? 'button-1 centered' : 'close' %>
+  <div class="<%= host_class %>">
+    <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
+  </div>
 </div>

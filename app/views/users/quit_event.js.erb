@@ -1,1 +1,8 @@
-$('#event_<%= params[:event_id] %>').remove()
+<% if @event.present?  %> 
+  <% distance, date, place_id = params[:distance], params[:date], @event.place.place_id %>
+  $('#event_<%= params[:event_id] %>').find('.pull-right').html('<%= link_to "＋", join_event_path(@event, :place_id => place_id, :date => date, :distance => distance), method: "post" %>');
+<% else %>
+  $('#event_<%= params[:event_id] %>').remove()
+<% end %>
+
+

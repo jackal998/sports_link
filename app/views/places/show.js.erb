@@ -1,6 +1,6 @@
 <% distance, date, place_id = params[:distance], params[:date], @place.place_id %>
 
-var show_events = "<%= j render(:partial => 'show_events', :locals => {place_id: place_id, distance: distance, date: date}) %>"
+var show_events = "<%= j render(:partial => 'show_events', :locals => {place_id: place_id, distance: distance, date: date, events: @events, attended_events: @attended_events }) %>"
 var day_selection = "<%= j render(:partial => 'day_selection', :locals => {place_id: place_id, distance: distance, date: date, action: 'place'}) %>"
 var host_buttun = $('#host_buttun')[0]
 var nav_host_event_link = $('#nav_host_event_link')[0]
@@ -15,3 +15,9 @@ if (host_buttun_date == null) {
   host_buttun.href = host_buttun.href.replace(/date=[^&]+/, 'date=<%= date %>');
 }
 nav_host_event_link.href = host_buttun.href
+
+if (<%= @events.nil? %> || <%= @events.size < 4 %>) {
+  $('#host_buttun').closest('div').attr('class', 'button-1 centered');
+} else {
+  $('#host_buttun').closest('div').addClass('close');
+}
