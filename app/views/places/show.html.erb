@@ -39,20 +39,59 @@
     <div class="court_information col-md-12 col-xs-12 col-sm-12">
       <div class="col-md-3 col-xs-3 col-sm-3 centered">
       <!-- basketbal net -->
-        <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/5.png" alt="basketbal net">
+        <div class="col-xs-7">
+          <div class="basket shift-left">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/basket.png" alt="basketbal net">
+          </div>
+        </div>
+        <div class="col-xs-5">
+          <div class="indexbox">
+            <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox"> 
+          </div>
+        </div>    
+        <div class="index">
+          <%= @place.courts %>
+        </div> 
       </div>
       <div class="col-md-3 col-xs-3 col-sm-3 centered">
       <!-- court count -->
-        <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/8.png" alt="court count">
+        <div class="courts shift-left">
+          <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/courts.png" alt="court count">
+        </div>
+        <div class="indexbox">
+          <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox">   
+        </div>
+        <div class="index">
+          <%= @place.basket %>   
+        </div> 
       </div>
       <div class="col-md-3 col-xs-3 col-sm-3 centered">
       <!-- light closing -->
-        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/9.png" alt="light closing">
+        <div class="light shift-left">
+          <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/light.png" alt="light closing">
+        </div>
+        <div class="indexbox">
+          <% if @place.light? %>
+            <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/available.png" alt="strong">
+          <% else %>
+            <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox"> 
+          <% end %>   
+        </div>
+        
       </div>
       <div class="col-md-3 col-xs-3 col-sm-3 centered">
       <!-- powerful-skill -->
-        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/10.png" alt="powerful-skill">
-      </div>
+        <div class="level-row">
+          <div class="level shift-left">
+            <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/level.png" alt="powerful-skill">
+          </div>
+          <% if @place.level %>
+            <div class="indexbox">
+              <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/strong.png" alt="strong">
+            </div>
+          <% end %>  
+        </div> 
+      </div>      
     </div>
     <div class="clearfix"></div>
     <!-- Description of court -->
