@@ -20,11 +20,11 @@ class Api::UsersController < Api::BaseController
   def quit_event
     @event = Event.find(params[:event_id])
     if @event
-      if current_user.events.find(@event)
+      if @event.user == current_user
         @event.destroy
         render json: { message: "event:" + params[:event_id] + "deleted"}
       else
-        @event.event_attendees.find_by_user_id(current_user.id).destroy if current_user.attended_events.include?(@event)
+        @event.event_attendees.find_by_user_id(current_user.id).destroy
         render json: { message: "quit event:" + params[:event_id] }
       end
     else
