@@ -4,31 +4,15 @@
   <%= render :partial => "/places/day_selection", :locals => { place_id: '', date: 'today', distance: '', action: 'places'} %>
 </div>
 <div class="clearfix"></div>
-<%= render :partial => "/events/mapjs"   %>
+<%= render :partial => "/events/mapjs" %>
 <div class="clearfix"></div>
-<%= render :partial => "/places/footer"   %>
+<%= render :partial => "/places/footer" %>
 <div class="clearfix"></div>
-<div id="call_to_action">
-  <p>
-    Hey！先在地圖上選擇附近推薦的球場然後選日期查看活動，或者搜索別的地點附近球場的資訊就可以秒速參加籃球鬥牛活動了！
-  </p>
-</div>
+<div id="call_to_action"></div>
 <script>
-    $('.navicons a').each(function(index, element){
-      if (index == 2) {
-      }else{
-        if (getURLParameter(element.href, 'place_id') == null) {      
-          element.addEventListener("click", preventfromDefault);
-          element.addEventListener("click", function(){
-            if (getURLParameter(element.href, 'place_id') != null) {
-              element.removeEventListener("click", preventfromDefault);
-              element.click()
-            }
-          });
-        }
-      }
-    });
-    $('#day_selection a').each(function(index, element){
+  $('.navicons a').each(function(index, element){
+    if (index == 2 && <%= current_user.present? %>) {
+    }else{
       if (getURLParameter(element.href, 'place_id') == null) {      
         element.addEventListener("click", preventfromDefault);
         element.addEventListener("click", function(){
@@ -38,10 +22,22 @@
           }
         });
       }
-    });
-    function preventfromDefault(event) {
-      event.preventDefault();
-      event.stopPropagation()
-    };
-    
+    }
+  });
+  $('#day_selection a').each(function(index, element){
+    if (getURLParameter(element.href, 'place_id') == null) {      
+      element.addEventListener("click", preventfromDefault);
+      element.addEventListener("click", function(){
+        if (getURLParameter(element.href, 'place_id') != null) {
+          element.removeEventListener("click", preventfromDefault);
+          element.click()
+        }
+      });
+    }
+  });
+  function preventfromDefault(event) {
+    event.preventDefault();
+    event.stopPropagation()
+    $('#call_to_action').html('<p>Hey！<br />先在地圖上選擇附近推薦的 球場 然後選 日期 查看 活動 ，<br />或者 搜索 別的地點附近球場的資訊就可以 秒速 參加 籃球鬥牛活動了！</p>')
+  };
 </script>  
