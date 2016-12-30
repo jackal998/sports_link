@@ -292,8 +292,7 @@
     });
   };
   function updatePlaceToLinks(place,distance){
-    var hidden_informations = document.getElementById('hidden_informations');
-    var more_events_link = document.getElementById('more_events_link');
+    var more_events_link = $('#more_events_link')[0];
     var more_events_link_url = more_events_link.getAttribute('href');
     if (getURLParameter(more_events_link_url, 'distance') == null) {
       more_events_link.href = '/places/' + place.place_id + "?distance=" + distance
@@ -320,12 +319,12 @@
     var place = {
       // name: place.name,
       // location: place.geometry.location.toJSON(),
-      // distance: distance,
-      place_id: place.place_id,
+      date: date,
+      distance: distance,
+      place_id: place.place_id
       // reference: place.reference,
       // rating: place.rating,
       // vicinity: place.vicinity,
-      date: date
     };
     $.ajax({   
       type:'POST',
