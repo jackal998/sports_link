@@ -20,7 +20,11 @@
             <% when 'place' %>
               <div class="other_days">
                 <%= link_to t(day), place_path(place_id, date: day, distance: distance), :remote => true %>
-              </div>  
+              </div>
+            <% when 'user_show' %>
+              <div class="other_days">
+                <%= link_to t(day), user_path(current_user, date: day), :remote => true %>
+              </div>            
             <% end %>
           <% end %>
         </div>

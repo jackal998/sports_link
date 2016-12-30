@@ -1,6 +1,6 @@
 <% distance, date, place_id = params[:distance], params[:date], @place.place_id %>
 
-var show_events = "<%= j render(:partial => 'show_events') %>"
+var show_events = "<%= j render(:partial => 'show_events', :locals => {place_id: place_id, distance: distance, date: date}) %>"
 var day_selection = "<%= j render(:partial => 'day_selection', :locals => {place_id: place_id, distance: distance, date: date, action: 'place'}) %>"
 var host_buttun = $('#host_buttun')[0]
 var nav_host_event_link = $('#nav_host_event_link')[0]

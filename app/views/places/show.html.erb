@@ -29,27 +29,9 @@
       </h5>
     </div>
     <div class="col-md-7 col-sm-7 col-xs-7 nearby_information pull-right">
-     <!--  <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/nearby.jpg" alt="nearby"> -->
     <div class="container">
-      <div class="row ">
-        <% if @place.drink? %>
-          <div class="drink pull-right">
-            <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/drink.png" alt="drink">
-          </div>
-        <% end %>
-
-        <!-- NearbyRestroom -->
-        <% if @place.restroom? %>
-          <div class="restroom pull-right">
-            <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/restroom.png" alt="restroom">
-          </div>
-        <% end %>
-        <!-- NearbyParking -->
-        <% if @place.parking? %>
-          <div class="parking pull-right">
-            <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/parking.png" alt="parking">
-          </div>
-        <% end %>
+      <div class="row">
+        <%=render(:partial => "place_informations", :locals => {place: @place}) %>
       </div>
     </div>
       

@@ -14,16 +14,18 @@
   </p>
 </div>
 <script>
-
     $('.navicons a').each(function(index, element){
-      if (getURLParameter(element.href, 'place_id') == null) {      
-        element.addEventListener("click", preventfromDefault);
-        element.addEventListener("click", function(){
-          if (getURLParameter(element.href, 'place_id') != null) {
-            element.removeEventListener("click", preventfromDefault);
-            element.click()
-          }
-        });
+      if (index == 2) {
+      }else{
+        if (getURLParameter(element.href, 'place_id') == null) {      
+          element.addEventListener("click", preventfromDefault);
+          element.addEventListener("click", function(){
+            if (getURLParameter(element.href, 'place_id') != null) {
+              element.removeEventListener("click", preventfromDefault);
+              element.click()
+            }
+          });
+        }
       }
     });
     $('#day_selection a').each(function(index, element){

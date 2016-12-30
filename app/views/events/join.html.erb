@@ -1,5 +1,14 @@
 <div class="centered">
-  <h3> 恭喜，您已經成功加入活動了！<br>等一下見!!</h3>
+  <h3> 恭喜，您已經成功加入活動了！<br>
+    <% case params[:date] %>
+    <% when 'day_after' %>
+      <%= '後天見！' %> 
+    <% when 'tomorrow' %>
+      <%= '明天見！' %>
+    <% else %>
+      <%= '等等見！' %>
+    <% end %>
+  </h3>
 </div>
 <div>
   <h3>場地：<%= @place.name %></h3>

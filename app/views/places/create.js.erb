@@ -5,10 +5,11 @@
 <% else %>
   var event = '<%= j render(:partial => "no_event", :locals => {place_id: place_id, distance: distance, date: date}) %>'
 <% end %>
-
+var place_informations = '<%= j render(:partial => "place_informations", :locals => {place: @place}) %>'
 var more_events_link = $('#more_events_link')[0]
 var nav_host_event_link = $('#nav_host_event_link')[0]
 
+$('#place_informations').html(place_informations);
 $('#event').html(event);
 more_events_link.href = '<%= raw place_path(place_id, date: date, distance: distance) %>'
 nav_host_event_link.href = '<%= raw new_event_path(place_id: place_id, date: date, distance: distance) %>'

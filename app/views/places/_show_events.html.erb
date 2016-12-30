@@ -1,6 +1,6 @@
 <ul class="events centered list-group">
   <% @events.each do |event| %>
-    <li class="list-group-item">
+    <li class="list-group-item" id="event_<%= event.id %>">
       <span class="pull-left">
         <%= event.start_at.strftime('%H:%M') %>   
       </span>
@@ -9,10 +9,10 @@
       </span>
       <span class="pull-right">
         <% if event.start_at > Time.now %>
-          <% if current_user.attended_events.find(event) %>
-            <%= link_to '已參加！', events_path %>
+          <% if current_user.attended_events.include?(event) %>
+            <%= link_to '－', quit_event_users_path(event_id: event.id), :method => 'delete', :remote => true %>
           <% else %>
-            <%= link_to '加入', join_event_path(event, :place_id => place_id, :date => date, :distance => distance), id: "join_event_link", method: "post" %>
+            <%= link_to '＋', join_event_path(event, :place_id => place_id, :date => date, :distance => distance), id: "join_event_link", method: "post" %>
           <% end %>
         <% end %>
       </span>
