@@ -11,10 +11,10 @@
   </div>
   <div class="clear-fix"></div>
   <div class="row">
-    <div class="place_detail col-md-12 col-sm-12 col-xs-12 rectangle_pic">
+    <div class="place_detail col-md-6 col-sm-12 col-xs-12 rectangle_pic">
       <img src="https://maps.googleapis.com/maps/api/streetview?size=425x150&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt=<%= @place.name %>>
     </div>
-    <div class="col-md-5 col-sm-5 col-xs-5">
+    <div class="col-md-6 col-sm-5 col-xs-5">
       <h3> 
         <%= @place.name %>    
       </h3>
@@ -26,12 +26,8 @@
         <% end %>
       </h5>
     </div>
-    <div class="col-md-7 col-sm-7 col-xs-7 nearby_information">
-      <div class="container">
-        <div class="row">
-          <%=render(:partial => "place_informations", :locals => {place: @place}) %>
-        </div>
-      </div>
+    <div class="col-md-6 col-sm-7 col-xs-7 nearby_information">
+      <%=render(:partial => "place_informations", :locals => {place: @place}) %>
     </div>
   </div>
   <div class="clear-fix"></div>  
@@ -94,7 +90,6 @@
     <div class="description">
       <p>場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺</p>
     </div>
-  </div>
   <div>
     <h4>場次加入</h4>
   </div>

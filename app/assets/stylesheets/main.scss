@@ -6,6 +6,9 @@
 	text-align: center;
 }
 
+.container{
+	max-width: 1020px;
+}
 .marketing_tagline{
 	color: white;
 }
@@ -101,6 +104,8 @@ nav a{
   text-decoration: none;
   text-align: center;
   color: white;
+  max-width: 480px;
+  max-height: 45px;
 }
 .button-1 a{
 	text-decoration: none;
@@ -172,6 +177,8 @@ nav a{
 	min-height: 48px;
   margin-top: 19px;
   margin-bottom: -22px;
+  max-width: 425px;
+  text-align: center;
 }
 .court_element{
 	width: 24%;
@@ -222,8 +229,5 @@ nav a{
 	nav li{
 		float: none;
 
-	}
-	#menu-trigger {
-		display: block;
 	}
 }
