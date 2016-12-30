@@ -23,8 +23,13 @@ class Api::UsersController < Api::BaseController
         @event.destroy
         render json: { message: "event:" + params[:event_id] + "deleted"}
       else
-        @event.event_attendees.find_by_user_id(current_user.id).destroy
-        render json: { message: "quit event:" + params[:event_id] }
+        @event_attendee = @event.event_attendees.find_by_user_id(current_user.id)
+        if @event_attendee.present?
+          @event_attendee.destroy
+          render json: { message: "quit event:" + params[:event_id] }
+        else
+          render json: { errors: 'No event error', :needed => { event_id: "integer"} }, status: 400
+        end
       end
     else
       render json: { errors: 'No event error', :needed => { event_id: "integer"} }, status: 400
