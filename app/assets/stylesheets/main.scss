@@ -143,7 +143,7 @@ nav a{
 }    
 
 .nearby_information{
-	margin: -65px 22px 0px 0px;
+	margin: 16px 0px 0px 0px;
 }
 
 .description{
@@ -159,12 +159,44 @@ nav a{
 	background-color: orange;
 	color: white;
 }
-.indexbox img{
-	width: 42%;
+// .indexbox img{
+// 	width: 42%;
+// }
+
+// .shift-left{
+// 	margin-left: -1%;
+// }
+.court_elements{
+	display: inline-block;
+	width: 100%;
+	min-height: 48px;
+  margin-top: 19px;
+  margin-bottom: -22px;
+}
+.court_element{
+	width: 24%;
+	display: inline-block;
+	position: relative;
+	height: 48px;
+}
+.basket{
+	height: 100%;
+	width: 59%;
+	left:0;
+	bottom:0;
+}
+.indexbox{
+	position: absolute;
+	height: 100%;
+	width: 40%;
+	right: 0;
+	top: -20px;
 }
 
-.shift-left{
-	margin-left: -1%;
+.index{
+	position: absolute;
+	right:11.5px;
+	top: -19.5px;
 }
 @media (max-width: 425px){
 	html {
