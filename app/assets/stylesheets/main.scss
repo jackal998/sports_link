@@ -6,6 +6,9 @@
 	text-align: center;
 }
 
+.container{
+	max-width: 1020px;
+}
 .marketing_tagline{
 	color: white;
 }
@@ -101,6 +104,8 @@ nav a{
   text-decoration: none;
   text-align: center;
   color: white;
+  max-width: 480px;
+  max-height: 45px;
 }
 .button-1 a{
 	text-decoration: none;
@@ -143,7 +148,7 @@ nav a{
 }    
 
 .nearby_information{
-	margin: -65px 22px 0px 0px;
+	margin: 16px 0px 0px 0px;
 }
 
 .description{
@@ -159,12 +164,71 @@ nav a{
 	background-color: orange;
 	color: white;
 }
-.indexbox img{
-	width: 42%;
-}
+// .indexbox img{
+// 	width: 42%;
+// }
 
-.shift-left{
-	margin-left: -1%;
+// .shift-left{
+// 	margin-left: -1%;
+// }
+.court_elements{
+	display: inline-block;
+	width: 100%;
+	min-height: 48px;
+  margin-top: 19px;
+  margin-bottom: -22px;
+  max-width: 425px;
+  text-align: center;
+}
+.court_element{
+	width: 24%;
+	display: inline-block;
+	position: relative;
+	height: 48px;
+}
+.basket{
+	height: 100%;
+	width: 59%;
+	left:0;
+	bottom:0;
+}
+.indexbox{
+	position: absolute;
+	height: 100%;
+	width: 40%;
+	right: 0;
+	top: -20px;
+}
+.indexbox2{
+	position: absolute;
+	height: 100%;
+	width: 40%;
+	right: 0;
+	top: -25px;
+}
+.indexbox3{
+	position: absolute;
+	height: 100%;
+	width: 40%;
+	right: 0;
+	top: -22px;
+}
+.index{
+	position: absolute;
+	right:10.5px;
+	top: -20.5px;
+	color:red;
+}
+.index2{
+	position: absolute;
+	right:11.5px;
+	top: -24.5px;
+	color:red;
+}
+.index4{
+	position: absolute;
+	right:10.5px;
+	top: -26.5px;
 }
 @media (max-width: 425px){
 	html {
@@ -190,8 +254,5 @@ nav a{
 	nav li{
 		float: none;
 
-	}
-	#menu-trigger {
-		display: block;
 	}
 }
