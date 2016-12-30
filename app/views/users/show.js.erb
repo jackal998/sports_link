@@ -1,0 +1,9 @@
+<% date = params[:date] %>
+
+var day_selection = "<%= j render(:partial => '/places/day_selection', :locals => {date: date, action: 'user_show'}) %>"
+var hosted_events = "<%= j render(:partial => 'events_table', :locals => {events: @hosted_events, :table_type => 'hosted_events'}) %>"
+var attended_events = "<%= j render(:partial => 'events_table', :locals => {events: @attended_events, :table_type => 'attended_events'}) %>"
+
+$('#day_selection').html(day_selection);
+$('#hosted_events').html(hosted_events);
+$('#attended_events').html(attended_events);
