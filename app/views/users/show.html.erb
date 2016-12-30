@@ -1,12 +1,11 @@
 <%= render :partial => "/layouts/navbar" %>
 <div class="clear-fix"></div>
 <div id="day_selection">
-  <%#= render :partial => "/places/day_selection", :locals => { date: 'today', distance: "", :action => "places"} %>
+  <%= render :partial => "/places/day_selection", :locals => { date: 'today', :action => "user_show"} %>
 </div>
 
- <div class="clearfix"></div>
-<%= @user.fb_avatar %>
-
+<div class="clearfix"></div>
+<img src="<%= @user.fb_avatar %>" alt="fb_avatar">
 <!-- base on selection -->
 <div class="sports_selection centered">
 	<h4><%= "籃球" %></h4>
