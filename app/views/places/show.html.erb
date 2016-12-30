@@ -105,5 +105,9 @@
     <div class="button-1 centered">
       <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
     </div>
+  <% else %>
+    <div class="close">
+      <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
+    </div>
   <% end %> 
 </div>
