@@ -16,9 +16,14 @@
     </div>
 
     <div>
-      <%=link_to "Facebook登入", user_facebook_omniauth_authorize_path, :class =>"btn btn-default"%>
+      <%= link_to user_facebook_omniauth_authorize_path do %>
+        <div class="btn btn-social btn-facebook">
+          <span class="fa fa-facebook"></span>
+          Facebook 登入
+        </div>
+      <% end %>
     </div>
-    
+    <br>
     <div class="close">
       <div id="email_button" class="btn btn-default">
         用戶登入
