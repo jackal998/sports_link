@@ -10,7 +10,7 @@
       <div class="col-sm-4 col-md-4 col-xs-4 centered navbar1">
       	<h5>
           <% if controller_name == "users" %>
-            <%= link_to "",root_path, :class => "btn glyphicon glyphicon-plus", :id => "nav_host_event_link" %>
+            <%= link_to "", root_path, :class => "btn glyphicon glyphicon-plus", :id => "nav_host_event_link" %>
           <% else %>
       		<%= link_to "", new_event_path(date: date, place_id: place_id, distance: distance), :class => "btn glyphicon glyphicon-plus", :id => "nav_host_event_link" %>
           <% end %>
@@ -18,7 +18,11 @@
       </div>
       <div class="col-sm-4 col-md-4 col-xs-4 centered navbar1">
       	<h5>
-      		<%= link_to "", user_path(current_user), :class => "btn glyphicon glyphicon-calendar" %>
+          <% if current_user %>
+      		  <%= link_to "", user_path(current_user), :class => "btn glyphicon glyphicon-calendar" %>
+          <% else %>
+            <%= link_to "", root_path, :class => "btn glyphicon glyphicon-calendar" %>
+          <% end %>
       	</h5>
       </div>
     </div>
