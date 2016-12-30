@@ -7,4 +7,13 @@ class UsersController < ApplicationController
     @hosted_events = get_events_by_date(@hosted_events, params[:date])
     @attended_events = get_events_by_date(@attended_events, params[:date])
   end
+
+  def quit_event
+    @event = Event.find(params[:event_id])
+    if @event.user == current_user
+      @event.destroy
+    else
+      @event.event_attendees.find_by_user_id(current_user.id).destroy
+    end
+  end
 end
