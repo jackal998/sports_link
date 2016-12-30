@@ -34,27 +34,27 @@
   <div class="court_elements">
     <div class="court_element">
     <!-- basketbal net -->
-      <div class="basket">
-        <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/basket.png" alt="basketbal net">
-      </div>
       <div class="indexbox">
         <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox"> 
       </div>
       <div class="index">
         <%= @place.courts %>
       </div> 
+      <div class="basket">
+        <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/basket.png" alt="basketbal net">
+      </div>
     </div>
     <div class="court_element">
     <!-- court count -->
+      <div class="indexbox2">
+        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox">   
+      </div>
+      <div class="index2">
+        <%= @place.basket %>   
+      </div> 
       <div class="courts">
         <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/courts.png" alt="court count">
       </div>
-      <div class="indexbox">
-        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox">   
-      </div>
-      <div class="index">
-        <%= @place.basket %>   
-      </div> 
     </div>
     <div class="court_element centered">
     <!-- light closing -->
@@ -74,10 +74,10 @@
       <div class="level">
         <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/level.png" alt="powerful-skill">
       </div>
-      <div class="indexbox">
+      <div class="indexbox2">
         <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox">   
       </div> 
-      <div class="index">
+      <div class="index4">
         <% if @place.level %>
           <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/strong.png" alt="strong">
         <% end %>  
@@ -85,7 +85,7 @@
     </div>      
   </div>
   <div class="clearfix"></div>
-    <!-- Description of court -->
+    <!-- Description of court --
     <br>
     <div class="description">
       <p>場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺</p>

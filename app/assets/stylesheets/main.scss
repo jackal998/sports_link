@@ -199,11 +199,29 @@ nav a{
 	right: 0;
 	top: -20px;
 }
-
+.indexbox2{
+	position: absolute;
+	height: 100%;
+	width: 40%;
+	right: 0;
+	top: -25px;
+}
 .index{
 	position: absolute;
+	right:10.5px;
+	top: -20.5px;
+}
+
+.index2{
+	position: absolute;
 	right:11.5px;
-	top: -19.5px;
+	top: -24.5px;
+}
+
+.index4{
+	position: absolute;
+	right:10.5px;
+	top: -26.5px;
 }
 @media (max-width: 425px){
 	html {
