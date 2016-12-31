@@ -8,7 +8,7 @@
         結束時間：<%= event.end_at.strftime("%H:%M") %>
       </td>
       <td width="40%">
-        場地： <%= link_to event.place.name ,'http://maps.google.com/?q=' + event.place.address_components %>
+        場地： <%= link_to event.place.name ,'http://maps.google.com/?q=' + event.place.name %>
       </td>
     </tr>
   <% end %> 
