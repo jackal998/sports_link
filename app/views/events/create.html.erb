@@ -1,5 +1,5 @@
 <div class="smallmap">
-  <%= render :partial => "/events/mapjs" %>
+  <%= render :partial => "/events/map_create", locals: {place: @place} %>
 </div>
 
 <div>
@@ -21,9 +21,16 @@
   場地資料:
   <br>
   <div>
-    <h2><%= @place.name %></h2>
-    <h3>
-      <%= link_to @place.address_components, 'http://maps.google.com/?q=' + @place.address_components %></h3>
+    <% if @place.address_components.present? %>
+      <h2><%= @place.name %></h2>
+      <h3>
+        <%= link_to @place.address_components, 'http://maps.google.com/?q=' + @place.address_components %>
+      </h3>
+    <% else %>
+      <h3>
+        <%= link_to @place.name, 'http://maps.google.com/?q=' + @place.name %>
+      </h3>
+    <% end %> 
     <h4>距離：<%= params[:distance] %>公尺</h4>
   </div>
 </p>
@@ -32,6 +39,6 @@
   <h4>主辦者的特徵：<%= @event.characteristic_of_user %></h4>
 <% end %>  
 
-<div class="button-1 centered" >
+<div class="button-1 centered" style="margin-top: 5vh">
   <%= link_to '首頁', root_path %>
 </div>
