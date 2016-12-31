@@ -4,7 +4,6 @@
 
 <div id="map"></div>
 
-<div id="directions-panel"></div>
 <script>
   var stepDisplay;
   var markers = [];
@@ -112,19 +111,19 @@
         }
       }
       // For each place, get the icon, name and location.
-      var bounds = new google.maps.LatLngBounds();
+      // var bounds = new google.maps.LatLngBounds();
       
-      // CHECK BOUND IF ONLY ONE PLACE
-      places.forEach(function(place) {
-        createMarker(place);
-        if (place.geometry.viewport) {
-          // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-      map.fitBounds(bounds);
+      // // CHECK BOUND IF ONLY ONE PLACE
+      // places.forEach(function(place) {
+      //   createMarker(place);
+      //   if (place.geometry.viewport) {
+      //     Only geocodes have viewport.
+      //     bounds.union(place.geometry.viewport);
+      //   } else {
+      //     bounds.extend(place.geometry.location);
+      //   }
+      // });
+      // map.fitBounds(bounds);
     });
     // [END region_getplaces]
   };
@@ -202,8 +201,8 @@
     }
   };
   function nearbySearchcallback(results, status) {
+    var bounds = new google.maps.LatLngBounds();
     if (status === google.maps.places.PlacesServiceStatus.OK) {
-      var bounds = new google.maps.LatLngBounds();
       for (var i = 0; i < results.length; i++) {
         if (results[i].rating > 0 && results[i].icon.match('school')!= null) {
           createMarker(results[i]);
@@ -219,14 +218,17 @@
     }else{
       var icon = 'images/places.png'
       for (var i = 0; i < results.places.length; i++) {
+        var respos = new google.maps.LatLng(results.places[i].latitude,results.places[i].longitude)
         marker = new google.maps.Marker({
           map: map,
           icon: icon,
           title: results.places[i].name,
-          position: new google.maps.LatLng(results.places[i].latitude,results.places[i].longitude)
+          position: respos
         });
         attachInfromations(marker,results.places[i])
         markers.push(marker)
+        bounds.extend(respos);
+        map.fitBounds(bounds);
       }
     }
   }

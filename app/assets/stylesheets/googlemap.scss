@@ -20,6 +20,22 @@
   width: 100%;
 }
 
+#call_to_action {
+  float: left;
+  margin: 5px;
+  padding: 0 4px;
+  border-radius: 16px;
+  width: 100%;
+  z-index: 2;
+  opacity: 0.65;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #BF0000;
+  font-size: 2rem;
+  line-height: 1;
+  text-decoration: none;
+  color: white;
+}
+
 .controls {
   margin-top: 10px;
   border: 1px solid transparent;
