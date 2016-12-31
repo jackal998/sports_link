@@ -13,14 +13,12 @@
 	<div class="row">
 		<div class="place_detail col-md-4 col-sm-4 col-xs-4">
 			<div>
-        <% if Dir["public/images/places/#{place_id}.jpg"].present? %>
-          <% img_url = image_url "places/#{place_id}.jpg" %>
-        <% elsif @place.img.present? %>
+        <% if @place.img.present? %>
           <% img_url = @place.img %>
         <% else %>
           <% img_url = "https://maps.googleapis.com/maps/api/streetview?size=100x100&location=#{@place.latitude},#{@place.longitude}&pitch=-0.76&key=#{google_config["app_id"]}" %>
         <% end %>
-        <img src="<%= img_url %>" alt=<%= @place.name %>>
+        <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 100px;height: auto;>
 			</div>
 		</div>
 		<div class=" col-md-8 col-sm-8 col-xs-8">
