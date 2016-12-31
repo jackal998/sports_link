@@ -1,5 +1,8 @@
 <div id="floating-panel" class="hidden">
   <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+  <div id="poshere">
+    <span class="glyphicon glyphicon-screenshot"></span>
+  </div>
 </div>
 
 <div id="map"></div>
@@ -33,12 +36,13 @@
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     map.setOptions({styles: styles});
-    // Create the search box and link it to the UI element.
+
     var input = document.getElementById('pac-input');
+    var poshere = document.getElementById('poshere');
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(poshere);
 
-    // Set default result
     resultsPos = new google.maps.LatLng(<%= '25.0495123' %>,<%= '121.5319727' %>)
 
     // Bias the SearchBox results towards current map's viewport.
@@ -48,7 +52,6 @@
     var service = new google.maps.places.PlacesService(map);
     infoWindow = new google.maps.InfoWindow();
 
-    // Try HTML5 geolocation
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
@@ -69,7 +72,6 @@
             map: map
         });
         attachInstructionText(marker, 'Your here!')
-        markers.push(marker)
         searchFromCurrentPos(currentPos);
       }, function() {
         currentPos = new google.maps.LatLng(<%= '25.0521298' %>,<%= '121.5325289' %>)
@@ -79,24 +81,20 @@
           map: map,
         });
         attachInstructionText(marker, 'failed to load your position')
+        $('#call_to_action').html('<p>無法取得您的位置！</p>')
         handleLocationError(true, infoWindow, map.getCenter());
       });
     } else {
-      // Browser doesn't support Geolocation
       handleLocationError(false, infoWindow, map.getCenter());
     }
-    // [START region_getplaces]
-    // Listen for the event fired when the user selects a prediction and retrieve
-    // more details for that place.
-    searchBox.addListener('places_changed', function() {
 
+    searchBox.addListener('places_changed', function() {
       var places = searchBox.getPlaces();
       // Clear out the old markers.
       markers.forEach(function(marker) {
         marker.setMap(null);
         markers = [];
       });
-
       if (places.length == 0) {
         return;
       } else {
@@ -106,27 +104,16 @@
             places[0].geometry.location.lng()
           )
           searchFromCurrentPos(resultsPos);
-          // calculateAndDisplayRoute(directionsService, directionsDisplay);
-          // directionsDisplay.setMap(map);
         }
       }
-      // For each place, get the icon, name and location.
-      // var bounds = new google.maps.LatLngBounds();
-      
-      // // CHECK BOUND IF ONLY ONE PLACE
-      // places.forEach(function(place) {
-      //   createMarker(place);
-      //   if (place.geometry.viewport) {
-      //     Only geocodes have viewport.
-      //     bounds.union(place.geometry.viewport);
-      //   } else {
-      //     bounds.extend(place.geometry.location);
-      //   }
-      // });
-      // map.fitBounds(bounds);
     });
-    // [END region_getplaces]
   };
+  function setCurrentPos(bounds){
+    poshere.addEventListener('click', function() {
+      map.setCenter(currentPos);
+      map.fitBounds(bounds);
+    });
+  }
   function searchFromCurrentPos(position){
     // var service = new google.maps.places.PlacesService(map);
     map.setCenter(position);
@@ -140,7 +127,7 @@
         longitude: position.lng()
       },
       success: function(results, status){
-        nearbySearchcallback(results, status)
+        nearbySearchcallback(results, status, position)
       },
       error: function(event, jqxhr, settings){
         console.log('[POST]ajax_to_places_error:')
@@ -149,58 +136,14 @@
         console.log('jqxhr: '+jqxhr)
         console.log('settings: '+settings)
       }
-    }, nearbySearchcallback)
+    })
     // service.nearbySearch({
     //   location: position,
     //   radius: 500,
     //   types: ['school']
     // }, nearbySearchcallback)
   };
-  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-
-    directionsService.route({
-      origin: currentPos,
-      destination: resultsPos,
-      travelMode: google.maps.TravelMode.DRIVING
-    }, function(response, status) {
-      if (status === google.maps.DirectionsStatus.OK) {
-        directionsDisplay.setDirections(response);
-        var route = response.routes[0];
-        var summaryPanel = document.getElementById('directions-panel');
-        summaryPanel.innerHTML = '';
-        // For each route, display summary information.
-        for (var i = 0; i < route.legs.length; i++) {
-          var routeSegment = i + 1;
-          summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
-              '</b><br>';
-          summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-          summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-          summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
-          for (var j = 0; j < route.legs[i].steps.length; j++) {
-            summaryPanel.innerHTML += route.legs[i].steps[j].instructions + route.legs[i].steps[j].distance.text + '<br><br>';
-          }
-        }
-        showSteps(response);
-      } else {
-        window.alert('Directions request failed due to ' + status);
-      }
-    });
-  };
-  function showSteps(directionResult) {
-    // For each step, place a marker, and add the text to the marker's
-    // info window. Also attach the marker to an array so we
-    // can keep track of it and remove it when calculating new
-    // routes.
-    var myRoute = directionResult.routes[0].legs[0];
-    for (var i = 0; i < myRoute.steps.length; i++) {
-        markers.push( new google.maps.Marker({
-          position: myRoute.steps[i].start_point,
-          map: map
-        }));
-        attachInstructionText(marker, myRoute.steps[i].instructions);
-    }
-  };
-  function nearbySearchcallback(results, status) {
+  function nearbySearchcallback(results, status, searchpos) {
     var bounds = new google.maps.LatLngBounds();
     if (status === google.maps.places.PlacesServiceStatus.OK) {
       for (var i = 0; i < results.length; i++) {
@@ -228,7 +171,12 @@
         attachInfromations(marker,results.places[i])
         markers.push(marker)
         bounds.extend(respos);
-        map.fitBounds(bounds);
+      }
+      bounds.extend(searchpos);
+      map.fitBounds(bounds);
+      map.setCenter(searchpos)
+      if (searchpos == currentPos) {
+        setCurrentPos(bounds) 
       }
     }
   }
@@ -246,9 +194,7 @@
   function attachInfromations(marker, place) {
     google.maps.event.addListener(marker, 'click', function() {
       markers.forEach(function(m,index) {
-        if (index != 0) {
-          m.setIcon('images/places.png');
-        }
+        m.setIcon('images/places.png');
       });
       marker.setIcon('images/pselect.png');
       var hidden_informations = document.getElementById('hidden_informations');
@@ -357,7 +303,46 @@
                           'Error: The Geolocation service failed.' :
                           'Error: Your browser doesn\'t support geolocation.');
   };
-  
+  // function showSteps(directionResult) {
+  //   var myRoute = directionResult.routes[0].legs[0];
+  //   for (var i = 0; i < myRoute.steps.length; i++) {
+  //     markers.push( new google.maps.Marker({
+  //       position: myRoute.steps[i].start_point,
+  //       map: map
+  //     }));
+  //     attachInstructionText(marker, myRoute.steps[i].instructions);
+  //   }
+  // };
+  // function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+
+  //   directionsService.route({
+  //     origin: currentPos,
+  //     destination: resultsPos,
+  //     travelMode: google.maps.TravelMode.DRIVING
+  //   }, function(response, status) {
+  //     if (status === google.maps.DirectionsStatus.OK) {
+  //       directionsDisplay.setDirections(response);
+  //       var route = response.routes[0];
+  //       var summaryPanel = document.getElementById('directions-panel');
+  //       summaryPanel.innerHTML = '';
+  //       // For each route, display summary information.
+  //       for (var i = 0; i < route.legs.length; i++) {
+  //         var routeSegment = i + 1;
+  //         summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment +
+  //             '</b><br>';
+  //         summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+  //         summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+  //         summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+  //         for (var j = 0; j < route.legs[i].steps.length; j++) {
+  //           summaryPanel.innerHTML += route.legs[i].steps[j].instructions + route.legs[i].steps[j].distance.text + '<br><br>';
+  //         }
+  //       }
+  //       showSteps(response);
+  //     } else {
+  //       window.alert('Directions request failed due to ' + status);
+  //     }
+  //   });
+  // };
 </script>
 
 <% google_config = Rails.application.config_for(:google) %>

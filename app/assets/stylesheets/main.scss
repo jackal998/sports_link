@@ -262,8 +262,16 @@ nav a{
 		text-align: center;
 		padding-top: 50%;
 	}
+
 	nav li{
 		float: none;
-
 	}
+
+  #pac-input {
+    width: 200px;
+  }
+
+  #call_to_action p{
+    font-size: 1.4rem;
+  }
 }

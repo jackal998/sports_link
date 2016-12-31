@@ -1,0 +1,111 @@
+<div id="floating-panel" class="hidden">
+  <div id="poshere" style="margin-left: 10px;">
+    <span class="glyphicon glyphicon-screenshot"></span>
+  </div>
+</div>
+
+<div id="map"></div>
+
+<script>
+  function initMap() {
+    directionsService = new google.maps.DirectionsService;
+    directionsDisplay = new google.maps.DirectionsRenderer;
+    var styles = [
+      {
+        featureType: "road",
+        elementType: "geometry",
+        stylers: [
+          { lightness: 100 },
+          { visibility: "simplified" }
+        ]
+      },{
+        featureType: "poi",
+        elementType: "labels",
+        stylers: [
+          { visibility: "off" }
+        ]
+      }
+    ];
+    map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 16,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+    map.setOptions({styles: styles});
+
+    var poshere = document.getElementById('poshere');
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(poshere);
+
+    resultsPos = new google.maps.LatLng(<%= place.latitude %>,<%= place.longitude %>)
+
+    infoWindow = new google.maps.InfoWindow();
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+        currentPos = new google.maps.LatLng(pos.lat,pos.lng);
+        var here = {
+          url: 'images/here.png',
+          size: new google.maps.Size(16, 17),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(8, 8),
+          scaledSize: new google.maps.Size(17, 17)
+        };
+        var marker = new google.maps.Marker({
+            icon: here,
+            position: currentPos,
+            map: map
+        });
+        attachInstructionText(marker, 'Your here!')
+        directionsDisplay.setMap(map);
+        calculateAndDisplayRoute(directionsService, directionsDisplay)
+      }, function() {
+        var marker = new google.maps.Marker({
+          position: resultsPos,
+          map: map,
+        });
+        map.setCenter(resultsPos)
+        setCurrentPos(resultsPos)
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
+    } else {
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  };
+  function attachInstructionText(marker, text) {
+    google.maps.event.addListener(marker, 'click', function() {
+      infoWindow.setContent(text);
+      infoWindow.open(map, marker);
+    });
+  };
+  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+    directionsService.route({
+      origin: currentPos,
+      destination: resultsPos,
+      travelMode: google.maps.TravelMode.DRIVING
+    }, function(response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        directionsDisplay.setDirections(response);
+        setCurrentPos(currentPos);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  };
+  function setCurrentPos(position){
+    poshere.addEventListener('click', function() {
+      map.setCenter(position);
+    });
+  }
+  function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+                          'Error: The Geolocation service failed.' :
+                          'Error: Your browser doesn\'t support geolocation.');
+  };
+</script>
+
+<% google_config = Rails.application.config_for(:google) %>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%=google_config["app_id"]%>&libraries=places&callback=initMap" defer></script>
