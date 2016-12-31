@@ -5,11 +5,11 @@
     <%= render :partial => "/places/day_selection", :locals => { place_id: '', date: 'today', distance: '', action: 'places'} %>
   </div>
   <div class="clearfix"></div>
+  <div id="call_to_action"></div>
   <%= render :partial => "/events/mapjs" %>
   <div class="clearfix"></div>
   <%= render :partial => "/places/footer" %>
   <div class="clearfix"></div>
-  <div id="call_to_action"></div>
 </div>
 <script>
   $('.navicons a').each(function(index, element){
