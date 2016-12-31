@@ -28,7 +28,7 @@
     <h4>
       <%= f.label :characteristic_of_user, "特徵：" %>
     </h4>
-    <%= f.text_field :characteristic_of_user, :class => "form-control" %>
+    <%= f.text_field :characteristic_of_user,:placeholder => "請輸入特徵，方便球友們找到您！", :class => "form-control" %>
   </div>
   <div class="container">
     <div class="row">
@@ -38,9 +38,7 @@
         </div>
       </div>
       <div class="col-md-6 col-sm-6 col-xs-6">
-        <div class="button-1">
-          <%= f.submit "確認"%>
-        </div> 
+          <%= f.submit "確認", class: "button-1"%>
       </div>
     </div>
   </div>    
