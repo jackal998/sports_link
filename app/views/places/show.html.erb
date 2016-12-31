@@ -10,94 +10,95 @@
     <%= render :partial => "/places/day_selection", :locals => {place_id: place_id, distance: distance, date: date, action: 'place'} %>
   </div>
   <div class="clear-fix"></div>
-  <div class="row">
-    <div class="place_detail col-md-6 col-sm-12 col-xs-12 rectangle_pic">
-      <img src="https://maps.googleapis.com/maps/api/streetview?size=425x150&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt=<%= @place.name %>>
-    </div>
-    <div class="col-md-6 col-sm-5 col-xs-5">
-      <h3> 
-        <%= @place.name %>    
-      </h3>
-      <h5>
-        <% if distance.to_i > 1000 %>
-          距離約<%= (distance.to_i/1000).round(2) %>公里
-        <% else %>
-          距離約<%= distance %>公尺
-        <% end %>
-      </h5>
-    </div>
-    <div class="col-md-6 col-sm-7 col-xs-7 nearby_information">
-      <%=render(:partial => "place_informations", :locals => {place: @place}) %>
-    </div>
-  </div>
-  <div class="clear-fix"></div>  
-  <div class="court_elements">
-    <div class="court_element">
-    <!-- basketbal net -->
-      <div class="indexbox">
-        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox"> 
+  <div class="web-based">
+    <div class="row">
+      <div class="place_detail col-md-12 col-sm-12 col-xs-12 rectangle_pic">
+        <img src="https://maps.googleapis.com/maps/api/streetview?size=425x150&location=<%= @place.latitude %>,<%= @place.longitude %>&pitch=-0.76&key=<%=google_config["app_id"]%>" alt=<%= @place.name %>>
       </div>
-      <div class="index">
-        <%= @place.courts %>
-      </div> 
-      <div class="basket">
-        <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/basket.png" alt="basketbal net">
+      <div class="col-md-5 col-sm-5 col-xs-5">
+        <h3> 
+          <%= @place.name %>    
+        </h3>
+        <h5>
+          <% if distance.to_i > 1000 %>
+            距離約<%= (distance.to_i/1000).round(2) %>公里
+          <% else %>
+            距離約<%= distance %>公尺
+          <% end %>
+        </h5>
+      </div>
+      <div class="col-md-7 col-sm-7 col-xs-7 nearby_information">
+        <%=render(:partial => "place_informations", :locals => {place: @place}) %>
       </div>
     </div>
-    <div class="court_element">
-    <!-- court count -->
-      <div class="indexbox2">
-        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox">   
-      </div>
-      <div class="index2">
-        <%= @place.basket %>   
-      </div> 
-      <div class="courts">
-        <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/courts.png" alt="court count">
-      </div>
-    </div>
-    <div class="court_element centered">
-    <!-- light closing -->
-      <div class="light">
-        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/light.png" alt="light closing">
-      </div>
-      <div class="indexbox3">
-        <% if @place.light? %>
-          <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/available.png" alt="strong">
-        <% else %>
+    <div class="clear-fix"></div>  
+    <div class="court_elements">
+      <div class="court_element">
+      <!-- basketbal net -->
+        <div class="indexbox">
           <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox"> 
-        <% end %>   
+        </div>
+        <div class="index">
+          <%= @place.courts %>
+        </div> 
+        <div class="basket">
+          <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/basket.png" alt="basketbal net">
+        </div>
+      </div>
+      <div class="court_element">
+      <!-- court count -->
+        <div class="indexbox2">
+          <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox">   
+        </div>
+        <div class="index2">
+          <%= @place.basket %>   
+        </div> 
+        <div class="courts">
+          <img src="https://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/courts.png" alt="court count">
+        </div>
+      </div>
+      <div class="court_element centered">
+        <div class="light">
+          <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/light.png" alt="light closing">
+        </div>
+        <div class="indexbox3">
+          <% if @place.light? %>
+            <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/available.png" alt="available">
+          <% else %>
+            <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox"> 
+          <% end %>   
+        </div>      
+      </div>
+      <div class="court_element">
+      <!-- powerful-skill -->
+        <div class="level">
+          <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/level.png" alt="powerful-skill">
+        </div>
+        <div class="indexbox2">
+          <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox">   
+        </div> 
+        <div class="index4">
+          <% if @place.level %>
+            <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/strong.png" alt="strong">
+          <% end %>  
+        </div> 
       </div>      
     </div>
-    <div class="court_element">
-    <!-- powerful-skill -->
-      <div class="level">
-        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/level.png" alt="powerful-skill">
+    <div class="clearfix"></div>
+      <!-- Description of court -->
+      <br>
+      <div class="description">
+        <p>場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺</p>
       </div>
-      <div class="indexbox2">
-        <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/indexbox.png" alt="indexbox">   
-      </div> 
-      <div class="index4">
-        <% if @place.level %>
-          <img src="http://s3-ap-northeast-1.amazonaws.com/sportslinkpj/images/strong.png" alt="strong">
-        <% end %>  
-      </div> 
-    </div>      
-  </div>
-  <div class="clearfix"></div>
-    <!-- Description of court -->
-    <br>
-    <div class="description">
-      <p>場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺</p>
+    <div>
+      <h4>場次加入</h4>
     </div>
-  <div>
-    <h4>場次加入</h4>
+    <div id="show_events">
+      <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date, events: @events, attended_events: @attended_events } if @events.present? %>
+    </div>
+    <% host_class =  (@events.nil? || @events.size < 4) ? 'button-1 centered' : 'close' %>
+    <div class="<%= host_class %>">
+      <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
+    </div>
   </div>
-  <div id="show_events">
-    <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date, events: @events, attended_events: @attended_events } if @events.present? %>
-  </div>
-  <% host_class =  (@events.nil? || @events.size < 4) ? 'button-1 centered' : 'close' %>
-  <div class="<%= host_class %>">
-    <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
-  </div>
-</div>
+ 

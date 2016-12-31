@@ -90,6 +90,10 @@ nav a{
 	border-color: #555;
 }
 
+.web-based{
+	max-width: 425px;
+	margin: 0 auto ;
+}
 .button-1{
   padding: 14px 4px;
   border-radius: 16px;
@@ -128,10 +132,17 @@ nav a{
 	min-height: 50px;
 }
 
-.rectangle_pic{
-	margin-left: -15px;
-}
+// .rectangle_pic{
+// 	margin-left: -15px;
+// }
 
+.nearby_info{
+	float: right;
+}
+.nearby_info img{
+	width: 80%;
+  padding: 0 3px;
+}
 .rectangle_pic img{
 	height: 10%;
 }

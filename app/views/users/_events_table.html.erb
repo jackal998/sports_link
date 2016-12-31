@@ -1,12 +1,15 @@
 <table class ="table <%= table_type %>">
   <% events.each do |event| %>
     <tr>
-      <td width="50%">
+      <td width="30%">
         開始時間：<%= event.start_at.strftime("%H:%M") %>
       </td>
-      <td width="50%">  
+      <td width="30%">  
         結束時間：<%= event.end_at.strftime("%H:%M") %>
       </td>
-    </tr>   
+      <td width="40%">
+        場地： <%= link_to event.place.name ,'http://maps.google.com/?q=' + event.place.address_components %>
+      </td>
+    </tr>
   <% end %> 
 </table>
