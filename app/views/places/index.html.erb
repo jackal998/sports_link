@@ -1,16 +1,15 @@
-<div class="container">
-  <%= render :partial => "/layouts/navbar", :locals => { place_id: '', date: 'today', distance: '' } %>
-  <div class="clear-fix"></div>
-  <div id="day_selection">
-    <%= render :partial => "/places/day_selection", :locals => { place_id: '', date: 'today', distance: '', action: 'places'} %>
-  </div>
-  <div class="clearfix"></div>
-  <div id="call_to_action"></div>
-  <%= render :partial => "/events/map_index" %>
-  <div class="clearfix"></div>
-  <%= render :partial => "/places/footer" %>
-  <div class="clearfix"></div>
+<%= render :partial => "/layouts/navbar", :locals => { place_id: '', date: 'today', distance: '' } %>
+<div class="clear-fix"></div>
+<div id="day_selection">
+  <%= render :partial => "/places/day_selection", :locals => { place_id: '', date: 'today', distance: '', action: 'places'} %>
 </div>
+<div class="clearfix"></div>
+<div id="call_to_action"></div>
+<%= render :partial => "/events/map_index" %>
+<div class="clearfix"></div>
+<%= render :partial => "/places/footer" %>
+<div class="clearfix"></div>
+
 <script>
   $('.navicons a').each(function(index, element){
     if (index == 2 && <%= current_user.present? %>) {

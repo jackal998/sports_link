@@ -1,28 +1,41 @@
-<div class="container">
-	<%= render :partial => "/layouts/navbar" %>
-	<div class="clear-fix"></div>
-	<div id="day_selection">
-	  <%= render :partial => "/places/day_selection", :locals => { date: 'today', :action => "user_show"} %>
-	</div>
-
-	<div class="clearfix"></div>
-	<div class="avatar centered">
-		<img src="<%= @user.fb_avatar %>" alt="fb_avatar">
-	</div>
-
-	<!-- base on selection -->
-	<div class="sports_selection centered">
-		<h4><%= "籃球" %></h4>
-	</div>
-
-
-	<h4>主辦打球</h4>
-	<div id="hosted_events">
-		<%= render :partial => "events_table", :locals => {events: @hosted_events, :table_type => "hosted_events"} %>
-	</div>
-
-	<h4>已經加入</h4>
-	<div id="attended_events">
-		<%= render :partial => "events_table", :locals => {events: @attended_events, :table_type => "attended_events"} %>
-	</div>
+<%= render :partial => "/layouts/navbar" %>
+<div class="clear-fix"></div>
+<div id="day_selection">
+  <%= render :partial => "/places/day_selection", :locals => { date: 'today', :action => "user_show"} %>
 </div>
+
+<div class="clearfix"></div>
+<div class="avatar centered">
+	<img src="<%= @user.fb_avatar %>" alt="fb_avatar">
+</div>
+
+<!-- base on selection -->
+<div class="sports_selection centered">
+	<h4><%= "籃球" %></h4>
+</div>
+
+<div class="allevents">
+  <h4>主辦打球</h4>
+  <div id="hosted_events">
+  	<%= render :partial => "events_table", :locals => {events: @hosted_events, :table_type => "hosted_events"} %>
+  </div>
+
+  <h4>已經加入</h4>
+  <div id="attended_events">
+  	<%= render :partial => "events_table", :locals => {events: @attended_events, :table_type => "attended_events"} %>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('.allevents').on('click', 'tr', function(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      $(this).find('td').last().toggleClass('close');
+    });
+    $('.allevents').on('click', 'a', function(event) {
+      console.log(this)
+      // event.stopPropagation();
+    });
+  });
+</script>

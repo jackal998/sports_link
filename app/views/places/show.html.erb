@@ -1,7 +1,7 @@
 <% google_config = Rails.application.config_for(:google) %>
 <% distance, date, place_id = params[:distance], params[:date], @place.place_id %>
 
-<div class="container content">
+<div class="content">
   <div>
     <%= render :partial => "/layouts/navbar", :locals => {place_id: place_id, distance: distance, date: date } %>
   </div>
