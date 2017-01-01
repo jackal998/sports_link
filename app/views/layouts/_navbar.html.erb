@@ -1,4 +1,4 @@
-<%# link_to "Log out", destroy_user_session_path, :method => "delete" if current_user %>
+<%= link_to "Log out", destroy_user_session_path, :method => "delete" if current_user %>
 <div class="navicons">
   <div class="row">
     <div class="navbar2">
@@ -21,7 +21,7 @@
           <% if current_user %>
       		  <%= link_to "", user_path(current_user), :class => "btn glyphicon glyphicon-calendar"%>
           <% else %>
-            <%= link_to "", root_path, :class => "btn glyphicon glyphicon-calendar" %>
+            <%= link_to "", new_user_session_path, :class => "btn glyphicon glyphicon-calendar" %>
           <% end %>
       	</h5>
       </div>

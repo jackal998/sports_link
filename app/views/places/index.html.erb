@@ -12,7 +12,7 @@
 
 <script>
   $('.navicons a').each(function(index, element){
-    if (index == 2 && <%= current_user.present? %>) {
+    if (index == 2) {
     }else{
       if (getURLParameter(element.href, 'place_id') == null) {      
         element.addEventListener("click", preventfromDefault);
