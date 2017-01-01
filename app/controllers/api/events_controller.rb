@@ -32,7 +32,6 @@ class Api::EventsController < Api::BaseController
 
   def join
     current_user.join_event(@event)
-    @event = @event.includes(:event_attendees)
     @place = Place.find(@event.place_id)
   end
 
