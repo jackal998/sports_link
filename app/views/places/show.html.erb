@@ -15,16 +15,69 @@
       <div class="place_detail col-md-12 col-sm-12 col-xs-12 rectangle_pic">
         <% if Dir["public/images/places/#{place_id}.jpg"].present? %>
           <div id="viewer" style="width: 425px; height: 200px;"></div>
-          <%= javascript_include_tag "async.js" %>
-          <%= javascript_include_tag "three.js" %>
-          <%= javascript_include_tag "OrbitControls.js" %>
-          <%= javascript_include_tag "theta-viewer.js" %>
           <script>
-            var viewer = new ThetaViewer( document.getElementById("viewer") );
-            viewer.images = ["<%= image_path 'places/#{place_id}.jpg' %>"];
-            viewer.interval = 200; // msec
-            viewer.autoRotate = true;
-            viewer.load();
+            $(document).ready(function() {
+              LoadScripts();
+
+              function LoadScripts(async, callback){
+                if( async === undefined ) {
+                    async = false;
+                  }
+                var scripts = [];
+                var _scripts =   [
+                "<%= asset_path 'three.js' %>",
+                "<%= asset_path 'async.js' %>",
+                "<%= asset_path 'OrbitControls.js' %>",
+                "<%= asset_path 'theta-viewer.js' %>"
+                ];
+                if(async){
+                  LoadScriptsAsync(_scripts, scripts)
+                }else{
+                  LoadScriptsSync(_scripts,scripts)
+                }
+              };
+
+              function LoadScriptsSync (_scripts, scripts) {
+                var x = 0;
+                var loopArray = function(_scripts, scripts) {
+                  loadScript(_scripts[x], scripts[x], function(){
+                    x++;
+                    if(x < _scripts.length) {
+                      loopArray(_scripts, scripts);   
+                    } else {
+                      setView()
+                    }
+                  }); 
+                }
+                loopArray(_scripts, scripts);     
+              };
+
+              function LoadScriptsAsync (_scripts, scripts){
+                for(var i = 0;i < _scripts.length;i++) {
+                  loadScript(_scripts[i], scripts[i], function(){});
+                }
+              }
+
+              function loadScript( src, script, callback ){
+                script = document.createElement('script');
+                script.onerror = function() { 
+                  alert('Error to handle')
+                }
+                script.onload = function(){
+                  callback();
+                }
+                script.src = src;
+                document.getElementsByTagName('head')[0].appendChild(script);
+              }
+
+              function setView(){
+                var viewer = new ThetaViewer( document.getElementById("viewer") );
+                viewer.images = ["<%= image_path 'places/#{place_id}.jpg' %>"];
+                viewer.interval = 200; // msec
+                viewer.autoRotate = true;
+                viewer.load();
+              }        
+            });
           </script>
         <% elsif @place.img.present? %>
           <% img_url = @place.img %>
@@ -104,20 +157,19 @@
       </div>      
     </div>
     <div class="clearfix"></div>
-      <!-- Description of court -->
-      <br>
-      <div class="description">
-        <p>場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺</p>
-      </div>
-    <div>
-      <h4>場次加入</h4>
+    <!-- Description of court -->
+    <br>
+    <div class="description">
+      <p>場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺</p>
     </div>
-    <div id="show_events">
-      <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date, events: @events, attended_events: @attended_events } if @events.present? %>
-    </div>
-    <% host_class =  (@events.nil? || @events.size < 4) ? 'button-1 centered' : 'close' %>
-    <div class="<%= host_class %>">
-      <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
-    </div>
+  <div>
+    <h4>場次加入</h4>
   </div>
- 
+  <div id="show_events">
+    <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date, events: @events, attended_events: @attended_events } if @events.present? %>
+  </div>
+  <% host_class =  (@events.nil? || @events.size < 4) ? 'button-1 centered' : 'close' %>
+  <div class="<%= host_class %>">
+    <%= link_to '主辦', new_event_path(place_id: place_id, distance: distance, date: date), id: "host_buttun" %> 
+  </div>
+</div>
