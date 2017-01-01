@@ -241,6 +241,23 @@ nav a{
 	right:10.5px;
 	top: -26.5px;
 }
+
+#call_to_action {
+  float: left;
+  margin: 5px 0;
+  padding: 0 4px;
+  border-radius: 16px;
+  width: 100%;
+  z-index: 2;
+  opacity: 0.65;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #BF0000;
+  font-size: 2rem;
+  line-height: 1.8;
+  text-decoration: none;
+  color: white;
+}
+
 @media (max-width: 425px){
 	html {
     overflow-x: hidden; 
