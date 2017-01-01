@@ -1,6 +1,7 @@
-<% if @event.present?  %> 
-  <% distance, date, place_id = params[:distance], params[:date], @event.place.place_id %>
-  $('#event_<%= params[:event_id] %>').find('.pull-right').html('<%= link_to "＋", join_event_path(@event, :place_id => place_id, :date => date, :distance => distance), method: "post" %>');
+<% distance, date, place_id = params[:distance], params[:date], params[:place_id] %>
+
+<% if place_id.present? && @event.present? %> 
+  $('#event_<%= params[:event_id] %>').find('.pull-right').html('<%= link_to "", join_event_path(@event, :place_id => place_id, :date => date, :distance => distance),class: "glyphicon glyphicon-plus", method: "post" %>');
 <% else %>
   $('#event_<%= params[:event_id] %>').remove()
 <% end %>

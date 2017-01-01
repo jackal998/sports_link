@@ -1,6 +1,6 @@
-<table class ="table <%= table_type %>">
+<table class ="table <%= table_type %>" style="margin-bottom: 0;">
   <% events.each do |event| %>
-    <tr>
+    <tr id="event_<%= event.id %>">
       <td width="30%">
         開始時間：<%= event.start_at.strftime("%H:%M") %>
       </td>
@@ -17,5 +17,5 @@
         <%= link_to '退出活動', quit_event_users_path(event_id: event.id), :method => 'delete', :remote => true %>
       </td>
     </tr>
-  <% end %> 
+  <% end %>
 </table>
