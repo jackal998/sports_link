@@ -32,6 +32,7 @@ class Api::EventsController < Api::BaseController
 
   def join
     current_user.join_event(@event)
+    @event = @event.includes(:event_attendees)
     @place = Place.find(@event.place_id)
   end
 
@@ -44,7 +45,7 @@ class Api::EventsController < Api::BaseController
     end 
   end
   def find_event
-    @event = Event.find_by_id(params[:id]) if params[:id].present?
+    @event = Event.find_by_id(params[:id]).includes(:event_attendees) if params[:id].present?
     render json: { errors: 'No Evnet Error', needed: {id: 'integer'}}, :status => 400 unless @event
   end
 end

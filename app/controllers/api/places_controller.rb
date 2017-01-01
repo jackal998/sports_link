@@ -13,7 +13,7 @@ class Api::PlacesController < Api::BaseController
           params[:radius] = 2000
         end
       end
-      @attended_events = current_user.attended_events
+      @attended_events_arr = current_user.attended_events.ids
     else
       render json: { errors: 'No Position Error' , needed: { latitude: 'float', longitude: 'float'}}, :status => 400
     end
@@ -26,8 +26,9 @@ class Api::PlacesController < Api::BaseController
   def show
     if params[:id].present? && params[:date].present?
       @place = Place.find_by_place_id(params[:id])
-      @events = get_events_by_date(@place.events, params[:date])
-      @attended_events = current_user.attended_events
+      events = get_events_by_date(@place.events, params[:date])
+      @events = Event.where(id: events.pluck(:id)).includes(:event_attendees)
+      @attended_events_arr = current_user.attended_events.ids
     else
       render json: { errors: 'No Place or Date Error' , needed: { id: 'place_id string', date: 'string: "today", "tomorrow" or "day_after"'}}, :status => 400
     end

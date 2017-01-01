@@ -8,7 +8,7 @@ json.places do
           @event = get_events_by_date(place.events, date).first
           if @event
             json.partial! '/api/templates/event', event: @event
-            json.attended @attended_events.include?(@event)
+            json.attended @attended_events_arr.include?(@event.id)
           else
             json.null!
           end
