@@ -109,7 +109,7 @@
       <h4>場次加入</h4>
     </div>
     <div id="show_events">
-      <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date, events: @events, attended_events: @attended_events } if @events.present? %>
+      <%= render :partial => "show_events", :locals => { place_id: place_id, distance: distance, date: date, events: @events, attended_events: @attended_events } %>
     </div>
     <% host_class =  (@events.nil? || @events.size < 4) ? 'button-1 centered' : 'close' %>
     <div class="<%= host_class %>">
