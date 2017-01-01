@@ -1,16 +1,16 @@
 <table class ="table <%= table_type %>" style="margin-bottom: 0;">
   <% events.each do |event| %>
-    <tr id="event_<%= event.id %>">
-      <td width="30%">
-        開始時間：<%= event.start_at.strftime("%H:%M") %>
+    <tr id="event_<%= event.id %>" class="padding4">
+      <td width="27.5%">
+        開始時間：<br/><%= event.start_at.strftime("%H:%M") %>
       </td>
-      <td width="30%">  
-        結束時間：<%= event.end_at.strftime("%H:%M") %>
+      <td width="27.5%">  
+        結束時間：<br/><%= event.end_at.strftime("%H:%M") %>
       </td>
-      <td width="25%">
-        場地： <%= link_to event.place.name ,'http://maps.google.com/?q=' + event.place.name %>
+      <td width="24%">
+        場地：<br/><%= link_to event.place.name ,'http://maps.google.com/?q=' + event.place.name %>
       </td>
-      <td width="15%">
+      <td width="21%">
         人數： <%= event.event_attendees.size %>
       </td>
       <td width="15%" class="close">
@@ -19,3 +19,4 @@
     </tr>
   <% end %>
 </table>
+
