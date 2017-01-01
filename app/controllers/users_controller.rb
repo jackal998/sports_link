@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
 	def show
     @user = current_user
-    @hosted_events = @user.events.includes(:place)
-    @attended_events = @user.attended_events.where.not(user: @user).includes(:place)
+    @hosted_events = @user.events.includes(:place).includes(:event_attendees)
+    @attended_events = @user.attended_events.where.not(user: @user).includes(:place).includes(:event_attendees)
 
     @hosted_events = get_events_by_date(@hosted_events, params[:date])
     @attended_events = get_events_by_date(@attended_events, params[:date])

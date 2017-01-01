@@ -9,10 +9,9 @@
       </span>
       <span class="pull-right">
         <% if attended_events.include?(event) %>
-          <%= link_to '－', quit_event_users_path(event_id: event.id, :place_id => place_id, :date => date, :distance => distance), :method => 'delete', :remote => true %>
+          <%= link_to '', quit_event_users_path(event_id: event.id, :place_id => place_id, :date => date, :distance => distance), :class => "glyphicon glyphicon-minus", :method => 'delete', style: "color: rgba(33,33,33,.3)", :remote => true %>
         <% else %>
-        <!-- 將＋改變時（class或是其他）顯示上會錯誤，請同步修改quit_event.js.erb -->
-          <%= link_to '＋', join_event_path(event, :place_id => place_id, :date => date, :distance => distance), method: "post" %>
+          <%= link_to '', join_event_path(event, :place_id => place_id, :date => date, :distance => distance), class: "glyphicon glyphicon-plus", method: "post", style: "color: #BF0000;opacity: 0.65;" %>
         <% end %>
       </span>
     </li>

@@ -27,15 +27,17 @@
 </div>
 
 <script>
-  // $(document).ready(function() {
-  //   $('.allevents').on('click', 'tr', function(event) {
-  //     event.stopPropagation();
-  //     event.preventDefault();
-  //     $(this).find('td').last().toggleClass('close');
-  //   });
-  //   $('.allevents').on('click', 'a', function(event) {
-  //     console.log(this)
-  //     // event.stopPropagation();
-  //   });
-  // });
+  $(document).ready(function() {
+    $('.allevents').on('click', 'tr', function(event) {
+      event.stopPropagation();
+      event.preventDefault();
+      $(this).find('td').last().toggleClass('close');
+      $(this).find('td:nth-last-child(2)').toggleClass('close');
+    });
+    $('.allevents').on('click', 'a', function(event) {
+      console.log($(this).attr())
+      // $(this).attr();
+      event.stopPropagation();
+    });
+  });
 </script>
