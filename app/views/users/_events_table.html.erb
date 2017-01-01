@@ -7,8 +7,14 @@
       <td width="30%">  
         結束時間：<%= event.end_at.strftime("%H:%M") %>
       </td>
-      <td width="40%">
+      <td width="25%">
         場地： <%= link_to event.place.name ,'http://maps.google.com/?q=' + event.place.name %>
+      </td>
+      <td width="15%">
+        人數： <%= event.event_attendees.size %>
+      </td>
+      <td width="15%" class="close">
+        <%= link_to '退出活動', quit_event_users_path(event_id: event.id), :method => 'delete', :remote => true %>
       </td>
     </tr>
   <% end %> 
