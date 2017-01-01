@@ -72,7 +72,7 @@
 
               function setView(){
                 var viewer = new ThetaViewer( document.getElementById("viewer") );
-                viewer.images = ["<%= image_path 'places/#{place_id}.jpg' %>"];
+                viewer.images = ["<%= image_path 'places/' + place_id + '.jpg' %>"];
                 viewer.interval = 200; // msec
                 viewer.autoRotate = true;
                 viewer.load();
