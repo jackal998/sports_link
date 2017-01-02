@@ -13,9 +13,9 @@
   <div class="web-based">
     <div class="row">
       <div class="place_detail col-md-12 col-sm-12 col-xs-12 rectangle_pic">
-        <% if Dir["public/images/places/06.jpg"].present? %>
+        <% if Dir["public/images/places/#{place_id}.jpg"].present? %>
           <div id="gyroViewer" style="width: 425px; height: 200px;"></div>
-          <%= render :partial => "place360img", :locals => {place_id: '06'} %>
+          <%= render :partial => "place360img", :locals => {place_id: place_id.to_s} %>
         <% elsif @place.img.present? %>
           <% img_url = @place.img %>
           <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 425px;height: auto;">
