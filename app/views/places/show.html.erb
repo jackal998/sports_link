@@ -12,79 +12,17 @@
   <div class="clear-fix"></div>
   <div class="web-based">
     <div class="row">
+    <br />
       <div class="place_detail col-md-12 col-sm-12 col-xs-12 rectangle_pic">
         <% if Dir["public/images/places/#{place_id}.jpg"].present? %>
-          <div id="viewer" style="width: 425px; height: 200px;"></div>
-          <script>
-            $(document).ready(function() {
-              LoadScripts();
-
-              function LoadScripts(async, callback){
-                if( async === undefined ) {
-                    async = false;
-                  }
-                var scripts = [];
-                var _scripts =   [
-                "<%= asset_path 'three.js' %>",
-                "<%= asset_path 'async.js' %>",
-                "<%= asset_path 'OrbitControls.js' %>",
-                "<%= asset_path 'theta-viewer.js' %>"
-                ];
-                if(async){
-                  LoadScriptsAsync(_scripts, scripts)
-                }else{
-                  LoadScriptsSync(_scripts,scripts)
-                }
-              };
-
-              function LoadScriptsSync (_scripts, scripts) {
-                var x = 0;
-                var loopArray = function(_scripts, scripts) {
-                  loadScript(_scripts[x], scripts[x], function(){
-                    x++;
-                    if(x < _scripts.length) {
-                      loopArray(_scripts, scripts);   
-                    } else {
-                      setView()
-                    }
-                  }); 
-                }
-                loopArray(_scripts, scripts);     
-              };
-
-              function LoadScriptsAsync (_scripts, scripts){
-                for(var i = 0;i < _scripts.length;i++) {
-                  loadScript(_scripts[i], scripts[i], function(){});
-                }
-              }
-
-              function loadScript( src, script, callback ){
-                script = document.createElement('script');
-                script.onerror = function() { 
-                  alert('Error to handle')
-                }
-                script.onload = function(){
-                  callback();
-                }
-                script.src = src;
-                document.getElementsByTagName('head')[0].appendChild(script);
-              }
-
-              function setView(){
-                var viewer = new ThetaViewer( document.getElementById("viewer") );
-                viewer.images = ["<%= image_path 'places/#{place_id}.jpg' %>"];
-                viewer.interval = 200; // msec
-                viewer.autoRotate = true;
-                viewer.load();
-              }        
-            });
-          </script>
+          <div id="gyroViewer" style="width: 100%; height: 200px;"></div>
+          <%= render :partial => "place360img", :locals => {place_id: place_id.to_s} %>
         <% elsif @place.img.present? %>
           <% img_url = @place.img %>
-          <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 425px;height: auto;">
+          <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 100%;height: auto;">
         <% else %>
           <% img_url = "https://maps.googleapis.com/maps/api/streetview?size=425x150&location=#{@place.latitude},#{@place.longitude}&pitch=-0.76&key=#{google_config["app_id"]}" %>
-          <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 425px;height: auto;">
+          <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 100%;height: auto;">
         <% end %>
       </div>
       <div class="col-md-5 col-sm-5 col-xs-5">
@@ -110,7 +48,7 @@
         <div class="windowtest basket"></div>
         <div class="word">
           <div class="number">
-            <%= @place.courts %>
+            <%= @place.basket %>
           </div>
         </div>
       </div>
@@ -118,7 +56,7 @@
         <div class="windowtest courts"></div>
         <div class="word">
           <div class="number">
-            <%= @place.basket %>
+            <%= @place.courts %>
           </div>
         </div>
       </div>
