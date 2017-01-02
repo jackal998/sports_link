@@ -159,7 +159,7 @@
         }
       }
     }else{
-      var icon = 'images/places.png'
+      var icon = "<%= image_path 'basketball_sel_black.png' %>"
       for (var i = 0; i < results.places.length; i++) {
         var respos = new google.maps.LatLng(results.places[i].latitude,results.places[i].longitude)
         marker = new google.maps.Marker({
@@ -181,7 +181,7 @@
     }
   }
   function createMarker(place) {
-    var icon = 'images/places.png'
+    var icon = "<%= image_path 'basketball_sel_black.png' %>"
     marker = new google.maps.Marker({
       map: map,
       icon: icon,
@@ -194,9 +194,9 @@
   function attachInfromations(marker, place) {
     google.maps.event.addListener(marker, 'click', function() {
       markers.forEach(function(m,index) {
-        m.setIcon('images/places.png');
+        m.setIcon("<%= image_path 'basketball_sel_black.png' %>");
       });
-      marker.setIcon('images/pselect.png');
+      marker.setIcon("<%= image_path 'basketball_sel_red.png' %>");
       var hidden_informations = document.getElementById('hidden_informations');
       var more_events_link = document.getElementById('more_events_link');
       $('#more_events_link').removeClass('close')
