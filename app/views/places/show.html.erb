@@ -14,14 +14,14 @@
     <div class="row">
       <div class="place_detail col-md-12 col-sm-12 col-xs-12 rectangle_pic">
         <% if Dir["public/images/places/#{place_id}.jpg"].present? %>
-          <div id="gyroViewer" style="width: 425px; height: 200px;"></div>
+          <div id="gyroViewer" style="width: 100%; height: auto;"></div>
           <%= render :partial => "place360img", :locals => {place_id: place_id.to_s} %>
         <% elsif @place.img.present? %>
           <% img_url = @place.img %>
-          <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 425px;height: auto;">
+          <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 100%;height: auto;">
         <% else %>
           <% img_url = "https://maps.googleapis.com/maps/api/streetview?size=425x150&location=#{@place.latitude},#{@place.longitude}&pitch=-0.76&key=#{google_config["app_id"]}" %>
-          <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 425px;height: auto;">
+          <img src="<%= img_url %>" alt=<%= @place.name %> style="width: 100%;height: auto;">
         <% end %>
       </div>
       <div class="col-md-5 col-sm-5 col-xs-5">
