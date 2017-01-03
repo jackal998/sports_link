@@ -283,5 +283,9 @@
   };
   $(document).ready(function(){
     $("#gyroViewer").gyroViewer();
+    $("#gyroViewer").click(function(event) {
+      $(this).toggleClass('small360img full360img');
+      $(this).gyroViewer();
+    });
   });
 </script>
