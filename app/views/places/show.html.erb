@@ -63,7 +63,7 @@
 
       <div class="court_element">
         <div class="windowtest light"></div>
-        <% if @place.light? %>
+        <% if @place.light %>
           <div class="on-light"></div>
         <% else %>
           <div class="off-light">
@@ -94,7 +94,9 @@
     <!-- Description of court -->
     <br>
     <div class="description">
-      <p>場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺</p>
+      <p>
+        <%= if @place.facility ? @place.facility : "場地尙稱平整，不過長度有點坡度，會影響不同角度的觸手感覺" %>
+      </p>
     </div>
   <div>
     <h4>場次加入</h4>
